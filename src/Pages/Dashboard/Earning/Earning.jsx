@@ -5,7 +5,7 @@ import EarnHistoryTable from "./EarnHistoryTable";
 import style from "./Earning.module.css";
 
 const Earning = () => (
-  <div style={{ padding: "0px 50px" }}>
+  <div style={{ padding: "0" }}>
     <h2 style={{ fontSize: "25px", fontWeight: "normal" }}>Earnings</h2>
     <Row
       gutter={{

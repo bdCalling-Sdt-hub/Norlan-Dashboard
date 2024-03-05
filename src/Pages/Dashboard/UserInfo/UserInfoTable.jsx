@@ -4,11 +4,8 @@ import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
-import {
- 
-  CloseOutlined,
-  
-} from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
+import { FiEye } from "react-icons/fi";
 
 
 const data = [
@@ -173,14 +170,9 @@ const UserInfoTable = () =>{
         key: "actions",
         responsive: ["lg"],
         render: (_,record) => (
-          <div style={{}}>
-              <Button type="text" style={{ marginRight: "10px",paddingBottom:"35px" }}>
-                <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
-              </Button>
-              <Button onClick={() => showDrawer(record)} type="text" style={{paddingBottom:"35px"}}>
-                <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
-              </Button>
-            </div>
+          <Button onClick={() => showDrawer(record)} type="text" style={{paddingBottom:"35px"}}>
+            <FiEye style={{ fontSize: "30px", color: "#999999" }} />
+          </Button>
         ),
       },
     ];

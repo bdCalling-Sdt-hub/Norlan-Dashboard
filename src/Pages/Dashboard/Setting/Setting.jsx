@@ -11,6 +11,7 @@ const Setting = () => {
   const [openChangePassModel, setOpenChangePassModel] = useState(false);
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
+  const [forgotPassword, setForgotPassword] = useState(false)
 
   const style = {
     formContainer: {
@@ -56,31 +57,8 @@ const Setting = () => {
       title: "Change Password",
       link: "change-password",
     },
-    {
-      key: "3",
-      title: "Login Activity",
-      link: "login-activity",
-    },
-    {
-      key: "4",
-      title: "Block List",
-      link: "block-list",
-    },
-    {
-      key: "5",
-      title: "Renti Percentage",
-      link: "renti-percentage",
-    },
-    {
-      key: "6",
-      title: "Host Payment Time",
-      link: "host-payment-time",
-    },
-    {
-      key: "7",
-      title: "Trash",
-      link: "trash",
-    },
+    
+    
     {
       key: "8",
       title: "Privacy Policy",
@@ -170,18 +148,10 @@ const Setting = () => {
             <LiaAngleRightSolid fontSize={20} />
           </Button>
         ))}
-        <div style={style.notification}>
-          <span>Notification</span>
-          <Switch
-            onChange={(e) => handleNotification(e)}
-            checkedChildren="ON"
-            unCheckedChildren="OFF"
-            defaultChecked
-          />
-        </div>
+
         {/* change password*/}
         <Modal
-          title={<p style={{ marginBottom: "30px" }}>Change password</p>}
+          title={<p style={{ marginBottom: "30px", fontSize: "20px", color :"#ffb7d5" }}>Change password</p>}
           centered
           open={openChangePassModel}
           onCancel={() => setOpenChangePassModel(false)}
@@ -197,7 +167,7 @@ const Setting = () => {
             onFinish={handleChangePassword}
           >
             <div>
-              <label htmlFor="" className={style.label}>
+              <label style={{display: "block", marginBottom: "10px" }} className={style.label}>
                 Current Password
               </label>
               <Form.Item
@@ -209,7 +179,7 @@ const Setting = () => {
                   },
                 ]}
               >
-                <Input
+                <Input.Password
                   placeholder="Enter Password"
                   type="password"
                   style={style.input}
@@ -218,7 +188,7 @@ const Setting = () => {
             </div>
 
             <div>
-              <label htmlFor="">New Password</label>
+              <label style={{display: "block", marginBottom: "10px"}} htmlFor="">New Password</label>
               <Form.Item
                 name="newPassword"
                 rules={[
@@ -228,7 +198,7 @@ const Setting = () => {
                   },
                 ]}
               >
-                <Input
+                <Input.Password
                   type="password"
                   placeholder="Enter password"
                   style={style.input}
@@ -248,7 +218,7 @@ const Setting = () => {
                   },
                 ]}
               >
-                <Input
+                <Input.Password
                   type="password"
                   placeholder="Enter password"
                   style={style.input}
@@ -256,14 +226,13 @@ const Setting = () => {
               </Form.Item>
             </div>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                type="text"
-                className="login-form-forgot"
-                style={{ color: "#000B90" }}
-                onClick={() => (setVerify(true), setOpenChangePassModel(false))}
+              <p
+                
+                style={{ color: "#ffb7d5", cursor: "pointer" }}
+                onClick={() => (setForgotPassword(true), setOpenChangePassModel(false))}
               >
                 Forgot password
-              </Button>
+              </p>
             </div>
 
             <Form.Item>
@@ -276,7 +245,7 @@ const Setting = () => {
                   height: "45px",
                   fontWeight: "400px",
                   fontSize: "18px",
-                  background: "#000B90",
+                  background: "#ffb7d5",
                   marginTop: "60px",
                 }}
               >
@@ -285,13 +254,68 @@ const Setting = () => {
             </Form.Item>
           </Form>
         </Modal>
+        
+
+        {/* forgot Password */}
+        <Modal
+          title={
+            <Title
+              level={2}
+              style={{
+                color: "#ffb7d5",
+                fontWeight: "normal",
+                marginBottom: "30px",
+                textShadow: "#bfbfbf 2px 2px 4px",
+              }}
+            >
+              Forgot Password
+            </Title>
+          }
+          centered
+          open={forgotPassword}
+          onCancel={() => {
+            setForgotPassword(false);
+          }}
+          width={500}
+          footer={[]}
+        >
+          <div>
+            <Paragraph style={{ marginBottom: "30px" }}>
+              We'll send a verification code to your email. Check your inbox and
+              enter the code here.
+            </Paragraph>
+              <Input
+                  placeholder="Enter Your Email"
+                  type="text"
+                  style={style.input}
+                />
+
+            <Button
+              block
+              onClick={() => (setVerify(true), setForgotPassword(false))}
+              style={{
+                height: "45px",
+                fontWeight: "400px",
+                fontSize: "18px",
+                background: "#ffb7d5",
+                color: "#fff",
+                alignSelf: "bottom",
+                marginTop: "30px",
+                borderColor: "transparent"
+              }}
+            >
+              Continue
+            </Button>
+          </div>
+        </Modal>
+
         {/* Verify Password */}
         <Modal
           title={
             <Title
               level={2}
               style={{
-                color: "#000B90",
+                color: "#ffb7d5",
                 fontWeight: "normal",
                 marginBottom: "30px",
                 textShadow: "#bfbfbf 2px 2px 4px",
@@ -334,7 +358,7 @@ const Setting = () => {
 
               <a
                 className="login-form-forgot"
-                style={{ color: "#000B90" }}
+                style={{ color: "#ffb7d5" }}
                 href=""
               >
                 Resend
@@ -348,23 +372,26 @@ const Setting = () => {
                 height: "45px",
                 fontWeight: "400px",
                 fontSize: "18px",
-                background: "#000B90",
+                background: "#ffb7d5",
                 color: "#fff",
                 alignSelf: "bottom",
-                marginTop: "130px",
+                marginTop: "30px",
+                borderColor: "transparent"
               }}
             >
               Continue
             </Button>
           </div>
         </Modal>
+
+
         {/* Update Password */}
         <Modal
           title={
             <Title
               level={2}
               style={{
-                color: "#000B90",
+                color: "#ffb7d5",
                 fontWeight: "normal",
                 marginBottom: "30px",
                 textShadow: "#bfbfbf 2px 2px 4px",
@@ -390,7 +417,7 @@ const Setting = () => {
             onFinish={handleUpdated}
           >
             <div>
-              <label htmlFor="">New Password</label>
+              <label style={{display: "block", marginBottom: "10px"}} htmlFor="">New Password</label>
               <Form.Item
                 name="password"
                 rules={[
@@ -400,12 +427,12 @@ const Setting = () => {
                   },
                 ]}
               >
-                <Input type="text" placeholder="Password" style={style.input} />
+                <Input.Password type="text" placeholder="Password" style={style.input} />
               </Form.Item>
             </div>
 
             <div>
-              <label htmlFor="">Re-type Password</label>
+              <label style={{display: "block", marginBottom: "10px"}} htmlFor="">Re-type Password</label>
               <Form.Item
                 name="confirmPassword"
                 rules={[
@@ -415,7 +442,7 @@ const Setting = () => {
                   },
                 ]}
               >
-                <Input
+                <Input.Password
                   type="text"
                   placeholder="Confirm password"
                   style={style.input}
@@ -424,7 +451,7 @@ const Setting = () => {
             </div>
 
             {/* showing error */}
-            <label style={{ color: "red" }}>{err}</label>
+            <label  style={{ color: "red", display: "block", marginTop: "10px" }}>{err}</label>
 
             <Form.Item>
               <Button
@@ -436,8 +463,9 @@ const Setting = () => {
                   height: "45px",
                   fontWeight: "400px",
                   fontSize: "18px",
-                  background: "#000B90",
-                  marginTop: "100px",
+                  background: "#ffb7d5",
+                  marginTop: "30px",
+                  borderColor: "transparent"
                 }}
               >
                 Confirm

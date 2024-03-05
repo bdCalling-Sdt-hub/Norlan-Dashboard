@@ -5,30 +5,26 @@ import { Pie } from '@ant-design/plots';
 const MostRentCarChart = () => {
   const data = [
     {
-      type: 'bmw',
+      type: 'Aesthetics ',
       value: 25,
     },
     {
-      type: 'maruti',
+      type: 'Cuisine and Pastry ',
       value: 27,
     },
     
     {
-      type: 'marcedees',
+      type: 'Decorations & Themes',
       value: 18,
     },
     {
-      type: 'nissan',
+      type: 'Fashion',
       value: 15,
     },
     {
-      type: 'Toyota',
+      type: 'Entertainment ',
       value: 10,
-    },
-    {
-      type: 'mitsubishi',
-      value: 5,
-    },
+    }
   ];
   const config = {
     appendPadding: 10,
@@ -45,11 +41,8 @@ const MostRentCarChart = () => {
         textAlign: 'center',
       },
     },
-    interactions: [
-      {
-        type: 'element-active',
-      },
-    ],
+    interactions: [{ type: 'element-active' }],
+    color: ['#2c4b4d', '#93d8ff', '#84c2e6', '#ffb7d5', '#fbdd65'],
   };
   return <Pie {...config} style={{height:"300px"}}/>;
 };

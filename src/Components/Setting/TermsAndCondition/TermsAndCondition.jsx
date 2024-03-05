@@ -24,7 +24,7 @@ const TermsAndCondition = () => {
             onChange={newContent => { setContent(newContent) }}
           />
 
-          <Button onClick={aboutDataSave} block style={{ marginTop: "30px", backgroundColor: "#000b90", color: "#fff", height: "50px" }}>save</Button>
+          <Button onClick={aboutDataSave} block style={{ marginTop: "30px", border: "none",  backgroundColor: "#ffb7d5", color: "#fff", height: "50px" }}>save</Button>
 
         </Col>
          

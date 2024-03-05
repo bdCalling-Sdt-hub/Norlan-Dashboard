@@ -7,6 +7,9 @@ const dateFormat = "YYYY-MM-DD";
 
 const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
+  // const [image, setImage] = useState(profile?.image ? `${url}/${profile?.image}` : person);
+  const [image, setImage] = useState();
+  const [imgURL, setImgURL] = useState(image);
 
   const handleChange = () => {
     setProfileEdit(true);
@@ -20,23 +23,14 @@ const PersonalInfo = () => {
       url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
     },
   ]);
-  const onChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
+
+  const onChange = (e) => {
+    const file= e.target.files[0];
+    const imgUrl = URL.createObjectURL(file);
+    setImgURL(imgUrl);
+    setImage(file)
   };
-  const onPreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
+  
 
   return (
     <>
@@ -45,17 +39,19 @@ const PersonalInfo = () => {
           <div
             style={{
               display: "flex",
+              alignItems: "center",
               justifyContent: "space-between",
               borderBottom: "1px solid #d9d9d9",
               paddingBottom: "30px",
               marginBottom: "20px",
             }}
           >
-            <div style={{ display: "flex", gap: "20px" }}>
-              <Image
-                width={200}
-                style={{ borderRadius: "6px" }}
-                src="https://yt3.googleusercontent.com/Qy5Gk9hccQxiZdX8IxdK-mF2ktN17gap3ZkGQZkGz8NB4Yep3urmucp5990H2tjXIISgUoYssJE=s900-c-k-c0x00ffffff-no-rj"
+            <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+              <img
+                width={142}
+                height={142}
+                style={{ borderRadius: "8px" }}
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
               />
               <div>
                 <h2>Fahim</h2>
@@ -67,10 +63,11 @@ const PersonalInfo = () => {
               <Button
                 onClick={handleChange}
                 style={{
-                  background: "#000B92",
+                  background: "#ffb7d5",
                   color: "#fff",
                   display: "flex",
                   alignItems: "center",
+                  border: "none"
                 }}
               >
                 <LiaEditSolid fontSize={16} />
@@ -138,32 +135,32 @@ const PersonalInfo = () => {
         </>
       ) : (
         <>
-          <div>
-            <div
-              style={{
-                display: "flex",
-                gap: "20px",
-                borderBottom: "1px solid #d9d9d9",
-                paddingBottom: "30px",
-                marginBottom: "20px",
-              }}
-            >
-              <ImgCrop rotationSlider>
-                <Upload
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  listType="picture-card"
-                  fileList={fileList}
-                  onChange={onChange}
-                  onPreview={onPreview}
-                >
-                  {fileList.length < 5 && "+ Upload"}
-                </Upload>
-              </ImgCrop>
+          <div
+            style={{
+              backgroundColor: "white",
+              display: "flex",
+              alignItems : "center",
+              marginBottom: "20px",
+              height: "174px",
+              
+            }}
+          >
+            <div>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <img 
+                  className="mx-auto rounded-full" 
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" 
+                  width={142} 
+                  height={142} 
+                  alt="" 
+                  style={{borderRadius: "8px"}}
+                />
+                <div style={{ marginTop: "50px" }}>
+                  <h2>{"Nadir"}</h2>
 
-              <div>
-                <h2>Fahim</h2>
-                <p>@fahim</p>
-                <p>INE: GMVLMR80070501M100</p>
+                  <label htmlFor="img" style={{marginTop : "8px", cursor: "pointer", display: "block", color : "#ffb7d5", fontSize: "18px", fontWeight: "600"}}>Change Photo</label>
+                  <input style={{display: "none"}} onChange={onChange}  type="file" name="" id="img" />
+                </div>
               </div>
             </div>
           </div>
@@ -215,9 +212,10 @@ const PersonalInfo = () => {
           <Button
             style={{
               height: "45px",
-              background: "#000B92",
+              background: "#ffb7d5",
               color: "#fff",
               marginTop: "20px",
+              border: "none"
             }}
             block
           >

@@ -15,7 +15,10 @@
   },
   "carInfo": "Car Information",
   "rentInfo": "Rent Information",
-  "userInfo": "User Information",
+  "userInfo": "Artist's Information",
+  "subscription": "Subscription",
+  "category": "Category",
+  "addSlider": "Add Slider",
   "hostInfo": {
     "title": "Host Information",
     "subTitle1": "All Host",

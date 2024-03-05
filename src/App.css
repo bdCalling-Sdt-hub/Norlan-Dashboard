@@ -27,11 +27,42 @@
   .ant-table-thead
   > tr
   > td {
-  background: #000b90;
+  background: #ffb7d5;
   color: white;
   border: 0;
 }
 
+:where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a{
+  background-color: #ffb7d5 !important;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px !important;
+}
 
+.ant-pagination .ant-pagination-item a{
+  border-radius: 8px !important;
+}
 
+.ant-pagination .ant-pagination-item-active {
+  border-color: transparent !important; /* Remove border color */
+  border-radius: 8px !important;
+}
 
+:where(.css-dev-only-do-not-override-17a39f8).ant-input-affix-wrapper:hover{
+  border-color:  #ffb7d5 !important;
+}
+:where(.css-dev-only-do-not-override-17a39f8).ant-input:hover{
+  border-color:  #ffb7d5 !important;
+}
+:where(.css-dev-only-do-not-override-17a39f8).ant-btn-default:hover{
+  border-color: none !important;
+}
+
+/* btn custom color change */
+:where(.css-dev-only-do-not-override-17a39f8).ant-btn:hover{
+  border-color: none !important;
+}
+
+.slider-container{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 30px;
+}

@@ -35,6 +35,25 @@ body{
      
       border-radius: 4px;
       padding: 10px 20px;
-     
-      
     }
+
+.slick-prev:before, .slick-next:before{
+  color: white !important;
+}
+.slick-next{
+  right: 0 !important;
+}
+.slick-prev{
+  left: 0 !important;
+  z-index: 1 !important;
+}
+:where(.css-dev-only-do-not-override-17a39f8).ant-badge .ant-badge-count {
+  background: #ffb7d5 !important;
+  color: black !important;
+}
+
+/* siderbar menu itam */
+.ant-layout-sider-children .ant-menu-item-selected{
+  color: white !important;
+  background-color: #ffb7d5;
+}

@@ -227,6 +227,7 @@ const DrawerPage = (props) => {
           </div>
         </>
       )}
+
       {props.earningData && (
         <div>
           <div style={{ display: "flex", gap: "15px" }}>
@@ -255,39 +256,10 @@ const DrawerPage = (props) => {
               />
             </Title>
           </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 20,
-              position: "absolute",
-              bottom: 10,
-            }}
-          >
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "220px",
-              }}
-            >
-              Download
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "220px",
-              }}
-            >
-              Print
-            </Button>
-          </div>
+          
         </div>
       )}
+
       {props.hostData && (
         <div>
           <div
@@ -408,37 +380,7 @@ const DrawerPage = (props) => {
               />
             </Title>
           </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 20,
-              position: "absolute",
-              bottom: 10,
-            }}
-          >
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "220px",
-              }}
-            >
-              Download
-            </Button>
-            <Button
-              block
-              style={{
-                background: "#000B90",
-                color: "white",
-                height: 50,
-                width: "220px",
-              }}
-            >
-              Print
-            </Button>
-          </div>
+          
         </div>
       )}
     </>

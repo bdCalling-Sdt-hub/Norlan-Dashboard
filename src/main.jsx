@@ -5,7 +5,10 @@ import { I18nextProvider } from "react-i18next";
 import App from "./App.jsx";
 import global_en from "./Translation/en/en.global.json";
 import global_es from "./Translation/es/es.global.json";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
+
 
 i18next.init({
   interpolation: {

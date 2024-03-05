@@ -14,7 +14,7 @@ function UserInfo() {
             fontWeight: "normal",
           }}
         >
-          All user info
+          All Artist's info
         </h2>
         <Col lg={{ span: 24 }}>
           <div className="" style={{ display: "flex", gap: "15px" }}>
@@ -27,9 +27,10 @@ function UserInfo() {
               style={{
                 height: "50px",
                 width: "300px",
-                backgroundColor: "#000b90",
+                backgroundColor: "#ffb7d5",
                 color: "#fff",
                 fontSize: "20px",
+                boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
               }}
             >
               Search
@@ -42,7 +43,7 @@ function UserInfo() {
         <h2
           style={{ fontSize: "25px", margin: "30px 0px", fontWeight: "normal" }}
         >
-          Users information
+          Artist's information
         </h2>
       </Row>
 

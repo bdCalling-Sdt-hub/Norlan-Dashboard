@@ -14,7 +14,6 @@ import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
 import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
-
 import NotFound from "./404";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";
@@ -27,6 +26,10 @@ import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
 import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
+import AddSlider from "./Pages/Dashboard/AddSlider/Slider";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Subscription from "./Pages/Dashboard/Subscription/Subscription";
 
 function App() {
   return (
@@ -46,21 +49,13 @@ function App() {
               <Route path="/" element={<DashboardHome />} />
               <Route path="/notification" element={<Notification />} />
               <Route path="/earning/:income" element={<Earning />} />
-              <Route path="/host-info" element={<HostInfo />} />
-              <Route path="/host-request" element={<HostRequest />} />
-              <Route path="/kyc-form" element={<KycForm />} />
-              <Route path="/wallet" element={<Wallet />} />
-
+              <Route path="/add-slider" element={<AddSlider />} />
               <Route path="/user-info" element={<UserInfo />} />
-              <Route path="/rent-info" element={<RentInformation />} />
-              <Route path="/car-info" element={<CarInformation />} />
+        
               <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/renti-income" element={<RentisIncome />} />
-              <Route path="/host-payment" element={<HostPayment />} />
-              <Route path="/stripe-bills" element={<StripeBills />} />
-              <Route path="/host-kyc" element={<HostKyc />} />
-              <Route path="/user-kyc" element={<UserKyc />} />
-              <Route path="/car-kyc" element={<CarKyc />} />
+              <Route path="/subscription" element={<Subscription />} />
+              
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/setting/:dynamic" element={<SettingPage />} />
             </Route>

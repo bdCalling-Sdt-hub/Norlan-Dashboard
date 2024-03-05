@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
+import { FiEye } from "react-icons/fi";
 
 const data = [
   {
@@ -205,7 +206,7 @@ const EarnHistoryTable = () => {
       key: "status",
     },
     {
-      title: "PRINT/VIEW",
+      title: "ACTION",
       dataIndex: "printView",
       key: "printView",
       responsive: ["lg"],
@@ -213,14 +214,9 @@ const EarnHistoryTable = () => {
         _,
         record // Use the second parameter 'record'
       ) => (
-        <div style={{ textAlign: "center" }}>
-          <Button type="text" style={{ marginRight: "10px" }}>
-            <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
-          </Button>
           <Button onClick={() => showDrawer(record)} type="text">
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
+            <FiEye style={{ fontSize: "25px", color: "#999999" }} />
           </Button>
-        </div>
       ),
     },
   ];
