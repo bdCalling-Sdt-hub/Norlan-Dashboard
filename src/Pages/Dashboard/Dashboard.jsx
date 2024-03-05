@@ -274,14 +274,28 @@ const Dashboard = () => {
           </Menu.Item>
 
 
-          <Menu.Item
+          {/* <Menu.Item
             key="10"
             icon={<MdOutlineCategory size={22}  />}
           >
             <Link to="/category" style={{ fontSize: "16px" }}>
               {t("category")}
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
+
+          <SubMenu
+            style={{ fontSize: "16px" }}
+            key="11"
+            icon={<MdOutlineCategory style={{ fontSize: "22px" }} />}
+            title={t("category")}
+          >
+            <Menu.Item key="1">
+              <Link to="/category">{t("Category")}</Link>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link to="/sub-category">{t("Sub Category")}</Link>
+            </Menu.Item>
+          </SubMenu>
 
           <Menu.Item
             key="9"

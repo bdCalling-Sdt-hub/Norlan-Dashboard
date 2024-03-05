@@ -66,3 +66,17 @@
   grid-template-columns: repeat(1, minmax(0, 1fr));
   gap: 30px;
 }
+
+.ant-upload .ant-upload-select{
+  width: 100% !important;
+}
+
+
+.ant-upload {
+  width: 90% !important;
+  height: 190px !important;
+}
+.ant-upload-select{
+  width: 100% !important;
+  height: 190px !important;
+}
