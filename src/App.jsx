@@ -30,6 +30,7 @@ import AddSlider from "./Pages/Dashboard/AddSlider/Slider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Subscription from "./Pages/Dashboard/Subscription/Subscription";
+import EditSubscription from "./Pages/Dashboard/EditSubscription/EditSubscription";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
               <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/renti-income" element={<RentisIncome />} />
               <Route path="/subscription" element={<Subscription />} />
+              <Route path="/edit-subscription" element={<EditSubscription />} />
               
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/setting/:dynamic" element={<SettingPage />} />

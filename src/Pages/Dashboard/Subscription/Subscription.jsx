@@ -2,9 +2,15 @@ import React from 'react';
 import card1 from "../../../Images/SUBS1.jpg";
 import card2 from "../../../Images/SUBS2.png";
 import card3 from "../../../Images/SUBS3.png";
-import { FaCircleCheck } from "react-icons/fa6"
+import { FaCircleCheck } from "react-icons/fa6";
+import { useNavigate} from "react-router-dom"
 
 const Subscription = () => {
+    const navigate = useNavigate();
+    const handleChangeEditPage=(value)=>{
+        // localStorage.setItem("package", JSON.stringify(""))
+        navigate("/edit-subscription")
+    }
     return (
         <div>
             <div style={{display: "flex", justifyContent: "space-between"}}>
@@ -74,6 +80,7 @@ const Subscription = () => {
                             bottom: 0
                         }}>
                             <button
+                                onClick={handleChangeEditPage}
                                 style={{
                                     width: "100%",
                                     height: "52px",
@@ -160,6 +167,7 @@ const Subscription = () => {
                             bottom: 0
                         }}>
                             <button
+                                onClick={handleChangeEditPage}
                                 style={{
                                     width: "100%",
                                     height: "52px",
@@ -247,6 +255,7 @@ const Subscription = () => {
                             bottom: 0
                         }}>
                             <button
+                                onClick={handleChangeEditPage}
                                 style={{
                                     width: "100%",
                                     height: "52px",
