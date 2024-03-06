@@ -5,7 +5,8 @@ import { CiCamera } from "react-icons/ci";
 const EditCategoryModal = ({editCategory, handleValue }) => {
     const [img, setImg] = useState();
     const category = JSON?.parse(localStorage.getItem('category'));
-    const [imageUrl, setImageUrl] = useState();
+    const [imageUrl, setImageUrl] = useState("");
+    console.log(imageUrl)
 
     const onChange = (e) => {
         const file= e.target.files[0];

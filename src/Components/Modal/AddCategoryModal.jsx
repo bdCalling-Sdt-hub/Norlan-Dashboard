@@ -84,7 +84,7 @@ const AddCategoryModal = ({open, setOpen}) => {
                                         flexDirection: "column",
                                         alignItems: "center",
                                         justifyContent: "center",
-                                        color: "#ffb7d5",
+                                        color: "black",
                                         cursor: "pointer",
                                         backgroundImage: `url(${imageUrl ? imageUrl : "https://img.freepik.com/free-photo/paper-textured-background_53876-30486.jpg?size=626&ext=jpg&ga=GA1.1.1395880969.1709596800&semt=ais"})`, // Replace 'your-image-url.jpg' with your actual image URL
                                         backgroundSize: "cover", // Adjust according to your image size preference
@@ -113,7 +113,7 @@ const AddCategoryModal = ({open, setOpen}) => {
                         </Button>
                     </div>
                 </div>
-            </Modal>
+        </Modal>
     )
 }
 
