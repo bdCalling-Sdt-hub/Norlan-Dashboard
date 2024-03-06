@@ -22,7 +22,7 @@ const Category = () => {
     const [value, setValue] = useState();
     const [deleteValue, setDeleteValue] = useState("");
     const category = JSON?.parse(localStorage.getItem('category'));
-    const [imageUrl, setImageUrl] = useState(category?.image);
+    const [imageUrl, setImageUrl] = useState();
     
     const data = [
         {
@@ -251,6 +251,13 @@ const Category = () => {
         }
     ];
 
+    const onChange = (e) => {
+        const file= e.target.files[0];
+        const imgUrl = URL.createObjectURL(file);
+        setImageUrl(imgUrl);
+        setImg(file)
+    };
+
     
 
 
@@ -262,7 +269,9 @@ const Category = () => {
                     style={{
                         background: "#ffb7d5",
                         color: "white",
-                        border: "none"
+                        border: "none",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
+
                     }}
                 >
                     Add Catagory
@@ -329,7 +338,7 @@ const Category = () => {
             >
                 <div>
                     <h1 style={{marginBottom: "12px"}}>Add Category</h1>
-                    <form >
+                    <div >
                         <div>
                             <label style={{marginBottom : "12px"}}>Category name</label>
                             <div style={{
@@ -377,19 +386,19 @@ const Category = () => {
                             <div style={{marginBottom : "12px"}}>
                                 <label >Category Picture</label>
                             </div>
-                            <Upload
+                            {/* <Upload
                                 name="avatar"                 
                                 listType="picture-card"
                                 showUploadList={false}
                                 action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                // onChange={onChange}
+                                onChange={onChange}
                                 style={{
                                     width: "100%"
                                 }}
                                 
                             >
                                 {
-                                    imageUrl
+                                    img
                                     ? 
                                     (
                                         <img
@@ -414,11 +423,46 @@ const Category = () => {
                                         </div>
                                     </div>
                                 }
-                            </Upload>
+                            </Upload> */}
+                            
+                            {
+                                imageUrl 
+                                ?
+                                <img
+                                    src={imageUrl}
+                                    alt="avatar"
+                                    style={{
+                                        width: "100%",
+                                        height: "190px",
+                                        borderRadius: "8px"
+                                    }}
+                                />
+                                :
+                                <div >
+                                    <input style={{display: "none"}} onChange={onChange}  type="file" name="" id="img" />
+                                    <label 
+                                        htmlFor="img" 
+                                        style={{
+                                            width: "100%",
+                                            height: "190px",
+                                            borderRadius: "8px",
+                                            border: "1px solid #ffb7d5",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            color: "#ffb7d5",
+                                            cursor: "pointer"
+
+                                        }}>
+                                            <CiCamera size={40} /> 
+                                            <h3>Upload Photo</h3>
+                                    </label>
+                                </div>
+                            } 
                         </div>
                         <Button
-                            type="primary"
-                            htmlType="submit"
+                            onClick={()=> setOpen(false)}
                             block
                             style={{
                                 width : "100%",
@@ -427,12 +471,13 @@ const Category = () => {
                                 fontSize: "18px",
                                 background: "#ffb7d5",
                                 color: "white",
-                                marginTop : "44px"
+                                marginTop : "44px",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
                             }}
                         >
-                            Add Category
+                            Save
                         </Button>
-                    </form>
+                    </div>
                 </div>
             </Modal>
             
@@ -545,7 +590,8 @@ const Category = () => {
                                 fontSize: "18px",
                                 background: "#ffb7d5",
                                 color: "white",
-                                marginTop : "44px"
+                                marginTop : "44px",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
                             }}
                         >
                             UPDATE
@@ -564,7 +610,7 @@ const Category = () => {
             >
                 <div>
                     <h1 style={{marginBottom: "12px"}}>Edit Sub Category</h1>
-                    <form >
+                    <div>
                         <div>
                             <label style={{marginBottom : "12px"}}>Sub Category name</label>
                             <div style={{
@@ -605,44 +651,41 @@ const Category = () => {
                             <div style={{marginBottom : "12px"}}>
                                 <label >Category Picture</label>
                             </div>
-                            <Upload
-                                name="avatar"                 
-                                listType="picture-card"
-                                showUploadList={false}
-                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                // onChange={onChange}
-                                style={{
-                                    width: "100%"
-                                }}
-                                
-                            >
-                                {
-                                    imageUrl
-                                    ? 
-                                    (
-                                        <img
-                                            src={img}
-                                            alt="avatar"
-                                            style={{
-                                                width: "100%",
-                                                height: "190px",
-                                                borderRadius: "8px"
-                                            }}
-                                        />
-                                    ) 
-                                    :
-                                    <div>
-                                        <CiCamera size={64} color="#ffb7d5" />
-                                        <div
-                                            style={{
-                                            color: "#ffb7d5"
-                                            }}
-                                        >
-                                            Choose Picture
-                                        </div>
-                                    </div>
-                                }
-                            </Upload>
+                            {
+                                imageUrl 
+                                ?
+                                <img
+                                    src={imageUrl}
+                                    alt="avatar"
+                                    style={{
+                                        width: "100%",
+                                        height: "190px",
+                                        borderRadius: "8px"
+                                    }}
+                                />
+                                :
+                                <div >
+                                    <input style={{display: "none"}} onChange={onChange}  type="file" name="" id="img" />
+                                    <label 
+                                        htmlFor="img" 
+                                        style={{
+                                            width: "100%",
+                                            height: "190px",
+                                            borderRadius: "8px",
+                                            border: "1px solid #ffb7d5",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            color: "#ffb7d5",
+                                            cursor: "pointer"
+
+                                        }}>
+                                            <CiCamera size={40} /> 
+                                            <h3>Upload Photo</h3>
+                                    </label>
+                                </div>
+                            } 
                         </div>
                         <Button
                             type="primary"
@@ -655,12 +698,13 @@ const Category = () => {
                                 fontSize: "18px",
                                 background: "#ffb7d5",
                                 color: "white",
-                                marginTop : "44px"
+                                marginTop : "44px",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
                             }}
                         >
                             UPDATE
                         </Button>
-                    </form>
+                    </div>
                 </div>
             </Modal>
                             
@@ -694,7 +738,6 @@ const Category = () => {
                     <div style={{display: "flex", alignItems: "center", gap: "30px"}}>
                         <Button
                             onClick={() => setDeleteCategory('')}
-                            
                             block
                             style={{
                                 width : "100%",
@@ -703,7 +746,8 @@ const Category = () => {
                                 fontSize: "18px",
                                 background: "green",
                                 color: "white",
-                                marginTop : "44px"
+                                marginTop : "44px",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
                             }}
                         >
                             YES
@@ -719,7 +763,8 @@ const Category = () => {
                                 fontSize: "18px",
                                 background: "red",
                                 color: "white",
-                                marginTop : "44px"
+                                marginTop : "44px",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
                             }}
                         >
                             NO
@@ -764,7 +809,8 @@ const Category = () => {
                                 fontSize: "18px",
                                 background: "green",
                                 color: "white",
-                                marginTop : "44px"
+                                marginTop : "44px",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
                             }}
                         >
                             YES
@@ -778,7 +824,8 @@ const Category = () => {
                                 fontSize: "18px",
                                 background: "red",
                                 color: "white",
-                                marginTop : "44px"
+                                marginTop : "44px",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
                             }}
                         >
                             NO
