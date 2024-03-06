@@ -57,3 +57,14 @@ body{
   color: white !important;
   background-color: #ffb7d5;
 }
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-menu-light .ant-menu-submenu-selected >.ant-menu-submenu-title{
+  color:  #ffb7d5 !important;
+}
+
+.ant-select-selector:hover{
+  border-color: #ffb7d5 !important;
+}
+.ant-select-selector:focus{
+  border-color: #ffb7d5 !important;
+}

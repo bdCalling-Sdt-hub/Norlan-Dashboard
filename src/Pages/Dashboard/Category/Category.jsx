@@ -1,120 +1,249 @@
-import { Button, Modal, Upload, ColorPicker } from 'antd'
+import { Button, Modal, Upload, ColorPicker,Table } from 'antd'
 import React, { useState } from 'react'
 import { CiCamera } from "react-icons/ci";
-import { SketchPicker } from 'react-color'
+import { SketchPicker } from 'react-color';
+import cat1 from "../../../Images/cata1.png";
+import cat2 from "../../../Images/cata2.png";
+import cat3 from "../../../Images/cata3.png";
+import cat4 from "../../../Images/cata4.png";
+import cat5 from "../../../Images/cata5.png";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
 const Category = () => {
     const [open, setOpen] = useState(false);
     const [primary, setPrimary] = useState('');
     const [secondary, setSecondary] = useState("");
     const [imageUrl, setImageUrl] = useState()
     const [img, setImg] = useState();
+    const [categoryOpen, setOpenCategory] = useState(false);
+    const [value, setValue] = useState("");
+    const [deleteValue, setDeleteValue] = useState();
+    
     const data = [
         {
             name: "Aesthetics",
-            image: "",
+            image: cat1,
+            primary_color: "#ffb7d5",
+            secondary_color: "#ffb7d5",
             subCategory:[
                 {
                     name: "Makeup",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Facial hair removal",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "body hair removal",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Manicures",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Pedicures",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Hairdressing",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
             ]
         },
+
         {
             name: "Cuisine and Pastry",
-            image: "",
+            image: cat2,
+            primary_color: "#ffb7d5",
+            secondary_color: "#ffb7d5",
             subCategory:[
                 {
                     name: "Cake Design",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Services Category",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Cooking Classes ",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
             ]
         },
+
         {
             name: "Decorations & Themes",
-            image: "",
+            image: cat3,
+            primary_color: "#ffb7d5",
+            secondary_color: "#ffb7d5",
             subCategory:[
                 {
                     name: "Event Decorating",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Disguise",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Amateur Painter",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Designer",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
             ]
         },
+
         {
             name: "Fashion",
-            image: "",
+            image: cat4,
+            primary_color: "#ffb7d5",
+            secondary_color: "#ffb7d5",
             subCategory:[
                 {
                     name: "Outfits Rental",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Stylist",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
             ]
         },
+
         {
             name: "Entertainment",
-            image: "",
+            image: cat5,
+            primary_color: "#ffb7d5",
+            secondary_color: "#ffb7d5",
             subCategory:[
                 {
                     name: "Musicians",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Photographers",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
                 {
                     name: "Entertainment Animation",
-                    image: "",
+                    image: cat1,
+                    color: "#ffb7d5"
                 },
             ]
         }
     ]
+    
+    
+    const columns = [
+        {
+            title: 'Category',
+            dataIndex: 'name',
+            key: "name"
+          
+        },
+        {
+            title: 'Sub Category',
+            dataIndex: 'name',
+            key: "name",
+            render: ( _, record ) => (
+                <p>{record?.subCategory[0].name}</p>
+            )
+        },
+        {
+            title: 'Primary Color',
+            dataIndex: 'primary_color',
+            key: "primary"
+        },
+        {
+            title: 'Secondary Color',
+            dataIndex: 'secondary_color',
+            key: "secondary"
+        },
+        {
+            title: 'ACTIONS',
+            dataIndex: 'actions',
+            key:"actions",
+            render: ( _, record ) => (
+                <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "20px"                    
+                }}>
+                    <FaRegEdit size={22} />
+                    <MdDelete size={22} />
+                </div>
+            )
+        }
+    ];
 
+    const filterData = data.find((item)=> item.name === categoryOpen);
     
-    
+    const filterColumns = [
+        {
+            title: 'Sub Category',
+            dataIndex: 'name',
+            key: "name"
+          
+        },
+        {
+            title: 'Image',
+            dataIndex: 'image',
+            key: "image",
+            render: ( _, record ) => (
+                <img width={50} height={50} src={record?.image} alt="" />
+            )
+        },
+        {
+            title: 'Color',
+            dataIndex: 'color',
+            key: "color"
+        },
+        {
+            title: 'ACTIONS',
+            dataIndex: 'actions',
+            key:"actions",
+            render: ( _, record ) => (
+                <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "20px"                    
+                }}>
+                    <FaRegEdit style={{cursor: "pointer"}} onClick={(e)=>setValue(record)} size={22} />
+                    <MdDelete style={{cursor: "pointer"}} onClick={(e)=>setDeleteValue(record)} size={22} />
+                </div>
+            )
+        }
+    ];
+
+    const handleValue=(value)=>{
+
+    }
+
+
     return (
         <div>
             <div style={{display: "flex", alignItems: "flex-end", justifyContent : "flex-end"}}>
@@ -132,11 +261,51 @@ const Category = () => {
             <h1>Category</h1>
             
 
-            <div>
-                {/* {
-                    data?.map()
-                } */}
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "20px",
+                flexWrap: "wrap",
+                textAlign: "center",
+                marginTop: "20px"
+            }}>
+                {
+                    data?.map((category, index)=>
+                        <div key={index} >
+                            <div 
+                                onClick={()=>setOpenCategory(category.name)} 
+                                style={{
+                                    border: "1px solid  #ffb7d5",
+                                    borderRadius: "8px",
+                                    padding: "10px",
+                                    width: "230px",
+                                    backgroundColor: "white",
+                                    cursor: "pointer"
+                                }}
+                            >
+                                <img style={{marginLeft: "auto", marginRight: "auto", display: "block",}} width={100} height={100} src={category?.image} alt="" />
+                                <h3 style={{padding: 0, margin: 0, textAlign: "center"}}>{category?.name}</h3>
+                            </div>
+                        </div>
+
+                    )
+                }
             </div>
+            
+
+            <div style={{marginTop: "30px"}}>
+                {
+                    !filterData
+                    ?
+
+                    <Table columns={columns} dataSource={data} pagination={false} />
+                    :
+                    <Table columns={filterColumns} dataSource={filterData?.subCategory} pagination={false} />
+                }
+                
+            </div>
+
+
 
             <Modal
                 centered
@@ -253,6 +422,179 @@ const Category = () => {
                     </form>
                 </div>
             </Modal>
+            
+            {/* subcategory  edit */}
+            <Modal
+                centered
+                open={value}
+                onCancel={() => setValue('')}
+                width={500}
+                footer={false}
+            >
+                <div>
+                    <h1 style={{marginBottom: "12px"}}>Edit Sub Category</h1>
+                    <form >
+                        <div>
+                            <label style={{marginBottom : "12px"}}>Sub Category name</label>
+                            <div style={{
+                                marginTop: "10px",
+                                marginBottom: "10px"                            
+                            }}>
+                                <input 
+                                    style={{
+                                        width: "100%",
+                                        height: "52px",
+                                        border: "1px solid #ffb7d5",
+                                        borderRadius: "8px",
+                                        padding : "16px",
+                                        color: "black",
+                                        outline: "none",
+                                        backgroundColor: "#E9EAEC",
+
+                                    }}
+                                    value={value?.name}
+                                    type="text" 
+                                    placeholder="Enter Category name"
+                                    name="category_name"
+                                    // onChange={(e)=>setName(e.target.value)}
+                                />
+                            </div>
+
+
+                            <label style={{marginBottom : "12px"}}>Color</label>
+                            <div style={{
+                                marginTop: "10px",
+                                marginBottom: "10px"                            
+                            }}>
+                                <ColorPicker defaultValue="#1677ff" size="large" showText />
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style={{marginBottom : "12px"}}>
+                                <label >Category Picture</label>
+                            </div>
+                            <Upload
+                                name="avatar"                 
+                                listType="picture-card"
+                                showUploadList={false}
+                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                                // onChange={onChange}
+                                style={{
+                                    width: "100%"
+                                }}
+                                
+                            >
+                                {
+                                    imageUrl
+                                    ? 
+                                    (
+                                        <img
+                                            src={img}
+                                            alt="avatar"
+                                            style={{
+                                                width: "100%",
+                                                height: "190px",
+                                                borderRadius: "8px"
+                                            }}
+                                        />
+                                    ) 
+                                    :
+                                    <div>
+                                        <CiCamera size={64} color="#ffb7d5" />
+                                        <div
+                                            style={{
+                                            color: "#ffb7d5"
+                                            }}
+                                        >
+                                            Choose Picture
+                                        </div>
+                                    </div>
+                                }
+                            </Upload>
+                        </div>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            block
+                            style={{
+                                width : "100%",
+                                height: "45px",
+                                fontWeight: "400px",
+                                fontSize: "18px",
+                                background: "#ffb7d5",
+                                color: "white",
+                                marginTop : "44px"
+                            }}
+                        >
+                            UPDATE
+                        </Button>
+                    </form>
+                </div>
+            </Modal>
+
+            {/* subcategory  edit */}
+            <Modal
+                centered
+                open={deleteValue}
+                onCancel={() => setDeleteValue('')}
+                width={500}
+                footer={false}
+            >
+                <div>
+                    <div
+                        style={{
+                            backgroundColor: "red",
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent:"center",
+                            margin: "auto",
+                            marginBottom: "30px"
+                        }}
+                    >
+                        <MdDelete size={70} color='white'/>
+                    </div>
+                    <h1 style={{marginBottom: "12px", fontSize: "18px", textAlign: "center"}}>Are You Sure to Delete this Sub Category ?</h1>
+                    <div style={{display: "flex", alignItems: "center", gap: "30px"}}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            block
+                            style={{
+                                width : "100%",
+                                height: "45px",
+                                fontWeight: "400px",
+                                fontSize: "18px",
+                                background: "green",
+                                color: "white",
+                                marginTop : "44px"
+                            }}
+                        >
+                            YES
+                        </Button>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            block
+                            style={{
+                                width : "100%",
+                                height: "45px",
+                                fontWeight: "400px",
+                                fontSize: "18px",
+                                background: "red",
+                                color: "white",
+                                marginTop : "44px"
+                            }}
+                        >
+                            NO
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
+
         </div>
     )
 }

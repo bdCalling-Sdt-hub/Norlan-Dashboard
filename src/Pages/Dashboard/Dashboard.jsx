@@ -289,10 +289,10 @@ const Dashboard = () => {
             icon={<MdOutlineCategory style={{ fontSize: "22px" }} />}
             title={t("category")}
           >
-            <Menu.Item key="1">
+            <Menu.Item key="133">
               <Link to="/category">{t("Category")}</Link>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="132">
               <Link to="/sub-category">{t("Sub Category")}</Link>
             </Menu.Item>
           </SubMenu>
