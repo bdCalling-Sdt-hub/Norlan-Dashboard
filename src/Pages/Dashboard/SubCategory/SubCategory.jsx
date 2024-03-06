@@ -5,7 +5,6 @@ import { CiCamera } from "react-icons/ci";
 const SubCategory = () => {
     const OPTIONS = ['Entertainment ', 'Fashion ', 'Aesthetics', 'Cuisine and Pastry', 'Decorations & Themes'];
     const [selectedItems, setSelectedItems] = useState([]);
-    console.log(selectedItems)
     const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o));
     const [imageUrl, setImageUrl] = useState()
     return (
