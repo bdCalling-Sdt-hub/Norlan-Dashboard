@@ -29,7 +29,7 @@ const EditSubscription = () => {
                     }}
                 > 
                     <MdOutlineArrowBackIosNew /> 
-                    Edit Category
+                    Edit Subscription
                 </h1>
                 <Form
                     name="normal_login"
