@@ -9,6 +9,7 @@ import cat4 from "../../../Images/cata4.png";
 import cat5 from "../../../Images/cata5.png";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { MdArrowBackIos } from "react-icons/md";
 
 const Category = () => {
     const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ const Category = () => {
     const [editCategory, setEditCategory] = useState();
     const [deleteCategory, setDeleteCategory] = useState(false);
     const [value, setValue] = useState();
-    const [deleteValue, setDeleteValue] = useState();
+    const [deleteValue, setDeleteValue] = useState("");
     const category = JSON?.parse(localStorage.getItem('category'));
     const [imageUrl, setImageUrl] = useState(category?.image);
     
@@ -309,7 +310,10 @@ const Category = () => {
 
                     <Table columns={columns} dataSource={data} pagination={false} />
                     :
-                    <Table columns={filterColumns} dataSource={filterData?.subCategory} pagination={false} />
+                    <>
+                        <h3 style={{display: "flex", width: "fit-content", alignItems:"center", gap:"15px", cursor: "pointer", marginBottom: "10px"}} onClick={()=>setOpenCategory("")}><MdArrowBackIos />  Back to Category Details</h3>
+                        <Table columns={filterColumns} dataSource={filterData?.subCategory} pagination={false} />
+                    </>
                 }
                 
             </div>
@@ -689,8 +693,8 @@ const Category = () => {
                     <h1 style={{marginBottom: "12px", fontSize: "18px", textAlign: "center"}}>Are You Sure to Delete this Category ?</h1>
                     <div style={{display: "flex", alignItems: "center", gap: "30px"}}>
                         <Button
-                            type="primary"
-                            htmlType="submit"
+                            onClick={() => setDeleteCategory('')}
+                            
                             block
                             style={{
                                 width : "100%",
@@ -705,8 +709,8 @@ const Category = () => {
                             YES
                         </Button>
                         <Button
-                            type="primary"
-                            htmlType="submit"
+                            onClick={() => setDeleteCategory('')}
+                            
                             block
                             style={{
                                 width : "100%",
@@ -752,9 +756,7 @@ const Category = () => {
                     <h1 style={{marginBottom: "12px", fontSize: "18px", textAlign: "center"}}>Are You Sure to Delete this Sub Category ?</h1>
                     <div style={{display: "flex", alignItems: "center", gap: "30px"}}>
                         <Button
-                            type="primary"
-                            htmlType="submit"
-                            block
+                            onClick={() => setDeleteValue('')}
                             style={{
                                 width : "100%",
                                 height: "45px",
@@ -768,9 +770,7 @@ const Category = () => {
                             YES
                         </Button>
                         <Button
-                            type="primary"
-                            htmlType="submit"
-                            block
+                            onClick={() => setDeleteValue('')}
                             style={{
                                 width : "100%",
                                 height: "45px",

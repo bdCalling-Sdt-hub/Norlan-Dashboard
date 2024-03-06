@@ -2,14 +2,10 @@ import { Col, Row } from "antd";
 import React from "react";
 import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import "./DashboardHome.css";
-
-import { BsFillCheckCircleFill } from "react-icons/bs";
-import { GrHistory } from "react-icons/gr";
-import { MdCarRental } from "react-icons/md";
-import { SlRefresh } from "react-icons/sl";
 import InvoiceTable from "./InvoiceTable";
 import MostRentCarChart from "./MostRentCarChart";
 import DailyRentChart from "./dailyRentChart";
+
 
 function DashboardHome() {
   const onChange = (pageNumber) => {
@@ -65,7 +61,7 @@ function DashboardHome() {
               backgroundColor: "#fff",
             }}
           >
-            <h1 style={{ color: "black", textShadow: "#bfbfbf 2px 2px 4px" }}>Most Category Artist's</h1>
+            <h1 style={{ color: "black", textShadow: "#bfbfbf 2px 2px 4px" }}>Artist Percentage by Categories</h1>
             <MostRentCarChart />
           </div>
         </Col>

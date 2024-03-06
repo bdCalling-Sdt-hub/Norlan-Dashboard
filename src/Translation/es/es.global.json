@@ -17,7 +17,11 @@
   "rentInfo": "Información De Alquiler",
   "userInfo": "Informationen zum Künstler",
   "subscription": "Abonnement",
-  "category": "Kategorie",
+  "category": {
+    "title": "Kategorie",
+    "subTitle1": "Kategorie",
+    "subTitle2": "Unterkategorie"
+  },
   "addSlider": "Schieberegler hinzufügen",
   "hostInfo": {
     "title": "información del anfitrión",

@@ -17,7 +17,6 @@
   "rentInfo": "Rent Information",
   "userInfo": "Artist's Information",
   "subscription": "Subscription",
-  "category": "Category",
   "addSlider": "Add Slider",
   "hostInfo": {
     "title": "Host Information",
@@ -37,5 +36,10 @@
     "subTitle1": "Today's income",
     "subTitle2": "Weekly income",
     "subTitle3": "Monthly income"
+  },
+  "category": {
+    "title": "Category",
+    "subTitle1": "Category",
+    "subTitle2": "Sub Category"
   }
 }
