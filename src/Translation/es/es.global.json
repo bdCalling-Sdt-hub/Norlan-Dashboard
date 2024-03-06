@@ -15,7 +15,10 @@
   },
   "carInfo": "Información Del Auto",
   "rentInfo": "Información De Alquiler",
-  "userInfo": "Información Del Usuario",
+  "userInfo": "Informationen zum Künstler",
+  "subscription": "Abonnement",
+  "category": "Kategorie",
+  "addSlider": "Schieberegler hinzufügen",
   "hostInfo": {
     "title": "información del anfitrión",
     "subTitle1": "Todo anfitrión",

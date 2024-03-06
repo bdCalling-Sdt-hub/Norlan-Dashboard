@@ -173,7 +173,7 @@ const data = [
 const EarnHistoryTable = () => {
   const columns = [
     {
-      title: "TRIP NO.",
+      title: "Serial No",
       dataIndex: "tripNo",
       key: "tripNO",
     },
@@ -184,7 +184,7 @@ const EarnHistoryTable = () => {
       responsive: ["md"],
     },
     {
-      title: "USER NAME",
+      title: "Artist NAME",
       dataIndex: "username",
       key: "username",
       responsive: ["lg"],
@@ -199,11 +199,6 @@ const EarnHistoryTable = () => {
       dataIndex: "amount",
       key: "amount",
       responsive: ["md"],
-    },
-    {
-      title: "STATUS",
-      dataIndex: "status",
-      key: "status",
     },
     {
       title: "ACTION",
@@ -248,9 +243,9 @@ const EarnHistoryTable = () => {
           >
             <Typography>
               <Title level={5} strong>
-                Invoice# Trip No.{earningData?.tripNo}
+                Invoice# {earningData?.tripNo}
               </Title>
-              <Text>See all information about the trip no. 68656</Text>
+              <Text>See all information about the Earning</Text>
             </Typography>
             <Button type="text" onClick={closeDrawer}>
               <IoMdClose fontSize={25} />

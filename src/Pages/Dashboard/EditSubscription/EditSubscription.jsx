@@ -8,7 +8,8 @@ const EditSubscription = () => {
         package_name: "Basic",
         package_duration: 6,
         package_features: ["add", "done", "pro"],
-        price: 200
+        price: 200,
+        gigs: 15
     };
     const handleUpdate=(values)=>{
         console.log(values)
@@ -101,18 +102,19 @@ const EditSubscription = () => {
                             }}
                         />
                     </Form.Item>
-                    
-                    <label htmlFor="" style={{display: "block", marginBottom: "10px"}}>Packeage Features</label>
-                    <Form.Item
-                        name="package_features"
+
+
+
+                    <label htmlFor="" style={{display: "block", marginBottom: "10px"}}>How Many GiG photo Do you need ?</label>
+                    <Form.Item 
+                        name="gigs"
                         style={{marginBottom: "24px"}}
-                    >    
-                        <Input.TextArea
+                    >  
+                        <Input
                             size="large"
-                            placeholder='Add, like, This with comma'
                             style={{
                                 width: "100%",
-                                height: "145px",
+                                height: "52px",
                                 border: "1px solid #ffb7d5",
                                 borderRadius: "8px",
                                 padding : "16px",
@@ -120,8 +122,78 @@ const EditSubscription = () => {
                                 outline: "none",
                                 backgroundColor: "#E9EAEC",
                             }}
+                            type='number'
                         />
                     </Form.Item>
+                    
+                    <label htmlFor="" style={{display: "block", marginBottom: "10px"}}>Packeage Features</label>
+
+                    <Form.Item
+                        name="package_features"
+                        style={{marginBottom: "24px"}}
+                    >    
+                        <Input
+                            size="large"
+                            placeholder='Add, like, This with comma'
+                            style={{
+                                width: "100%",
+                                height: "52px",
+                                border: "1px solid #ffb7d5",
+                                borderRadius: "8px",
+                                padding : "16px",
+                                color: "black",
+                                outline: "none",
+                                backgroundColor: "#E9EAEC",
+                            }}
+                            readOnly
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="package_features"
+                        style={{marginBottom: "24px"}}
+                    >    
+                        <Input
+                            size="large"
+                            placeholder='Add, like, This with comma'
+                            style={{
+                                width: "100%",
+                                height: "52px",
+                                border: "1px solid #ffb7d5",
+                                borderRadius: "8px",
+                                padding : "16px",
+                                color: "black",
+                                outline: "none",
+                                backgroundColor: "#E9EAEC",
+                            }}
+                            readOnly
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="package_features"
+                        style={{marginBottom: "24px"}}
+                    >    
+                        <Input
+                            size="large"
+                            placeholder='Add, like, This with comma'
+                            style={{
+                                width: "100%",
+                                height: "52px",
+                                border: "1px solid #ffb7d5",
+                                borderRadius: "8px",
+                                padding : "16px",
+                                color: "black",
+                                outline: "none",
+                                backgroundColor: "#E9EAEC",
+                            }}
+                            readOnly
+                        />
+                    </Form.Item>
+
+
+
+
                     <Form.Item>
                         <Button 
                             block

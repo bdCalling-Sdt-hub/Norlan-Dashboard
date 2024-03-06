@@ -14,7 +14,7 @@ import Styles from "./Dashboard.module.css";
 import { FaRegBell } from "react-icons/fa6";
 import { AiOutlineUser } from "react-icons/ai";
 import { HiLogout } from "react-icons/hi";
-import { useLocation } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import { BiCrown } from "react-icons/bi";
 import { MdOutlineCategory } from "react-icons/md";
 const { Header, Sider, Content } = Layout;
@@ -82,7 +82,7 @@ const Dashboard = () => {
       <Menu.Item disabled>
         <h2
           style={{
-            color: "#000b90",
+            color: "black",
             fontWeight: "500",
             borderBottom: "1px solid #e6e7f4",
             paddingBottom: "20px",
@@ -109,8 +109,8 @@ const Dashboard = () => {
           block
           style={{
             height: "50px",
-            backgroundColor: "#e6e7f4",
-            color: "#000b90",
+            backgroundColor: "#ffb7d5 ",
+            color: "white",
             fontSize: "18px",
             fontWeight: "bold",
           }}
@@ -129,7 +129,7 @@ const Dashboard = () => {
     {
       key: 1,
       label: (
-        <Link to="/profile" rel="noreferrer" >
+        <Link to="/setting/personal-information" rel="noreferrer" >
           <div
             className={Styles.everyNotify}
             style={{ display: "flex", alignItems: "center", gap: "15px"}}
@@ -150,7 +150,7 @@ const Dashboard = () => {
             className={Styles.everyNotify}
             style={{ display: "flex", alignItems: "center" ,gap: "15px" }}
           >
-            <FaRegBell size={25} color="black" />
+            <FaRegBell size={25} color="white" />
             <div className="" style={{ marginTop: "" }}>
               <p>Notification</p>
             </div>
@@ -208,11 +208,13 @@ const Dashboard = () => {
             marginBottom: "30px",
           }}
         >
-          <img
-            src={Logo}
-            height={collapsed ? "40px" : "150px"}
-            width={collapsed ? "40px" : "150px"}
-          />
+          <Link to="/">
+            <img
+              src={Logo}
+              height={collapsed ? "40px" : "150px"}
+              width={collapsed ? "40px" : "150px"}
+            />
+          </Link>
         </div>
 
         <Menu
@@ -362,10 +364,10 @@ const Dashboard = () => {
                 <Option value="es">
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <img
-                      src="https://e0.pxfuel.com/wallpapers/630/608/desktop-wallpaper-spain-flag-in-collection.jpg"
+                      src="https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/1200px-Flag_of_Germany.svg.png"
                       style={{ marginRight: 8, width: 16, height: 16 }}
                     />
-                    Spanish
+                    German
                   </div>
                 </Option>
               </Select>

@@ -237,7 +237,7 @@ const DrawerPage = (props) => {
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
               <p>INE: SNHRM570818MDFPM10</p>
-              <p>Trip Completes:{props.earningData.status.length}</p>
+              <p>{props.earningData.status.length}</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -247,14 +247,7 @@ const DrawerPage = (props) => {
             </div>
           </div>
           <div>
-            <Title level={4}>
-              Trip Details{" "}
-              <Badge
-                className="site-badge-count-109"
-                count={"complete"}
-                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-              />
-            </Title>
+            
           </div>
           
         </div>
@@ -361,7 +354,6 @@ const DrawerPage = (props) => {
             <div style={{ marginTop: "-7px" }}>
               <p style={{ fontSize: "20px" }}>{props.invoiceData.username}</p>
               <p>INE: SNHRM570818MDFPM10</p>
-              <p>Trip Completes:{props.invoiceData.status.length}</p>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "2px" }}
               >
@@ -371,14 +363,7 @@ const DrawerPage = (props) => {
             </div>
           </div>
           <div>
-            <Title level={4}>
-              Trip Details{" "}
-              <Badge
-                className="site-badge-count-109"
-                count={"complete"}
-                style={{ backgroundColor: "#E6F6F4", color: "#00A991" }}
-              />
-            </Title>
+            
           </div>
           
         </div>

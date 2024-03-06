@@ -109,7 +109,6 @@ const data = [
     username: "Tushar",
     method: "Credit Card",
     amount: "$850.00",
-    status: "complete",
     printView: "Button",
   },
   {
@@ -119,7 +118,6 @@ const data = [
     username: "Tushar",
     method: "Credit Card",
     amount: "$850.00",
-    status: "complete",
     printView: "Button",
   },
   {
@@ -129,7 +127,6 @@ const data = [
     username: "Tushar",
     method: "Credit Card",
     amount: "$850.00",
-    status: "complete",
     printView: "Button",
   },
   {
@@ -139,7 +136,6 @@ const data = [
     username: "Tushar",
     method: "Credit Card",
     amount: "$850.00",
-    status: "complete",
     printView: "Button",
   },
   {
@@ -149,7 +145,6 @@ const data = [
     username: "Tushar",
     method: "Credit Card",
     amount: "$850.00",
-    status: "complete",
     printView: "Button",
   },
   {
@@ -159,7 +154,6 @@ const data = [
     username: "Tushar",
     method: "Credit Card",
     amount: "$850.00",
-    status: "complete",
     printView: "Button",
   },
   {
@@ -169,7 +163,6 @@ const data = [
     username: "Tushar",
     method: "Credit Card",
     amount: "$850.00",
-    status: "complete",
     printView: "Button",
   },
   {
@@ -179,7 +172,6 @@ const data = [
     username: "Tushar",
     method: "Credit Card",
     amount: "$850.00",
-    status: "complete",
     printView: "Button",
   }
 ];
@@ -207,7 +199,7 @@ const InvoiceTable = () =>{
 
     const columns = [
       {
-        title: "Invoice",
+        title: "Serial No",
         dataIndex: "invoiceNo",
         key: "invoiceNo",
       },
@@ -218,7 +210,7 @@ const InvoiceTable = () =>{
         responsive: ["md"],
       },
       {
-        title: "USER NAME",
+        title: "Artist Name",
         dataIndex: "username",
         key: "username",
         responsive: ["lg"],
@@ -234,11 +226,7 @@ const InvoiceTable = () =>{
         key: "amount",
         responsive: ["md"],
       },
-      {
-        title: "STATUS",
-        dataIndex: "status",
-        key: "status",
-      },
+      
       {
         title: "ACTION",
         dataIndex: "printView",
@@ -282,7 +270,7 @@ const InvoiceTable = () =>{
         <Table columns={columns} dataSource={data} pagination={{
             pageSize,
             showSizeChanger:false,
-            total: 5000,
+            total: 20,
             current: currentPage,
             onChange: handlePageChange,
           }}/>
@@ -292,9 +280,9 @@ const InvoiceTable = () =>{
             <div>
               <Typography>
                 <Title level={5} strong>
-                  Invoice# Trip No.{invoiceData?.invoiceNo}
+                  Invoice# {invoiceData?.invoiceNo}
                 </Title>
-                <Text>See all information about the trip no. 68656</Text>
+                <Text>See all information about the Earning</Text>
               </Typography>
             </div>
           }

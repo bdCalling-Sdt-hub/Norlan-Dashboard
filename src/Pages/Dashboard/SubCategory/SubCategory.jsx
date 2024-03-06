@@ -158,7 +158,7 @@ const SubCategory = () => {
                                     marginTop : "44px"
                                 }}
                             >
-                                Add Category
+                                Add Sub Category
                             </Button>
                         </Form>
                     </div>

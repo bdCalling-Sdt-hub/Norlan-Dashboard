@@ -17,99 +17,99 @@ const data = [
  
   {
     time: '1',
-    rent:50
+    amount:50
   },
   {
     time: '2',
-    rent:20
+    amount:20
   },
   {
     time: '3',
-    rent:40
+    amount:40
   },
   {
     time: '4',
-    rent:30
+    amount:30
   },
   {
     time: '5',
-    rent:60
+    amount:60
   },
   {
     time: '6',
-    rent:100
+    amount:100
   },
   {
     time: '7',
-    rent:25
+    amount:25
   },
   {
     time: '8',
-    rent:50
+    amount:50
   },
   {
     time: '9',
-    rent:60
+    amount:60
   },
   {
     time: '10',
-    rent:20
+    amount:20
   },
   {
     time: '11',
-    rent:50
+    amount:50
   },
   {
     time: '12',
-    rent:60
+    amount:60
   },
   {
     time: '13',
-    rent:5
+    amount:5
   },
   {
     time: '14',
-    rent:30
+    amount:30
   },
   {
     time: '15',
-    rent:50
+    amount:50
   },
   {
     time: '16',
-    rent:20
+    amount:20
   },
   {
     time: '17',
-    rent:75
+    amount:75
   },
   {
     time: '18',
-    rent:45
+    amount:45
   },
   {
     time: '19',
-    rent:65
+    amount:65
   },
   {
     time: '20',
-    rent:78
+    amount:78
   },
   {
     time: '21',
-    rent:99
+    amount:99
   },
   {
     time: '22',
-    rent:26
+    amount:26
   },
   {
     time: '23',
-    rent:52
+    amount:52
   },
   {
     time: '24',
-    rent:66
+    amount:66
   },
   
 ];
@@ -140,7 +140,7 @@ export default function DailyRentChart() {
             <XAxis dataKey="time" />
             <YAxis />
             <Tooltip />
-            <Line type="linear" dataKey="rent" stroke="#ffb7d5" fill="#8884d8" />
+            <Line type="linear" dataKey="amount" stroke="#ffb7d5" fill="#8884d8" />
           </LineChart>
         </ResponsiveContainer>
         

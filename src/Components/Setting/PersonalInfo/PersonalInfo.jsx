@@ -56,7 +56,6 @@ const PersonalInfo = () => {
               <div>
                 <h2>Fahim</h2>
                 <p>@fahim</p>
-                <p>INE: GMVLMR80070501M100</p>
               </div>
             </div>
             <div>
@@ -105,15 +104,8 @@ const PersonalInfo = () => {
             </Col>
           </Row>
           <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">INE</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"GMVLMR80070501M100"}
-                readOnly
-              />
-            </Col>
-            <Col span={12}>
+            
+            <Col span={24}>
               <label htmlFor="">Date of Birth</label>
               <DatePicker
                 style={{ height: "45px", width: "100%" }}
@@ -185,14 +177,7 @@ const PersonalInfo = () => {
             </Col>
           </Row>
           <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">INE</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"GMVLMR80070501M100"}
-              />
-            </Col>
-            <Col span={12}>
+            <Col span={24}>
               <label htmlFor="">Date of Birth</label>
               <DatePicker
                 style={{ height: "45px", width: "100%" }}

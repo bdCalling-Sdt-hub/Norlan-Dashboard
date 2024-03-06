@@ -6,15 +6,16 @@ import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 import { CloseOutlined } from '@ant-design/icons';
 import { FiEye } from "react-icons/fi";
+import { AiFillStar } from "react-icons/ai";
 
 
 const data = [
   {
     key: "1",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -22,9 +23,9 @@ const data = [
   {
     key: "2",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -32,9 +33,9 @@ const data = [
   {
     key: "3",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -42,9 +43,9 @@ const data = [
   {
     key: "4",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -52,9 +53,9 @@ const data = [
   {
     key: "5",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -62,9 +63,9 @@ const data = [
   {
     key: "6",
     name: "tushar2",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -72,9 +73,9 @@ const data = [
   {
     key: "7",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -82,9 +83,9 @@ const data = [
   {
     key: "8",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -92,9 +93,9 @@ const data = [
   {
     key: "9",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -102,9 +103,9 @@ const data = [
   {
     key: "10",
     name: "tushar",
-    email: "18 Jul, 2023  4:30pm",
-    contact: "Tushar",
-    joiningdate: "Credit Card",
+    email: "tushar@gmail.com",
+    contact: "017549624463",
+    joiningdate: "18 Jul, 2023  4:30pm",
     trips: "$850.00",
     
     printView: "Button",
@@ -136,7 +137,7 @@ const UserInfoTable = () =>{
 
     const columns = [
       {
-        title: "NAME",
+        title: "ARTIST NAME",
         dataIndex: "name",
         key: "name",
       },
@@ -153,12 +154,12 @@ const UserInfoTable = () =>{
         responsive: ["lg"],
       },
       {
-        title: "JOINING DATE",
+        title: "DATE",
         dataIndex: "joiningdate",
         key: "joiningdate",
       },
       {
-        title: "TRIPS",
+        title: "GIGS PRICE",
         dataIndex: "trips",
         key: "trips",
         responsive: ["md"],
@@ -207,7 +208,7 @@ const UserInfoTable = () =>{
         <Table columns={columns} dataSource={data} pagination={{
             pageSize,
             showSizeChanger:false,
-            total: 5000,
+            total: 10,
             current: currentPage,
             onChange: handlePageChange,
           }}/>
@@ -217,7 +218,7 @@ const UserInfoTable = () =>{
             <div>
               <Typography>
                 <Title level={5} strong>
-                  User Information
+                  Artist Information
                 </Title>
                 <Text>See all information about the user</Text>
               </Typography>
@@ -236,6 +237,21 @@ const UserInfoTable = () =>{
           }
 
         >
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div>
+                <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+              </div>
+              <div style={{ marginTop: "-7px" }}>
+                <p style={{ fontSize: "20px" }}>{userInfoData?.name}</p>
+                <p>INE: SNHRM570818MDFPM10</p>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
+                >
+                  <AiFillStar color="#fba91d" />
+                  <span>4.8</span>
+                </div>
+              </div>
+            </div>
           {userInfoData && <DrawerPage userInfoData={userInfoData} />}
         </Drawer>
 

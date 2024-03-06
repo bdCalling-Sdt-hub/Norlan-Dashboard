@@ -14,11 +14,14 @@ const Category = () => {
     const [open, setOpen] = useState(false);
     const [primary, setPrimary] = useState('');
     const [secondary, setSecondary] = useState("");
-    const [imageUrl, setImageUrl] = useState()
     const [img, setImg] = useState();
-    const [categoryOpen, setOpenCategory] = useState(false);
-    const [value, setValue] = useState("");
+    const [categoryOpen, setOpenCategory] = useState();
+    const [editCategory, setEditCategory] = useState();
+    const [deleteCategory, setDeleteCategory] = useState(false);
+    const [value, setValue] = useState();
     const [deleteValue, setDeleteValue] = useState();
+    const category = JSON?.parse(localStorage.getItem('category'));
+    const [imageUrl, setImageUrl] = useState(category?.image);
     
     const data = [
         {
@@ -158,6 +161,12 @@ const Category = () => {
     ]
     
     
+    const handleValue=()=>{
+        localStorage.removeItem('category')
+        setEditCategory('')
+    }
+
+
     const columns = [
         {
             title: 'Category',
@@ -193,12 +202,14 @@ const Category = () => {
                     alignItems: "center",
                     gap: "20px"                    
                 }}>
-                    <FaRegEdit size={22} />
-                    <MdDelete size={22} />
+                    <FaRegEdit style={{cursor: "pointer"}} onClick={()=>(localStorage.setItem('category', JSON.stringify(record)), setEditCategory(record))} size={22} />
+                    <MdDelete style={{cursor: "pointer"}} onClick={()=>setDeleteCategory(record)} size={22} />
                 </div>
             )
         }
     ];
+
+    
 
     const filterData = data.find((item)=> item.name === categoryOpen);
     
@@ -239,9 +250,7 @@ const Category = () => {
         }
     ];
 
-    const handleValue=(value)=>{
-
-    }
+    
 
 
     return (
@@ -423,6 +432,124 @@ const Category = () => {
                 </div>
             </Modal>
             
+             {/* category  edit */}
+             <Modal
+                centered
+                open={editCategory}
+                onCancel={handleValue}
+                width={500}
+                footer={false}
+            >
+                <div>
+                    <h1 style={{marginBottom: "12px"}}>Edit Category</h1>
+                    <form >
+                        <div>
+                            <label style={{marginBottom : "12px"}}>Category name</label>
+                            <div style={{
+                                marginTop: "10px",
+                                marginBottom: "10px"                            
+                            }}>
+                                <input 
+                                    style={{
+                                        width: "100%",
+                                        height: "52px",
+                                        border: "1px solid #ffb7d5",
+                                        borderRadius: "8px",
+                                        padding : "16px",
+                                        color: "black",
+                                        outline: "none",
+                                        backgroundColor: "#E9EAEC",
+
+                                    }}
+                                    value={editCategory?.name}
+                                    type="text" 
+                                    placeholder="Enter Category name"
+                                    name="category_name"
+                                    // onChange={(e)=>setName(e.target.value)}
+                                />
+                            </div>
+
+
+                            <label style={{marginBottom : "12px"}}>Primary Color</label>
+                            <div style={{
+                                marginTop: "10px",
+                                marginBottom: "10px"                            
+                            }}>
+                                <ColorPicker defaultValue="#1677ff" size="large" showText />
+                            </div>
+
+                            <label style={{marginBottom : "12px"}}>Seceondary Color</label>
+                            <div style={{
+                                marginTop: "10px",
+                                marginBottom: "10px"                            
+                            }}>
+                                <ColorPicker defaultValue="#1677ff" size="large" showText />
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style={{marginBottom : "12px"}}>
+                                <label >Category Picture</label>
+                            </div>
+                            <Upload
+                                name="avatar"                 
+                                listType="picture-card"
+                                showUploadList={false}
+                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                                // onChange={onChange}
+                                style={{
+                                    width: "100%"
+                                }}
+                                
+                            >
+                                {
+                                    category
+                                    ? 
+                                    (
+                                        <img
+                                            src={category?.image}
+                                            alt="avatar"
+                                            style={{
+                                                width: "100%",
+                                                height: "190px",
+                                                borderRadius: "8px"
+                                            }}
+                                        />
+                                    ) 
+                                    :
+                                    <div>
+                                        <CiCamera size={64} color="#ffb7d5" />
+                                        <div
+                                            style={{
+                                            color: "#ffb7d5"
+                                            }}
+                                        >
+                                            Choose Picture
+                                        </div>
+                                    </div>
+                                }
+                            </Upload>
+                        </div>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            block
+                            style={{
+                                width : "100%",
+                                height: "45px",
+                                fontWeight: "400px",
+                                fontSize: "18px",
+                                background: "#ffb7d5",
+                                color: "white",
+                                marginTop : "44px"
+                            }}
+                        >
+                            UPDATE
+                        </Button>
+                    </form>
+                </div>
+            </Modal>
+
             {/* subcategory  edit */}
             <Modal
                 centered
@@ -532,8 +659,73 @@ const Category = () => {
                     </form>
                 </div>
             </Modal>
+                            
 
-            {/* subcategory  edit */}
+
+            {/* category  delete */}
+            <Modal
+                centered
+                open={deleteCategory}
+                onCancel={() => setDeleteCategory('')}
+                width={500}
+                footer={false}
+            >
+                <div>
+                    <div
+                        style={{
+                            backgroundColor: "red",
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent:"center",
+                            margin: "auto",
+                            marginBottom: "30px"
+                        }}
+                    >
+                        <MdDelete size={70} color='white'/>
+                    </div>
+                    <h1 style={{marginBottom: "12px", fontSize: "18px", textAlign: "center"}}>Are You Sure to Delete this Category ?</h1>
+                    <div style={{display: "flex", alignItems: "center", gap: "30px"}}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            block
+                            style={{
+                                width : "100%",
+                                height: "45px",
+                                fontWeight: "400px",
+                                fontSize: "18px",
+                                background: "green",
+                                color: "white",
+                                marginTop : "44px"
+                            }}
+                        >
+                            YES
+                        </Button>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            block
+                            style={{
+                                width : "100%",
+                                height: "45px",
+                                fontWeight: "400px",
+                                fontSize: "18px",
+                                background: "red",
+                                color: "white",
+                                marginTop : "44px"
+                            }}
+                        >
+                            NO
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
+
+
+            {/* subcategory  delete */}
             <Modal
                 centered
                 open={deleteValue}
