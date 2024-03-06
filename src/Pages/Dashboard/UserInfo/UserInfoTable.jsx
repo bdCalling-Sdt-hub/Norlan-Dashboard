@@ -22,7 +22,7 @@ const data = [
   },
   {
     key: "2",
-    name: "tushar",
+    name: "Faim",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -32,7 +32,7 @@ const data = [
   },
   {
     key: "3",
-    name: "tushar",
+    name: "Shanto",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -42,7 +42,7 @@ const data = [
   },
   {
     key: "4",
-    name: "tushar",
+    name: "Rafsan",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -52,7 +52,7 @@ const data = [
   },
   {
     key: "5",
-    name: "tushar",
+    name: "Nadim",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -62,7 +62,7 @@ const data = [
   },
   {
     key: "6",
-    name: "tushar2",
+    name: "Jusef",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -72,7 +72,7 @@ const data = [
   },
   {
     key: "7",
-    name: "tushar",
+    name: "Rahman",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -82,7 +82,7 @@ const data = [
   },
   {
     key: "8",
-    name: "tushar",
+    name: "Asad",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -92,7 +92,7 @@ const data = [
   },
   {
     key: "9",
-    name: "tushar",
+    name: "Khusi",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -102,7 +102,7 @@ const data = [
   },
   {
     key: "10",
-    name: "tushar",
+    name: "Nadir",
     email: "tushar@gmail.com",
     contact: "017549624463",
     joiningdate: "18 Jul, 2023  4:30pm",
@@ -252,6 +252,24 @@ const UserInfoTable = () =>{
                 </div>
               </div>
             </div>
+
+            <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "15px"}}>
+            <div>
+                <p style={{paddingBottom: "5px"}}>Artish Name:</p>
+                <p style={{paddingBottom: "5px"}}>Email</p>
+                <p style={{paddingBottom: "5px"}}>Contact</p>
+                <p style={{paddingBottom: "5px"}}>Date</p>
+                <p style={{paddingBottom: "5px"}}>GIGS Price</p>
+            </div>
+            <div>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.name}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.email}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.contact}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.joiningdate}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.trips}</p>
+            </div>
+
+          </div>
           {userInfoData && <DrawerPage userInfoData={userInfoData} />}
         </Drawer>
 

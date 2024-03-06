@@ -185,6 +185,7 @@ const InvoiceTable = () =>{
 
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
     const [invoiceData, setInvoiceData] = useState(null);
+    console.log(invoiceData)
   
     const showDrawer = (record) => {
       setIsDrawerVisible(true);

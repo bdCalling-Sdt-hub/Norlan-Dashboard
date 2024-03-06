@@ -246,8 +246,22 @@ const DrawerPage = (props) => {
               </div>
             </div>
           </div>
-          <div>
-            
+
+          <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "15px"}}>
+            <div>
+                <p style={{paddingBottom: "5px"}}>Artish Name:</p>
+                <p style={{paddingBottom: "5px"}}>Amount</p>
+                <p style={{paddingBottom: "5px"}}>Status</p>
+                <p style={{paddingBottom: "5px"}}>Time</p>
+            </div>
+
+            <div>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{props?.earningData?.username}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{props?.earningData?.amount}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{props?.earningData?.status}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{props?.earningData?.time}</p>
+            </div>
+
           </div>
           
         </div>
@@ -362,12 +376,26 @@ const DrawerPage = (props) => {
               </div>
             </div>
           </div>
-          <div>
-            
-          </div>
           
+          <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "15px"}}>
+            <div>
+                <p style={{paddingBottom: "5px"}}>Artish Name:</p>
+                <p style={{paddingBottom: "5px"}}>Amount</p>
+                <p style={{paddingBottom: "5px"}}>Status</p>
+                <p style={{paddingBottom: "5px"}}>Time</p>
+            </div>
+
+            <div>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{props?.invoiceData?.username}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{props?.invoiceData?.amount}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{props?.invoiceData?.status}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{props?.invoiceData?.time}</p>
+            </div>
+
+          </div>
         </div>
       )}
+
     </>
   );
 };

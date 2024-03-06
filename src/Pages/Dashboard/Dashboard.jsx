@@ -150,7 +150,7 @@ const Dashboard = () => {
             className={Styles.everyNotify}
             style={{ display: "flex", alignItems: "center" ,gap: "15px" }}
           >
-            <FaRegBell size={25} color="white" />
+            <FaRegBell size={25} color="black" />
             <div className="" style={{ marginTop: "" }}>
               <p>Notification</p>
             </div>
@@ -168,9 +168,9 @@ const Dashboard = () => {
           <div
             onClick={handleLogOut}
             className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center", gap: "15px" }}
+            style={{ display: "flex", alignItems: "center", gap: "15px", color: "black" }}
           >
-            <HiLogout size={25} color="black" />
+            <HiLogout size={25} style={{color:"black"}}  />
             <div  className="" style={{ marginTop: "" }}>
               <p>Logout</p>
             </div>

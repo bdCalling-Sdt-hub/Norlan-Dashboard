@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 const Earning = () => {
   const location = useLocation();
   const {pathname} = location;
-  console.log(pathname)
   return(
   <div style={{ padding: "0" }}>
     <h2 style={{ fontSize: "25px", fontWeight: "normal" }}>Earnings</h2>
