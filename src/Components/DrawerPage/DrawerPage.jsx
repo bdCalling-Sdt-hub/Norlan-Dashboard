@@ -231,19 +231,8 @@ const DrawerPage = (props) => {
       {props.earningData && (
         <div>
           <div style={{ display: "flex", gap: "15px" }}>
-            <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
-            </div>
-            <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.earningData.username}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
-              <p>{props.earningData.status.length}</p>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
-              >
-                <AiFillStar color="#fba91d" />
-                <span>4.8</span>
-              </div>
+            <div style={{display: "block", margin: "auto"}}>
+              <img width={120} style={{borderRadius: "12px"}} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
             </div>
           </div>
 
@@ -362,19 +351,10 @@ const DrawerPage = (props) => {
       {props.invoiceData && (
         <div>
           <div style={{ display: "flex", gap: "15px" }}>
-            <div>
-              <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
-            </div>
-            <div style={{ marginTop: "-7px" }}>
-              <p style={{ fontSize: "20px" }}>{props.invoiceData.username}</p>
-              <p>INE: SNHRM570818MDFPM10</p>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "2px" }}
-              >
-                <AiFillStar color="#fba91d" />
-                <span>4.8</span>
+            <div style={{display: "block", margin: "auto"}}>
+                <img width={120} style={{borderRadius: "12px"}} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
               </div>
-            </div>
+            
           </div>
           
           <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "15px"}}>

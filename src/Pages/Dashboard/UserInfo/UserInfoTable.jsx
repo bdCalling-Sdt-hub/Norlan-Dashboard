@@ -238,18 +238,8 @@ const UserInfoTable = () =>{
 
         >
             <div style={{ display: "flex", gap: "15px" }}>
-              <div>
-                <img width={120} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
-              </div>
-              <div style={{ marginTop: "-7px" }}>
-                <p style={{ fontSize: "20px" }}>{userInfoData?.name}</p>
-                <p>INE: SNHRM570818MDFPM10</p>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "2px" }}
-                >
-                  <AiFillStar color="#fba91d" />
-                  <span>4.8</span>
-                </div>
+              <div style={{display: "block", margin: "auto"}}>
+                <img width={120} style={{borderRadius: "12px"}} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
               </div>
             </div>
 
