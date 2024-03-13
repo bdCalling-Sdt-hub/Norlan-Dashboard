@@ -11,7 +11,10 @@ const Setting = () => {
   const [openChangePassModel, setOpenChangePassModel] = useState(false);
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
-  const [forgotPassword, setForgotPassword] = useState(false)
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [newPassError, setNewPassError] = useState("");
+  const [conPassError, setConPassError] = useState("");
+  const [curPassError, setCurPassError] = useState("");
 
   const style = {
     formContainer: {
@@ -130,6 +133,26 @@ const Setting = () => {
   };
 
   const handleChangePassword = (values) => {
+    if(values?.currentPassword === values.newPassword){
+      setNewPassError("The New password is semilar with old Password");
+    }else{
+      setNewPassError("")
+    }
+    if(values?.password !== values.newPassword){
+      setConPassError("New Password and Confirm Password Doesn't Matched");
+    }else{
+      setConPassError("")
+    }
+
+    const response = false;
+    if(response){
+      setCurPassError("Current Password is in-currect");
+    }else{
+      setCurPassError("")
+    }
+
+
+
     console.log("Received values of form: ", values);
   };
 
@@ -166,11 +189,12 @@ const Setting = () => {
             }}
             onFinish={handleChangePassword}
           >
-            <div>
-              <label style={{display: "block", marginBottom: "10px" }} className={style.label}>
+            <div style={{marginBottom: "16px"}}>
+              <label style={{display: "block", marginBottom: "5px" }} className={style.label}>
                 Current Password
               </label>
               <Form.Item
+                style={{marginBottom: 0}}
                 name="currentPassword"
                 rules={[
                   {
@@ -185,10 +209,11 @@ const Setting = () => {
                   style={style.input}
                 />
               </Form.Item>
+              { curPassError && <label style={{display: "block", color: "red"}} htmlFor="error">{curPassError}</label>}
             </div>
 
-            <div>
-              <label style={{display: "block", marginBottom: "10px"}} htmlFor="">New Password</label>
+            <div style={{marginBottom: "16px"}}>
+              <label style={{display: "block", marginBottom: "5px" }} htmlFor="">New Password</label>
               <Form.Item
                 name="newPassword"
                 rules={[
@@ -197,6 +222,7 @@ const Setting = () => {
                     message: "Please input your new Password!",
                   },
                 ]}
+                style={{marginBottom: 0}}
               >
                 <Input.Password
                   type="password"
@@ -204,12 +230,15 @@ const Setting = () => {
                   style={style.input}
                 />
               </Form.Item>
+              { newPassError && <label style={{display: "block", color: "red"}} htmlFor="error">{newPassError}</label>}
             </div>
-            <div>
-              <label htmlFor="email" className={style.label}>
+
+            <div style={{marginBottom: "16px"}}>
+              <label style={{display: "block", marginBottom: "5px" }} htmlFor="email" className={style.label}>
                 Re-Type Password
               </label>
               <Form.Item
+                style={{marginBottom: 0}}
                 name="password"
                 rules={[
                   {
@@ -224,7 +253,10 @@ const Setting = () => {
                   style={style.input}
                 />
               </Form.Item>
+              { conPassError && <label style={{display: "block", color: "red"}} htmlFor="error">{conPassError}</label>}
             </div>
+
+
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <p
                 
