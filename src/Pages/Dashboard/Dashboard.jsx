@@ -9,7 +9,7 @@ import { RxDashboard } from "react-icons/rx";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import Logo from "../../Images/LOGO-1.png";
+import Logo from "../../assets/logo.png";
 import Styles from "./Dashboard.module.css";
 import { FaRegBell } from "react-icons/fa6";
 import { AiOutlineUser } from "react-icons/ai";
@@ -205,14 +205,14 @@ const Dashboard = () => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: "30px",
-            marginBottom: "30px",
+            marginBottom: "20px",
           }}
         >
           <Link to="/">
             <img
               src={Logo}
-              height={collapsed ? "40px" : "150px"}
-              width={collapsed ? "40px" : "150px"}
+              // height={collapsed ? "40px" : "150px"}
+              width={collapsed ? "50px" : "170px "}
             />
           </Link>
         </div>
