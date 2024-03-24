@@ -30,7 +30,6 @@ const Category = () => {
     const [addCategoryImageUrl, setAddCategoryImageUrl] = useState();
     const [editCategoryImageUrl, setEditCategoryImageUrl] = useState();
     const [editSubCategoryImageUrl, setEditSubCategoryImageUrl] = useState(value?.image);
-    console.log(editSubCategoryImageUrl);
     
     const data = [
         {
@@ -297,10 +296,10 @@ const Category = () => {
 
                     }}
                 >
-                    Add Catagory
+                    Add Event
                 </Button>
             </div>
-            <h1>Category</h1>
+            <h1>Events</h1>
             
 
             <div style={{

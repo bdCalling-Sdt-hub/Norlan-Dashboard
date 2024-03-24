@@ -17,6 +17,7 @@ import { HiLogout } from "react-icons/hi";
 import { useLocation} from 'react-router-dom';
 import { BiCrown } from "react-icons/bi";
 import { MdOutlineCategory } from "react-icons/md";
+import { MdOutlineEvent } from "react-icons/md";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
@@ -288,6 +289,16 @@ const Dashboard = () => {
               <Link to="/sub-category">{t("category.subTitle2")}</Link>
             </Menu.Item>
           </SubMenu>
+
+          <Menu.Item
+            key="10"
+            icon={<MdOutlineEvent size={22}  />}
+          >
+            <Link to="/events" style={{ fontSize: "16px" }}>
+              {t("events")}
+            </Link>
+          </Menu.Item>
+
 
           <Menu.Item
             key="9"
