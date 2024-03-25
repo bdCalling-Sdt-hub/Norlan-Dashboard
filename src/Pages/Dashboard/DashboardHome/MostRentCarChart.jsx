@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import { Pie } from '@ant-design/plots';
 
 const MostRentCarChart = () => {
@@ -26,6 +25,7 @@ const MostRentCarChart = () => {
       value: 10,
     }
   ];
+
   const config = {
     appendPadding: 10,
     data,

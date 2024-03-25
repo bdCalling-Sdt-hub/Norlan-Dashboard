@@ -1,5 +1,4 @@
-import { Button, Col, DatePicker, Image, Input, Row, Upload } from "antd";
-import ImgCrop from "antd-img-crop";
+import { Button, Col, DatePicker, Input, Row,  } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
