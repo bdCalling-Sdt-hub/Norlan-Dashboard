@@ -27,7 +27,7 @@ function UserInfo() {
               style={{
                 height: "50px",
                 width: "300px",
-                backgroundColor: "#ffb7d5",
+                backgroundColor: "#6C57EC",
                 color: "#fff",
                 fontSize: "20px",
                 boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"

@@ -27,13 +27,13 @@
   .ant-table-thead
   > tr
   > td {
-  background: #ffb7d5;
+  background: #6C57EC;
   color: white;
   border: 0;
 }
 
 :where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a{
-  background-color: #ffb7d5 !important;
+  background-color: #6C57EC !important;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px !important;
 }
 
@@ -47,10 +47,10 @@
 }
 
 :where(.css-dev-only-do-not-override-17a39f8).ant-input-affix-wrapper:hover{
-  border-color:  #ffb7d5 !important;
+  border-color:  #6C57EC !important;
 }
 :where(.css-dev-only-do-not-override-17a39f8).ant-input:hover{
-  border-color:  #ffb7d5 !important;
+  border-color:  #6C57EC !important;
 }
 :where(.css-dev-only-do-not-override-17a39f8).ant-btn-default:hover{
   border-color: none !important;

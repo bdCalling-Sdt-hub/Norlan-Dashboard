@@ -35,38 +35,38 @@ const Category = () => {
         {
             name: "Aesthetics",
             image: cat1,
-            primary_color: "#ffb7d5",
-            secondary_color: "#ffb7d5",
+            primary_color: "#6C57EC",
+            secondary_color: "#6C57EC",
             subCategory:[
                 {
                     name: "Makeup",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Facial hair removal",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "body hair removal",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Manicures",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Pedicures",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Hairdressing",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
             ]
         },
@@ -74,23 +74,23 @@ const Category = () => {
         {
             name: "Cuisine and Pastry",
             image: cat2,
-            primary_color: "#ffb7d5",
-            secondary_color: "#ffb7d5",
+            primary_color: "#6C57EC",
+            secondary_color: "#6C57EC",
             subCategory:[
                 {
                     name: "Cake Design",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Services Category",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Cooking Classes ",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
             ]
         },
@@ -98,28 +98,28 @@ const Category = () => {
         {
             name: "Decorations & Themes",
             image: cat3,
-            primary_color: "#ffb7d5",
-            secondary_color: "#ffb7d5",
+            primary_color: "#6C57EC",
+            secondary_color: "#6C57EC",
             subCategory:[
                 {
                     name: "Event Decorating",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Disguise",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Amateur Painter",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Designer",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
             ]
         },
@@ -127,18 +127,18 @@ const Category = () => {
         {
             name: "Fashion",
             image: cat4,
-            primary_color: "#ffb7d5",
-            secondary_color: "#ffb7d5",
+            primary_color: "#6C57EC",
+            secondary_color: "#6C57EC",
             subCategory:[
                 {
                     name: "Outfits Rental",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Stylist",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
             ]
         },
@@ -146,23 +146,23 @@ const Category = () => {
         {
             name: "Entertainment",
             image: cat5,
-            primary_color: "#ffb7d5",
-            secondary_color: "#ffb7d5",
+            primary_color: "#6C57EC",
+            secondary_color: "#6C57EC",
             subCategory:[
                 {
                     name: "Musicians",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Photographers",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
                 {
                     name: "Entertainment Animation",
                     image: cat1,
-                    color: "#ffb7d5"
+                    color: "#6C57EC"
                 },
             ]
         }
@@ -289,17 +289,17 @@ const Category = () => {
                 <Button
                     onClick={()=>setOpen(true)}
                     style={{
-                        background: "#ffb7d5",
+                        background: "#6C57EC",
                         color: "white",
                         border: "none",
                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
 
                     }}
                 >
-                    Add Event
+                    Add Category
                 </Button>
             </div>
-            <h1>Events</h1>
+            <h1>Category</h1>
             
 
             <div style={{
@@ -316,7 +316,7 @@ const Category = () => {
                             <div 
                                 onClick={()=>setOpenCategory(category.name)} 
                                 style={{
-                                    border: "1px solid  #ffb7d5",
+                                    border: "1px solid  #6C57EC",
                                     borderRadius: "8px",
                                     padding: "10px",
                                     width: "230px",
@@ -372,7 +372,7 @@ const Category = () => {
                                     style={{
                                         width: "100%",
                                         height: "52px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         borderRadius: "8px",
                                         padding : "16px",
                                         color: "black",
@@ -418,7 +418,7 @@ const Category = () => {
                                         width: "100%",
                                         height: "190px",
                                         borderRadius: "8px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
@@ -442,7 +442,7 @@ const Category = () => {
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#ffb7d5",
+                                background: "#6C57EC",
                                 color: "white",
                                 marginTop : "44px",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
@@ -475,7 +475,7 @@ const Category = () => {
                                     style={{
                                         width: "100%",
                                         height: "52px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         borderRadius: "8px",
                                         padding : "16px",
                                         color: "black",
@@ -521,12 +521,12 @@ const Category = () => {
                                         width: "100%",
                                         height: "190px",
                                         borderRadius: "8px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
                                         justifyContent: "center",
-                                        color: "#ffb7d5",
+                                        color: "#6C57EC",
                                         cursor: "pointer",
                                         backgroundImage: `url(${editCategoryImageUrl ? editCategoryImageUrl : category?.image})`, // Replace 'your-image-url.jpg' with your actual image URL
                                         backgroundSize: "cover", // Adjust according to your image size preference
@@ -546,7 +546,7 @@ const Category = () => {
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#ffb7d5",
+                                background: "#6C57EC",
                                 color: "white",
                                 marginTop : "44px",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
@@ -579,7 +579,7 @@ const Category = () => {
                                 style={{
                                     width: "100%",
                                     height: "52px",
-                                    border: "1px solid #ffb7d5",
+                                    border: "1px solid #6C57EC",
                                     borderRadius: "8px",
                                     padding : "16px",
                                     color: "black",
@@ -614,12 +614,12 @@ const Category = () => {
                                         width: "100%",
                                         height: "190px",
                                         borderRadius: "8px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
                                         justifyContent: "center",
-                                        color: "#ffb7d5",
+                                        color: "#6C57EC",
                                         cursor: "pointer",
                                         backgroundImage: `url(${editSubCategoryImageUrl})`, // Replace 'your-image-url.jpg' with your actual image URL
                                         backgroundSize: "cover", // Adjust according to your image size preference
@@ -639,7 +639,7 @@ const Category = () => {
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#ffb7d5",
+                                background: "#6C57EC",
                                 color: "white",
                                 marginTop : "44px",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"

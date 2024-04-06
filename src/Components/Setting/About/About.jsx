@@ -29,7 +29,7 @@ const About = () => {
             onChange={newContent => { setContent(newContent) }}
           />
 
-          <Button onClick={aboutDataSave} block style={{ marginTop: "30px", backgroundColor: "#ffb7d5", border:"none", color: "#fff", height: "50px" }}>save</Button>
+          <Button onClick={aboutDataSave} block style={{ marginTop: "30px", backgroundColor: "#6C57EC", border:"none", color: "#fff", height: "50px" }}>save</Button>
 
         </Col>
          

@@ -33,7 +33,7 @@ const AddCategoryModal = ({open, setOpen}) => {
                                     style={{
                                         width: "100%",
                                         height: "52px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         borderRadius: "8px",
                                         padding : "16px",
                                         color: "black",
@@ -79,7 +79,7 @@ const AddCategoryModal = ({open, setOpen}) => {
                                         width: "100%",
                                         height: "190px",
                                         borderRadius: "8px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
@@ -103,7 +103,7 @@ const AddCategoryModal = ({open, setOpen}) => {
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#ffb7d5",
+                                background: "#6C57EC",
                                 color: "white",
                                 marginTop : "44px",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"

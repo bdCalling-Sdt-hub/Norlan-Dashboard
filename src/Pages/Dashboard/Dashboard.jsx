@@ -110,7 +110,7 @@ const Dashboard = () => {
           block
           style={{
             height: "50px",
-            backgroundColor: "#ffb7d5 ",
+            backgroundColor: "#6C57EC ",
             color: "white",
             fontSize: "18px",
             fontWeight: "bold",
@@ -205,7 +205,7 @@ const Dashboard = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginTop: "30px",
+            marginTop: "50px",
             marginBottom: "20px",
           }}
         >
@@ -213,7 +213,7 @@ const Dashboard = () => {
             <img
               src={Logo}
               // height={collapsed ? "40px" : "150px"}
-              width={collapsed ? "50px" : "170px "}
+              width={collapsed ? "50px" : "220px "}
             />
           </Link>
         </div>
@@ -383,7 +383,7 @@ const Dashboard = () => {
               >
 
                 <Badge count={5} >
-                  <FaRegBell color="#ffb7d5" size={30}/>
+                  <FaRegBell color="#6C57EC" size={30}/>
                 </Badge>
               </Dropdown>
             </div>

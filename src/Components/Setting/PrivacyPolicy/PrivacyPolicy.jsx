@@ -28,7 +28,7 @@ const PrivacyPolicy = () => {
             block 
             style={{
                marginTop: "30px", 
-               backgroundColor: "#ffb7d5", 
+               backgroundColor: "#6C57EC", 
                color: "#fff", 
                height: "50px",
                outline: "none",

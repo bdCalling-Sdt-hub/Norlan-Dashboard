@@ -174,7 +174,7 @@ const Setting = () => {
 
         {/* change password*/}
         <Modal
-          title={<p style={{ marginBottom: "30px", fontSize: "20px", color :"#ffb7d5" }}>Change password</p>}
+          title={<p style={{ marginBottom: "30px", fontSize: "20px", color :"#6C57EC" }}>Change password</p>}
           centered
           open={openChangePassModel}
           onCancel={() => setOpenChangePassModel(false)}
@@ -260,7 +260,7 @@ const Setting = () => {
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <p
                 
-                style={{ color: "#ffb7d5", cursor: "pointer" }}
+                style={{ color: "#6C57EC", cursor: "pointer" }}
                 onClick={() => (setForgotPassword(true), setOpenChangePassModel(false))}
               >
                 Forgot password
@@ -277,7 +277,7 @@ const Setting = () => {
                   height: "45px",
                   fontWeight: "400px",
                   fontSize: "18px",
-                  background: "#ffb7d5",
+                  background: "#6C57EC",
                   marginTop: "60px",
                 }}
               >
@@ -294,7 +294,7 @@ const Setting = () => {
             <Title
               level={2}
               style={{
-                color: "#ffb7d5",
+                color: "#6C57EC",
                 fontWeight: "normal",
                 marginBottom: "30px",
                 textShadow: "#bfbfbf 2px 2px 4px",
@@ -329,7 +329,7 @@ const Setting = () => {
                 height: "45px",
                 fontWeight: "400px",
                 fontSize: "18px",
-                background: "#ffb7d5",
+                background: "#6C57EC",
                 color: "#fff",
                 alignSelf: "bottom",
                 marginTop: "30px",
@@ -347,7 +347,7 @@ const Setting = () => {
             <Title
               level={2}
               style={{
-                color: "#ffb7d5",
+                color: "#6C57EC",
                 fontWeight: "normal",
                 marginBottom: "30px",
                 textShadow: "#bfbfbf 2px 2px 4px",
@@ -390,7 +390,7 @@ const Setting = () => {
 
               <a
                 className="login-form-forgot"
-                style={{ color: "#ffb7d5" }}
+                style={{ color: "#6C57EC" }}
                 href=""
               >
                 Resend
@@ -404,7 +404,7 @@ const Setting = () => {
                 height: "45px",
                 fontWeight: "400px",
                 fontSize: "18px",
-                background: "#ffb7d5",
+                background: "#6C57EC",
                 color: "#fff",
                 alignSelf: "bottom",
                 marginTop: "30px",
@@ -423,7 +423,7 @@ const Setting = () => {
             <Title
               level={2}
               style={{
-                color: "#ffb7d5",
+                color: "#6C57EC",
                 fontWeight: "normal",
                 marginBottom: "30px",
                 textShadow: "#bfbfbf 2px 2px 4px",
@@ -495,7 +495,7 @@ const Setting = () => {
                   height: "45px",
                   fontWeight: "400px",
                   fontSize: "18px",
-                  background: "#ffb7d5",
+                  background: "#6C57EC",
                   marginTop: "30px",
                   borderColor: "transparent"
                 }}

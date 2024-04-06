@@ -49,7 +49,7 @@ const SubCategory = () => {
                                         style={{
                                             width: "100%",
                                             height: "52px",
-                                            border: "1px solid #ffb7d5",
+                                            border: "1px solid #6C57EC",
                                             borderRadius: "8px",
                                             padding : "16px",
                                             color: "black",
@@ -76,7 +76,7 @@ const SubCategory = () => {
                                         style={{
                                             width: "100%",
                                             height: "52px",
-                                            border: "1px solid #ffb7d5",
+                                            border: "1px solid #6C57EC",
                                             borderRadius: "8px",
                                             padding : "16px",
                                             color: "black",
@@ -132,10 +132,10 @@ const SubCategory = () => {
                                         ) 
                                         :
                                         <div>
-                                            <CiCamera size={64} color="#ffb7d5" />
+                                            <CiCamera size={64} color="#6C57EC" />
                                             <div
                                                 style={{
-                                                color: "#ffb7d5"
+                                                color: "#6C57EC"
                                                 }}
                                             >
                                                 Choose Picture
@@ -153,7 +153,7 @@ const SubCategory = () => {
                                     height: "45px",
                                     fontWeight: "400px",
                                     fontSize: "18px",
-                                    background: "#ffb7d5",
+                                    background: "#6C57EC",
                                     color: "white",
                                     marginTop : "44px"
                                 }}

@@ -1,4 +1,4 @@
-import { Button, Modal } from 'antd';
+import { Button, Modal, ColorPicker } from 'antd';
 import React, { useState } from 'react'
 import { CiCamera } from 'react-icons/ci';
 import event1 from "../../assets/wedding.png";
@@ -80,7 +80,7 @@ const Events = () => {
                 <Button
                     onClick={()=>setOpen(true)}
                     style={{
-                        background: "#ffb7d5",
+                        background: "#6C57EC",
                         color: "white",
                         border: "none",
                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
@@ -104,7 +104,7 @@ const Events = () => {
                         <div key={index} >
                             <div
                                 style={{
-                                    border: "1px solid  #ffb7d5",
+                                    border: "1px solid  #6C57EC",
                                     borderRadius: "8px",
                                     padding: "10px",
                                     width: "230px",
@@ -117,7 +117,7 @@ const Events = () => {
                                 <h3 style={{padding: 0, marginTop: "5px", textAlign: "center"}}>{category?.name}</h3>
 
                                 <div  style={{position: "absolute", top: "5px", right: "10px"}}>
-                                    <AiOutlineEdit onClick={()=>setEdit(true)} style={{cursor: "pointer"}} color='#ffb7d5' size={24} />
+                                    <AiOutlineEdit onClick={()=>setEdit(true)} style={{cursor: "pointer"}} color='#6C57EC' size={24} />
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@ const Events = () => {
                                     style={{
                                         width: "100%",
                                         height: "52px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         borderRadius: "8px",
                                         padding : "16px",
                                         color: "black",
@@ -165,6 +165,16 @@ const Events = () => {
                         </div>
 
                         <div>
+                            <label style={{marginBottom : "12px"}}>Event Background Color</label>
+                            <div style={{
+                                marginTop: "10px",
+                                marginBottom: "10px"                            
+                            }}>
+                                <ColorPicker defaultValue="#1677ff" showText />
+                            </div>
+                        </div>
+
+                        <div>
                             <div style={{marginBottom : "12px"}}>
                                 <label >Event Picture</label>
                             </div>
@@ -177,7 +187,7 @@ const Events = () => {
                                         width: "100%",
                                         height: "190px",
                                         borderRadius: "8px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
@@ -201,7 +211,7 @@ const Events = () => {
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#ffb7d5",
+                                background: "#6C57EC",
                                 color: "white",
                                 marginTop : "44px",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
@@ -233,7 +243,7 @@ const Events = () => {
                                     style={{
                                         width: "100%",
                                         height: "52px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         borderRadius: "8px",
                                         padding : "16px",
                                         color: "black",
@@ -263,7 +273,7 @@ const Events = () => {
                                         width: "100%",
                                         height: "190px",
                                         borderRadius: "8px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
@@ -287,7 +297,7 @@ const Events = () => {
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#ffb7d5",
+                                background: "#6C57EC",
                                 color: "white",
                                 marginTop : "44px",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"

@@ -42,7 +42,7 @@ const MostRentCarChart = () => {
       },
     },
     interactions: [{ type: 'element-active' }],
-    color: ['#2c4b4d', '#93d8ff', '#84c2e6', '#ffb7d5', '#fbdd65'],
+    color: ['#2c4b4d', '#93d8ff', '#84c2e6', '#6C57EC', '#fbdd65'],
   };
   return <Pie {...config} style={{height:"300px"}}/>;
 };

@@ -49,7 +49,7 @@ const EditSubscription = () => {
                                     style={{
                                         width: "100%",
                                         height: "52px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         borderRadius: "8px",
                                         padding : "16px",
                                         color: "black",
@@ -71,7 +71,7 @@ const EditSubscription = () => {
                                     style={{
                                         width: "100%",
                                         height: "52px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         borderRadius: "8px",
                                         padding : "16px",
                                         color: "black",
@@ -93,7 +93,7 @@ const EditSubscription = () => {
                             style={{
                                 width: "100%",
                                 height: "52px",
-                                border: "1px solid #ffb7d5",
+                                border: "1px solid #6C57EC",
                                 borderRadius: "8px",
                                 padding : "16px",
                                 color: "black",
@@ -115,7 +115,7 @@ const EditSubscription = () => {
                             style={{
                                 width: "100%",
                                 height: "52px",
-                                border: "1px solid #ffb7d5",
+                                border: "1px solid #6C57EC",
                                 borderRadius: "8px",
                                 padding : "16px",
                                 color: "black",
@@ -138,7 +138,7 @@ const EditSubscription = () => {
                             style={{
                                 width: "100%",
                                 height: "52px",
-                                border: "1px solid #ffb7d5",
+                                border: "1px solid #6C57EC",
                                 borderRadius: "8px",
                                 padding : "16px",
                                 color: "black",
@@ -159,7 +159,7 @@ const EditSubscription = () => {
                             style={{
                                 width: "100%",
                                 height: "52px",
-                                border: "1px solid #ffb7d5",
+                                border: "1px solid #6C57EC",
                                 borderRadius: "8px",
                                 padding : "16px",
                                 color: "black",
@@ -180,7 +180,7 @@ const EditSubscription = () => {
                             style={{
                                 width: "100%",
                                 height: "52px",
-                                border: "1px solid #ffb7d5",
+                                border: "1px solid #6C57EC",
                                 borderRadius: "8px",
                                 padding : "16px",
                                 color: "black",
@@ -201,7 +201,7 @@ const EditSubscription = () => {
                             style={{
                                 width: "100%",
                                 height: "56px",
-                                backgroundColor: "#ffb7d5",
+                                backgroundColor: "#6C57EC",
                                 color: "white",
                                 border: "none",
                                 borderRadius: "8px"

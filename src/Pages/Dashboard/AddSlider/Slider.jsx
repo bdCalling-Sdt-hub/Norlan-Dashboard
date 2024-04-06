@@ -63,7 +63,7 @@ const AddSlider = () => {
                         <div onClick={()=>handleRemove(index)} style={{
                             width: "35px",
                             height: "35px",
-                            backgroundColor: "#ffb7d5",
+                            backgroundColor: "#6C57EC",
                             borderRadius: "100%",
                             padding: "5px",
                             position: "absolute",
@@ -105,10 +105,10 @@ const AddSlider = () => {
                             justifyContent: "center",
                             gap: "10px", 
                             cursor: "pointer", 
-                            color : "#ffb7d5", 
+                            color : "#6C57EC", 
                             fontSize: "20px", 
                             fontWeight: 600,
-                            border: "1px solid #ffb7d5", 
+                            border: "1px solid #6C57EC", 
                             borderRadius: "8px", 
                             padding: "10px"
                         }} 

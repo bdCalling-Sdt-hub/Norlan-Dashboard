@@ -140,7 +140,7 @@ export default function DailyRentChart() {
             <XAxis dataKey="time" />
             <YAxis />
             <Tooltip />
-            <Line type="linear" dataKey="amount" stroke="#ffb7d5" fill="#8884d8" />
+            <Line type="linear" dataKey="amount" stroke="#6C57EC" fill="#8884d8" />
           </LineChart>
         </ResponsiveContainer>
         

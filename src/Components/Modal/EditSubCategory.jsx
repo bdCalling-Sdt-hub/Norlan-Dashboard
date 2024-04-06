@@ -33,7 +33,7 @@ const EditSubCategory = ({value, setValue}) => {
                                 style={{
                                     width: "100%",
                                     height: "52px",
-                                    border: "1px solid #ffb7d5",
+                                    border: "1px solid #6C57EC",
                                     borderRadius: "8px",
                                     padding : "16px",
                                     color: "black",
@@ -68,12 +68,12 @@ const EditSubCategory = ({value, setValue}) => {
                                         width: "100%",
                                         height: "190px",
                                         borderRadius: "8px",
-                                        border: "1px solid #ffb7d5",
+                                        border: "1px solid #6C57EC",
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
                                         justifyContent: "center",
-                                        color: "#ffb7d5",
+                                        color: "#6C57EC",
                                         cursor: "pointer",
                                         backgroundImage: `url(${imageUrl ? imageUrl : value?.image})`, // Replace 'your-image-url.jpg' with your actual image URL
                                         backgroundSize: "cover", // Adjust according to your image size preference
@@ -93,7 +93,7 @@ const EditSubCategory = ({value, setValue}) => {
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#ffb7d5",
+                                background: "#6C57EC",
                                 color: "white",
                                 marginTop : "44px",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"

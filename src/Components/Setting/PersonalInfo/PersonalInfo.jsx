@@ -61,7 +61,7 @@ const PersonalInfo = () => {
               <Button
                 onClick={handleChange}
                 style={{
-                  background: "#ffb7d5",
+                  background: "#6C57EC",
                   color: "#fff",
                   display: "flex",
                   alignItems: "center",
@@ -149,7 +149,7 @@ const PersonalInfo = () => {
                 <div style={{ marginTop: "50px" }}>
                   <h2>{"Nadir"}</h2>
 
-                  <label htmlFor="img" style={{marginTop : "8px", cursor: "pointer", display: "block", color : "#ffb7d5", fontSize: "18px", fontWeight: "600"}}>Change Photo</label>
+                  <label htmlFor="img" style={{marginTop : "8px", cursor: "pointer", display: "block", color : "#6C57EC", fontSize: "18px", fontWeight: "600"}}>Change Photo</label>
                   <input style={{display: "none"}} onChange={onChange}  type="file" name="" id="img" />
                 </div>
               </div>
@@ -196,7 +196,7 @@ const PersonalInfo = () => {
           <Button
             style={{
               height: "45px",
-              background: "#ffb7d5",
+              background: "#6C57EC",
               color: "#fff",
               marginTop: "20px",
               border: "none"

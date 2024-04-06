@@ -22,7 +22,7 @@ const Earning = () => {
       <Col className="gutter-row" span={8}>
         <div className={style.card}
           style={{
-            background: pathname === "/earning/today-income" ? "#eeb5ec" : "#ffb7d5"
+            background: pathname === "/earning/today-income" ? "#eeb5ec" : "#6C57EC"
           }}
         >
           <div>
@@ -36,7 +36,7 @@ const Earning = () => {
       <Col className="gutter-row" span={8}>
         <div className={style.card} 
           style={{
-            background: pathname === "/earning/weekly-income" ? "#eeb5ec" : "#ffb7d5"
+            background: pathname === "/earning/weekly-income" ? "#eeb5ec" : "#6C57EC"
           }}
         >
           <div>
@@ -52,7 +52,7 @@ const Earning = () => {
       >
         <div className={style.card}
           style={{
-            background: pathname === "/earning/monthly-income" ? "#eeb5ec" : "#ffb7d5"
+            background: pathname === "/earning/monthly-income" ? "#eeb5ec" : "#6C57EC"
           }}
         >
           <div>
