@@ -47,9 +47,9 @@ body{
   left: 0 !important;
   z-index: 1 !important;
 }
-:where(.css-dev-only-do-not-override-17a39f8).ant-badge .ant-badge-count {
+.ant-badge .ant-badge-count {
   background: #6C57EC !important;
-  color: black !important;
+  color: white !important;
 }
 
 /* siderbar menu itam */

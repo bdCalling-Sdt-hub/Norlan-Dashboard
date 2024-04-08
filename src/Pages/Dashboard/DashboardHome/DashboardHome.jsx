@@ -15,6 +15,8 @@ function DashboardHome() {
   return (
     <div>
     <h1 style={{fontSize:"30px",marginBottom:"20px"}}>Dashboard overview</h1>
+
+    
     <Row gutter={16} style={{marginBottom:"20px"}}>
       <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
          <div  className='income-card'>

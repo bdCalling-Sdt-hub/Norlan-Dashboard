@@ -1,48 +1,28 @@
-import { Button, Modal, ColorPicker } from 'antd';
+import { Button, Modal } from 'antd';
 import React, { useState } from 'react'
 import { CiCamera } from 'react-icons/ci';
-import event1 from "../../assets/wedding.png";
-import event2 from "../../assets/birthday.png";
-import event3 from "../../assets/baby s.png";
-import event4 from "../../assets/annual.png";
-import event5 from "../../assets/corporate.png";
+import event1 from "../../Images/wedding.png";
 import { AiOutlineEdit } from "react-icons/ai";
+import ColorPicker from 'react-best-gradient-color-picker'
 
 
-const data = [
-    {
-        name: "Wedding",
-        image: event1,
-    },
-
-    {
-        name: "Birthday",
-        image: event2
-    },
-
-    {
-        name: "Baby Shower",
-        image: event3
-    },
-
-    {
-        name: "Annual Function",
-        image: event4
-    },
-
-    {
-        name: "Corporeal Event",
-        image: event5
-    }
-]
 const Events = () => {
+    const [color, setColor] = useState('linear-gradient(90deg, rgba(20,14,107,1) 0%, rgba(9,9,121,1) 35%, RGBA(14, 57, 107, 1) 68%, rgba(0,212,255,1) 100%)');
     const [open, setOpen] = useState(false);
+    const [openColorModal, setOpenColorModal] = useState(false);
     const [edit, setEdit] = useState(false);
-    const [addEventImageUrl, setAddEventImageUrl] = useState();
     const [editCategoryImageUrl, setEditEventImageUrl] = useState();
-    const [name, setName] = useState("");
     const [editName, setEditName] = useState("");
-    const [event, setEvent] = useState([])
+    const [value, setValue] = useState({});
+    const [name, setName] = useState(value?.name);
+    const [addEventImageUrl, setAddEventImageUrl] = useState(value?.image);
+    const [event, setEvent] = useState([
+        {
+            name: "Wedding",
+            image: event1,
+            color: color,
+        }
+    ]);
 
     const handleAddEventChange = (e) => {
         const file= e.target.files[0];
@@ -61,7 +41,8 @@ const Events = () => {
     const handleSubmit=()=>{
         const data = {
             name: name,
-            image: addEventImageUrl
+            image: addEventImageUrl,
+            color: color
         }
         setEvent((prev)=> [...prev, data]);
         setOpen(false)
@@ -104,20 +85,32 @@ const Events = () => {
                         <div key={index} >
                             <div
                                 style={{
-                                    border: "1px solid  #6C57EC",
                                     borderRadius: "8px",
                                     padding: "10px",
                                     width: "230px",
-                                    backgroundColor: "white",
+                                    background: `${category?.color}`,
                                     cursor: "pointer",
                                     position: "relative"
                                 }}
                             >
-                                <img style={{marginLeft: "auto", marginRight: "auto", display: "block",}} width={100} height={100} src={category?.image} alt="" />
-                                <h3 style={{padding: 0, marginTop: "5px", textAlign: "center"}}>{category?.name}</h3>
+                                <img style={{marginLeft: "auto", marginRight: "auto", display: "block",}} width={150} height={150} src={category?.image} alt="" />
+                                <h3 
+                                    style={{
+                                        padding: 0, 
+                                        textAlign: "center",
+                                        color: "white" 
+                                    }}
+                                >
+                                    {category?.name}
+                                </h3>
 
                                 <div  style={{position: "absolute", top: "5px", right: "10px"}}>
-                                    <AiOutlineEdit onClick={()=>setEdit(true)} style={{cursor: "pointer"}} color='#6C57EC' size={24} />
+                                    <AiOutlineEdit 
+                                        onClick={()=>( setValue(category), setEdit(true) )} 
+                                        style={{cursor: "pointer"}} 
+                                        color="white"
+                                        size={24} 
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -126,16 +119,16 @@ const Events = () => {
                 }
             </div>
 
-
+            {/* Add Event Modal */}
             <Modal
                 centered
+                title="Add Event"
                 open={open}
                 onCancel={() => setOpen(false)}
                 width={500}
                 footer={false}
             >
                 <div>
-                    <h1 style={{marginBottom: "12px"}}>Add Event</h1>
                     <div >
                         <div>
                             <label style={{marginBottom : "12px"}}>Event Name</label>
@@ -166,11 +159,18 @@ const Events = () => {
 
                         <div>
                             <label style={{marginBottom : "12px"}}>Event Background Color</label>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "10px"                            
-                            }}>
-                                <ColorPicker defaultValue="#1677ff" showText />
+                            <div 
+                                onClick={()=>setOpenColorModal(true)}
+                                style={{
+                                    marginTop: "10px",
+                                    marginBottom: "10px",
+                                    background: `${color}`,
+                                    border: "1px solid grey",
+                                    width: "30px",                        
+                                    height: "30px",                        
+                                }}
+                            >
+                                
                             </div>
                         </div>
 
@@ -222,16 +222,17 @@ const Events = () => {
                     </div>
                 </div>
             </Modal>
-
+            
+            {/* Edit Event Modal */}
             <Modal
                 centered
+                title="Edit Event"
                 open={edit}
                 onCancel={() => (setName(""), setEditEventImageUrl(), setEdit(false))}
                 width={500}
                 footer={false}
             >
                 <div>
-                    <h1 style={{marginBottom: "12px"}}>Edit Event</h1>
                     <div >
                         <div>
                             <label style={{marginBottom : "12px"}}>Event Name</label>
@@ -254,9 +255,20 @@ const Events = () => {
                                     type="text" 
                                     placeholder="Enter Event name"
                                     name="event_name"
-                                    value={name}
+                                    value={value?.name}
                                     onChange={(e)=>setName(e.target.value)}
                                 />
+                            </div>
+                        </div>
+                        
+
+                        <div>
+                            <label style={{marginBottom : "12px"}}>Event Background Color</label>
+                            <div style={{
+                                marginTop: "10px",
+                                marginBottom: "10px"                            
+                            }}>
+                                <ColorPicker defaultValue="#1677ff" showText />
                             </div>
                         </div>
 
@@ -306,6 +318,20 @@ const Events = () => {
                             Save
                         </Button>
                     </div>
+                </div>
+            </Modal>
+            
+            {/* Choose Background Linear Gradient Color */}
+            <Modal
+                centered
+                title="Choose Background Color"
+                open={openColorModal}
+                onCancel={() => setOpenColorModal(false)}
+                width={350}
+                footer={false}
+            >
+                <div style={{marginTop: "20px"}}>
+                    <ColorPicker style={{width: "100%"}} value={color} onChange={setColor} />
                 </div>
             </Modal>
         </div>
