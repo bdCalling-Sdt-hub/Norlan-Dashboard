@@ -5,7 +5,6 @@ import baseURL from '../../../../baseURL';
 import Swal from 'sweetalert2';
 
 const PrivacyPolicy = () => {
-
   const [data, setData] = useState()
   const editor = useRef(null)
   const [content, setContent] = useState('');
