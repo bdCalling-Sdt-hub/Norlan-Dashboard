@@ -1,27 +1,21 @@
-import { Button, Col, DatePicker, Input, Row,  } from "antd";
+import { Button, Col, DatePicker, Form, Input, Row,  } from "antd";
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
+import baseURL from "../../../../baseURL";
+import ImgBaseURL from "../../../../ImgBaseURL";
+import Swal from "sweetalert2";
 const dateFormat = "YYYY-MM-DD";
 
 const PersonalInfo = () => {
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
   const [profileEdit, setProfileEdit] = useState(false);
-  // const [image, setImage] = useState(profile?.image ? `${url}/${profile?.image}` : person);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(userInfo?.image?.startsWith("https") ? userInfo?.image : `${ImgBaseURL}${userInfo?.image}`);
   const [imgURL, setImgURL] = useState(image);
 
   const handleChange = () => {
     setProfileEdit(true);
   };
-
-  const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
 
   const onChange = (e) => {
     const file= e.target.files[0];
@@ -30,7 +24,46 @@ const PersonalInfo = () => {
     setImage(file)
   };
   
+  const src = userInfo?.image?.startsWith("https") ? userInfo?.image : `${ImgBaseURL}${userInfo?.image}`
 
+  const initialFromValues= {
+    fullName : userInfo.fullName,
+    email: userInfo?.email,
+    location: userInfo.location ? userInfo.location:  "No Location Found",
+    mobileNumber: userInfo.mobileNumber ? userInfo.mobileNumber: "No Mobile Found"
+  }
+
+  const handleSubmit=async(values)=>{
+    console.log(values)
+    const formData = new FormData();
+    formData.append("fullName",  values.fullName)
+    formData.append("email",  values.email)
+    formData.append("mobileNumber",   values.mobileNumber)
+    formData.append("location",   values.location)
+    formData.append("image",   image)
+
+    await baseURL.post("/auth/update-profile", formData, {
+      headers: {
+        "Content-Type" : "multipart/form-data",
+        authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+      }
+    }).then((response)=>{
+      if(response.status === 200){
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            width: 550,
+            title: response.data.message,
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            window.location.reload();
+          });
+      }
+    }).then((error)=>{
+      console.log(error)
+    })
+  }
   return (
     <>
       {!profileEdit ? (
@@ -50,11 +83,11 @@ const PersonalInfo = () => {
                 width={142}
                 height={142}
                 style={{ borderRadius: "8px" }}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                src={src}
               />
               <div>
-                <h2>Fahim</h2>
-                <p>@fahim</p>
+                <h2>{userInfo?.fullName}</h2>
+                <p>{userInfo?.email}</p>
               </div>
             </div>
             <div>
@@ -79,7 +112,7 @@ const PersonalInfo = () => {
               <label htmlFor="">Name</label>
               <Input
                 style={{ height: "45px" }}
-                defaultValue={"Fahim"}
+                defaultValue={userInfo?.fullName}
                 readOnly
               />
             </Col>
@@ -89,7 +122,7 @@ const PersonalInfo = () => {
               <label htmlFor="">Email</label>
               <Input
                 style={{ height: "45px" }}
-                defaultValue={"siffahim25@gmail.com"}
+                defaultValue={userInfo?.email}
                 readOnly
               />
             </Col>
@@ -97,28 +130,17 @@ const PersonalInfo = () => {
               <label htmlFor="">Phone Number</label>
               <Input
                 style={{ height: "45px" }}
-                defaultValue={"01646524028"}
+                defaultValue={userInfo?.mobileNumber ? userInfo?.mobileNumber : "No Phone Number Found"}
                 readOnly
-              />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            
-            <Col span={24}>
-              <label htmlFor="">Date of Birth</label>
-              <DatePicker
-                style={{ height: "45px", width: "100%" }}
-                defaultValue={dayjs("2023-08-27", dateFormat)}
-                disabled
               />
             </Col>
           </Row>
           <Row style={{ marginBottom: "15px" }}>
             <Col span={24}>
-              <label htmlFor="">Address</label>
+              <label htmlFor="">Location</label>
               <Input
                 style={{ height: "45px" }}
-                defaultValue={"Mogbazer,Dhaka"}
+                defaultValue={userInfo?.location ? userInfo?.location : "No Location Found" }
                 readOnly
               />
             </Col>
@@ -140,71 +162,74 @@ const PersonalInfo = () => {
               <div style={{ display: "flex", gap: "20px" }}>
                 <img 
                   className="mx-auto rounded-full" 
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" 
+                  src={imgURL}
                   width={142} 
                   height={142} 
                   alt="" 
                   style={{borderRadius: "8px"}}
                 />
                 <div style={{ marginTop: "50px" }}>
-                  <h2>{"Nadir"}</h2>
-
-                  <label htmlFor="img" style={{marginTop : "8px", cursor: "pointer", display: "block", color : "#6C57EC", fontSize: "18px", fontWeight: "600"}}>Change Photo</label>
+                  <h2>{userInfo?.fullName}</h2>
+                  <label htmlFor="img" style={{marginTop : 0, cursor: "pointer", display: "block", color : "#6C57EC", fontSize: "18px", fontWeight: "600"}}>Change Photo</label>
                   <input style={{display: "none"}} onChange={onChange}  type="file" name="" id="img" />
                 </div>
               </div>
             </div>
           </div>
 
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Name</label>
-              <Input style={{ height: "45px" }} defaultValue={"Fahim"} />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={12}>
-              <label htmlFor="">Email</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"siffahim25@gmail.com"}
-              />
-            </Col>
-            <Col span={12}>
-              <label htmlFor="">Phone Number</label>
-              <Input style={{ height: "45px" }} defaultValue={"01646524028"} />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Date of Birth</label>
-              <DatePicker
-                style={{ height: "45px", width: "100%" }}
-                defaultValue={dayjs("2023-08-27", dateFormat)}
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Address</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={"Mogbazer,Dhaka"}
-              />
-            </Col>
-          </Row>
-          <Button
-            style={{
-              height: "45px",
-              background: "#6C57EC",
-              color: "#fff",
-              marginTop: "20px",
-              border: "none"
-            }}
-            block
+          <Form
+            onFinish={handleSubmit}
+            initialValues={initialFromValues}
           >
-            Save
-          </Button>
+              <div>
+                <label htmlFor="">Name</label>
+                <Form.Item name="fullName">
+                  <Input style={{ height: "45px" }}/>
+                </Form.Item>
+              </div>
+              
+              <div>
+                <label htmlFor="">Email</label>
+                <Form.Item name="email">
+                  <Input style={{ height: "45px" }}/>
+                </Form.Item>
+              </div>
+              <div style={{display: "flex", alignItems: "center", gap: 16}}>
+
+              
+                <div style={{width: "100%"}}>
+                  <label htmlFor="">Mobile Number</label>
+                  <Form.Item name="mobileNumber">
+                    <Input style={{ height: "45px" }}/>
+                  </Form.Item>
+                </div>
+                <div style={{width: "100%"}}>
+                  <label htmlFor="">Location</label>
+                  <Form.Item name="location">
+                    <Input style={{ height: "45px" }}/>
+                  </Form.Item>
+                </div>
+              </div>
+
+              <Form.Item>
+                <Button
+                  htmlType="submit"
+                  style={{
+                    height: "45px",
+                    background: "#6C57EC",
+                    color: "#fff",
+                    marginTop: "20px",
+                    border: "none"
+                  }}
+                  block
+                  >
+                  Save
+                </Button>
+              </Form.Item>
+
+
+          </Form>
+          
         </>
       )}
     </>

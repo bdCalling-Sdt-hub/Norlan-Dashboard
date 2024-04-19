@@ -126,8 +126,9 @@ const Dashboard = () => {
     </Menu>
   );
   const handleLogOut=()=>{
-    navigate('/');
-    window.location.reload();
+    navigate('/login');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 
   const profileItems = [
@@ -193,9 +194,9 @@ const Dashboard = () => {
           authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
         }
       }).then((response)=>{
-        console.log(response.data.user.image)
         if(response.data.statusCode === 200){
           setImage(response.data.user.image)
+          localStorage.setItem("user-info", JSON.stringify(response.data.user));
         }
       })
     }
