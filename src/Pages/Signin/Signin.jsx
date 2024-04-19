@@ -2,12 +2,39 @@ import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router";
-import logo from "../../Images/Logo.png";
 import style from "./Signin.module.css";
+import baseURL from "../../../baseURL";
+import Swal from "sweetalert2";
 
 const Signin = () => {
-  const onFinish = (values) => {
+  const onFinish = async(values) => {
     console.log("Received values of form: ", values);
+    await baseURL.post(`/auth/login`, values)
+    .then((response) => {
+      if (response.data.statusCode === 200) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('token', response.data.token);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+            navigate("/");
+            window.location.reload();
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   };
 
   const navigate = useNavigate();
@@ -17,10 +44,7 @@ const Signin = () => {
   };
 
   return (
-    <div className={style.signContainer}>
-      <div>
-        <img src={logo} alt="" />
-      </div>
+    <div style={{width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <div className={style.formContainer}>
         <h2
           style={{
@@ -28,9 +52,10 @@ const Signin = () => {
             fontWeight: "normal",
             marginBottom: "30px",
             textShadow: "#bfbfbf 2px 2px 4px",
+            textAlign: "center"
           }}
         >
-          Sign In
+          Log In
         </h2>
         <Form
           name="normal_login"
@@ -76,8 +101,7 @@ const Signin = () => {
                 },
               ]}
             >
-              <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
+              <Input.Password
                 type="password"
                 placeholder="Enter your password"
                 className={style.input}
@@ -110,7 +134,7 @@ const Signin = () => {
                 fontWeight: "400px",
                 fontSize: "18px",
                 background: "#000B90",
-                marginTop: "60px",
+                marginTop: "40px",
               }}
             >
               Sign In

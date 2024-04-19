@@ -10,7 +10,7 @@ import Otp from "./Pages/Otp/Otp";
 import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import NotFound from "./404";
-import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import PrivateRoute from "./Pages/ProtectedRoute";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import AddSlider from "./Pages/Dashboard/AddSlider/Slider";

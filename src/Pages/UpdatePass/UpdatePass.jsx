@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
 import logo from "../../Images/Logo.png";
 import style from "./UpdatePass.module.css";
+import baseURL from "../../../baseURL";
 
 const UpdatePass = () => {
   const [err, setErr] = useState("");
