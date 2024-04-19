@@ -8,7 +8,7 @@ const ProtectedRoute = ({children}) => {
     if (user?.id && user?.role === "ADMIN") {
         return children;
     }
-    return <Navigate to="/signin" state={{ from: location }} />;
+    return <Navigate to="/login" state={{ from: location }} />;
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;

@@ -2,18 +2,17 @@ import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router";
-import style from "./Signin.module.css";
+import style from "./Login.module.css";
 import baseURL from "../../../baseURL";
 import Swal from "sweetalert2";
 
-const Signin = () => {
+const Login = () => {
   const onFinish = async(values) => {
-    console.log("Received values of form: ", values);
     await baseURL.post(`/auth/login`, values)
     .then((response) => {
       if (response.data.statusCode === 200) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', JSON.stringify(response.data.token));
         Swal.fire({
           position: "center",
           icon: "success",
@@ -146,4 +145,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Login;

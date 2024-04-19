@@ -7,7 +7,7 @@ import Notification from "./Pages/Dashboard/Notification/Notification";
 import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
-import Signin from "./Pages/Signin/Signin";
+import Login from "./Pages/Login/Login";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import NotFound from "./404";
 import PrivateRoute from "./Pages/ProtectedRoute";
@@ -43,7 +43,7 @@ function App() {
               <Route path="/events" element={<Events />} />
             </Route>
 
-            <Route path="/signin" element={<Signin />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/email" element={<Email />} />
             <Route path="/forget-password" element={<Otp />} />
             <Route path="/update-password" element={<UpdatePass />} />

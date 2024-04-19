@@ -18,6 +18,8 @@ import { useLocation} from 'react-router-dom';
 import { BiCrown } from "react-icons/bi";
 import { MdOutlineCategory } from "react-icons/md";
 import { MdOutlineEvent } from "react-icons/md";
+import baseURL from "../../../baseURL"
+import ImgBaseURL from "../../../ImgBaseURL";
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
@@ -58,7 +60,7 @@ const items = [...Array(5).keys()].map((item, index) => {
 });
 
 const Dashboard = () => {
-  
+  const [image, setImage] = useState();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
@@ -73,6 +75,8 @@ const Dashboard = () => {
     i18n.changeLanguage(selectedLanguage);
     localStorage.setItem("lang", value);
   };
+
+  
 
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
@@ -180,6 +184,25 @@ const Dashboard = () => {
       ),
     },
   ];
+
+  useEffect(()=>{
+    async function getAPI(){
+      await baseURL.get("/auth/get-profile",{
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        }
+      }).then((response)=>{
+        console.log(response.data.user.image)
+        if(response.data.statusCode === 200){
+          setImage(response.data.user.image)
+        }
+      })
+    }
+    getAPI();
+  }, []);
+
+  const src = image?.startsWith("https") ? image : `${ImgBaseURL}/${image}`
 
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
@@ -397,11 +420,12 @@ const Dashboard = () => {
                   pointAtCenter: true,
                 }}
               >
+                
                 <img
                   style={{ cursor: "pointer" }}
                   width="40"
                   height="40"
-                  src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
+                  src={src}
                   alt="person-male--v2"
                 />
               </Dropdown>
