@@ -144,7 +144,6 @@ const Setting = () => {
     })
     .then((response) => {
       setCurPassError("")
-      console.log(response)
       if (response.status === 200) {
         Swal.fire({
           position: "center",
