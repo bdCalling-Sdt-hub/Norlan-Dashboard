@@ -2,7 +2,8 @@ import { Button, Form, Input, Modal, Switch, Typography } from "antd";
 import React, { useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
-
+import baseURL from "../../../../baseURL";
+import Swal from "sweetalert2";
 const { Paragraph, Title, Text } = Typography;
 
 const Setting = () => {
@@ -123,37 +124,43 @@ const Setting = () => {
     }
   };
 
-  const handleNotification = (e) => {
-    console.log(e);
-  };
 
   const setPercentage = () => {
     alert("tushar");
     setOpenModal(false);
   };
 
-  const handleChangePassword = (values) => {
-    if(values?.currentPassword === values.newPassword){
-      setNewPassError("The New password is semilar with old Password");
-    }else{
-      setNewPassError("")
-    }
-    if(values?.password !== values.newPassword){
-      setConPassError("New Password and Confirm Password Doesn't Matched");
-    }else{
-      setConPassError("")
-    }
+  const handleChangePassword = async(values) => {
+    console.log(values)
+    if(values?.currentPass === values.newPass){ return setNewPassError("New password cannot be the same as old password")}else{  setNewPassError("")}
+    if(values?.confirmPass !== values.newPass){ return setConPassError("New Password and Confirm Password Doesn't Matched")}else{ setConPassError("")}
+    
 
-    const response = false;
-    if(response){
-      setCurPassError("Current Password is in-currect");
-    }else{
+    await baseURL.post(`/auth/change-password`, values, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+      }
+    })
+    .then((response) => {
       setCurPassError("")
-    }
+      console.log(response)
+      if (response.status === 200) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then((
+          setOpenChangePassModel(false)
+        ));
+      }
+    }).catch((error)=>{
+      if(error){setCurPassError(error.response.data.message)}
+    })
 
-
-
-    console.log("Received values of form: ", values);
   };
 
   return (
@@ -195,7 +202,7 @@ const Setting = () => {
               </label>
               <Form.Item
                 style={{marginBottom: 0}}
-                name="currentPassword"
+                name="currentPass"
                 rules={[
                   {
                     required: true,
@@ -215,7 +222,7 @@ const Setting = () => {
             <div style={{marginBottom: "16px"}}>
               <label style={{display: "block", marginBottom: "5px" }} htmlFor="">New Password</label>
               <Form.Item
-                name="newPassword"
+                name="newPass"
                 rules={[
                   {
                     required: true,
@@ -239,7 +246,7 @@ const Setting = () => {
               </label>
               <Form.Item
                 style={{marginBottom: 0}}
-                name="password"
+                name="confirmPass"
                 rules={[
                   {
                     required: true,
