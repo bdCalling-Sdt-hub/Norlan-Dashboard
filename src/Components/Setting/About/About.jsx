@@ -60,7 +60,10 @@ const About = () => {
       })
     }
     getApi();
-  }, [refreash !== ""])
+  }, [refreash !== ""]);
+
+
+  
   return (
     <div >
       <JoditEditor
@@ -68,7 +71,6 @@ const About = () => {
         value={content}
           onChange={newContent => { setContent(newContent) }}
       />
-
       <Button onClick={aboutDataSave} block style={{ marginTop: "30px", backgroundColor: "#6C57EC", border:"none", color: "#fff", height: "50px" }}>save</Button>
     </div>
   );
