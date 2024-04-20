@@ -28,7 +28,7 @@ const CreateEventModal = ({open, setOpen, setRefresh}) => {
         await baseURL.post("/event/create-event", formData, {
             headers: {
                 "Content-Type" : "multipart/form-data",
-              authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+                authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
             }
         }).then((response)=>{
             if(response.status === 200){
@@ -42,6 +42,8 @@ const CreateEventModal = ({open, setOpen, setRefresh}) => {
                 }).then(() => {
                     setOpen(false)
                     setRefresh("done")
+                    setImgURL()
+                    setName("")
                 });
             }
         })
@@ -52,7 +54,7 @@ const CreateEventModal = ({open, setOpen, setRefresh}) => {
                     centered
                     title="Add Event"
                     open={open}
-                    onCancel={() => setOpen(false)}
+                    onCancel={() => ( setImgURL(), setName(""), setOpen(false))}
                     width={500}
                     footer={false}
                 >

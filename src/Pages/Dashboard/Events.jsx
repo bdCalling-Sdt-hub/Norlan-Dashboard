@@ -7,77 +7,66 @@ import ColorPicker from 'react-best-gradient-color-picker'
 import baseURL from '../../../baseURL';
 import ImgBaseURL from '../../../ImgBaseURL';
 import CreateEventModal from '../../Components/Modal/CreateEventModal';
+import Swal from 'sweetalert2';
 
 
 const Events = () => {
     const [data, setData] = useState([])
-    const [color, setColor] = useState('linear-gradient(90deg, rgba(20,14,107,1) 0%, rgba(9,9,121,1) 35%, RGBA(14, 57, 107, 1) 68%, rgba(0,212,255,1) 100%)');
     const [open, setOpen] = useState(false);
-    const [openColorModal, setOpenColorModal] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const [edit, setEdit] = useState(false);
-    const [editCategoryImageUrl, setEditEventImageUrl] = useState();
-    const [editName, setEditName] = useState("");
     const [value, setValue] = useState({});
-    const [name, setName] = useState(value?.name);
-    const [addEventImageUrl, setAddEventImageUrl] = useState(value?.image);
+    const [name, setName] = useState();
+    const [gradient, setGradient] = useState();
     const [refresh, setRefresh] = useState('')
+    const [image, setImage] = useState();
+    const [imgURL, setImgURL] = useState();
+    
+    useEffect(()=>{
+        setName(value.name)
+    }, [value])
 
-  if(refresh){
-    setTimeout(()=>{
-      setRefresh("")
-    },[1500])
-  }
-    const [event, setEvent] = useState([
-        {
-            name: "Wedding",
-            image: event1,
-            color: color,
-        }
-    ]);
-
-    const handleAddEventChange = (e) => {
+    if(refresh){
+        setTimeout(()=>{
+        setRefresh("")
+        },[1500])
+    }
+    
+    const handleChange = (e) => {
         const file= e.target.files[0];
         const imgUrl = URL.createObjectURL(file);
-        setAddEventImageUrl(imgUrl);
-        setImg(file)
-    };
-
-    const handleEditEventChange = (e) => {
-        const file= e.target.files[0];
-        const imgUrl = URL.createObjectURL(file);
-        setEditEventImageUrl(imgUrl);
-        setImg(file)
+        setImgURL(imgUrl);
+        setImage(file)
     };
 
     const handleSubmit=async()=>{
         const formData = new FormData();
-        formData.append("name", name)
-        formData.append("image", )
-        formData.append("colors",)
+        formData.append("name", name ? name : value.name)
+        formData.append("image", image !== undefined  ? image : value.image )
+        formData.append("colors", gradient ? gradient : value.colors)
 
-        await baseURL.get("/event/create-event", {
+        await baseURL.patch(`/event/update-event/${value?._id}`, formData, {
             headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+                "Content-Type" : "multipart/form-data",
+                authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
             }
-          }).then((response)=>{
-            console.log(response);
-          })
-        const data = {
-            name: name,
-            image: addEventImageUrl,
-            colors: color
-        }
-        setEvent((prev)=> [...prev, data]);
-        setOpen(false)
-        setName("")
-        setAddEventImageUrl()
-    }
-
-    const handleEditSubmit=()=>{
-        setEdit(false);
-        setEditName("");
-        setEditEventImageUrl();
+        }).then((response)=>{
+            if(response.status === 200){
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  width: 550,
+                  title: response.data.message,
+                  showConfirmButton: false,
+                  timer: 1500
+                }).then(() => {
+                    setEdit(false)
+                    setRefresh("done")
+                    setName("")
+                    setValue({})
+                });
+            }
+        })
     }
 
     useEffect(()=>{
@@ -147,7 +136,7 @@ const Events = () => {
 
                                 <div  style={{position: "absolute", top: "5px", right: "10px"}}>
                                     <AiOutlineEdit 
-                                        onClick={()=>( setValue(event), setEdit(true) )} 
+                                        onClick={()=>( setValue(event), localStorage.setItem("event", JSON.stringify(event)), setEdit(true) )} 
                                         style={{cursor: "pointer"}} 
                                         color="white"
                                         size={24} 
@@ -168,7 +157,7 @@ const Events = () => {
                 centered
                 title="Edit Event"
                 open={edit}
-                onCancel={() => (setName(""), setEditEventImageUrl(), setEdit(false))}
+                onCancel={() => (setValue({}), setEdit(false))}
                 width={500}
                 footer={false}
             >
@@ -195,7 +184,7 @@ const Events = () => {
                                     type="text" 
                                     placeholder="Enter Event name"
                                     name="event_name"
-                                    value={value?.name}
+                                    value={name}
                                     onChange={(e)=>setName(e.target.value)}
                                 />
                             </div>
@@ -204,12 +193,19 @@ const Events = () => {
 
                         <div>
                             <label style={{marginBottom : "12px"}}>Event Background Color</label>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "10px"                            
-                            }}>
-                                <ColorPicker defaultValue="#1677ff" showText />
-                            </div>
+                            <div 
+                                    onClick={()=>setOpenModal(true)}
+                                    style={{
+                                        marginTop: "10px",
+                                        marginBottom: "10px",
+                                        background: `${gradient ? gradient : value?.colors}`,
+                                        border: "1px solid grey",
+                                        width: "30px",                        
+                                        height: "30px",                        
+                                    }}
+                                >
+                                    
+                             </div>
                         </div>
 
                         <div>
@@ -218,7 +214,7 @@ const Events = () => {
                             </div>
                             
                             <div >
-                                <input style={{display: "none"}} onChange={handleEditEventChange}  type="file" name="" id="img" />
+                                <input style={{display: "none"}} onChange={handleChange}  type="file" name="" id="img" />
                                 <label 
                                     htmlFor="img" 
                                     style={{
@@ -232,8 +228,8 @@ const Events = () => {
                                         justifyContent: "center",
                                         color: "black",
                                         cursor: "pointer",
-                                        backgroundImage: `url(${addEventImageUrl ? addEventImageUrl : "https://img.freepik.com/free-photo/paper-textured-background_53876-30486.jpg?size=626&ext=jpg&ga=GA1.1.1395880969.1709596800&semt=ais"})`, // Replace 'your-image-url.jpg' with your actual image URL
-                                        backgroundSize: "cover", // Adjust according to your image size preference
+                                        backgroundImage: `url(${imgURL ? imgURL : `${ImgBaseURL}${value?.image}`})`,
+                                        backgroundSize: "cover",
                                         backgroundPosition: "center"
                                     }}>
                                         <CiCamera size={40} /> 
@@ -242,7 +238,7 @@ const Events = () => {
                             </div>
                         </div>
                         <Button
-                            onClick={handleEditSubmit}
+                            onClick={handleSubmit}
                             block
                             style={{
                                 width : "100%",
@@ -265,13 +261,13 @@ const Events = () => {
             <Modal
                 centered
                 title="Choose Background Color"
-                open={openColorModal}
-                onCancel={() => setOpenColorModal(false)}
+                open={openModal}
+                onCancel={() => setOpenModal(false)}
                 width={350}
                 footer={false}
             >
                 <div style={{marginTop: "20px"}}>
-                    <ColorPicker style={{width: "100%"}} value={color} onChange={setColor} />
+                    <ColorPicker style={{width: "100%"}} value={gradient} onChange={setGradient} />
                 </div>
             </Modal>
         </div>
