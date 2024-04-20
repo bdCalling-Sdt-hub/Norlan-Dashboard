@@ -3,17 +3,22 @@ import { Form, Button, Input } from "antd"
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { useNavigate} from "react-router-dom"
 const EditSubscription = () => {
+
     const navigate = useNavigate();
+    const subscription = JSON.parse(localStorage.getItem("subscription"));
+
     const initialFormValues = {
-        package_name: "Basic",
-        package_duration: 6,
-        package_features: ["add", "done", "pro"],
-        price: 200,
-        gigs: 15
+        package_name: subscription?.package_name,
+        package_duration: subscription?.package_duration,
+        package_features: subscription?.package_features,
+        price:  subscription?.package_price,
+        gig_count: subscription?.gig_count
     };
+
     const handleUpdate=(values)=>{
         console.log(values)
     }
+
     return (
         <div>
             <div>
@@ -107,7 +112,7 @@ const EditSubscription = () => {
 
                     <label htmlFor="" style={{display: "block", marginBottom: "10px"}}>How Many GiG photo Do you need ?</label>
                     <Form.Item 
-                        name="gigs"
+                        name="gig_count"
                         style={{marginBottom: "24px"}}
                     >  
                         <Input
@@ -145,54 +150,8 @@ const EditSubscription = () => {
                                 outline: "none",
                                 backgroundColor: "#E9EAEC",
                             }}
-                            readOnly
                         />
                     </Form.Item>
-
-                    <Form.Item
-                        name="package_features"
-                        style={{marginBottom: "24px"}}
-                    >    
-                        <Input
-                            size="large"
-                            placeholder='Add, like, This with comma'
-                            style={{
-                                width: "100%",
-                                height: "52px",
-                                border: "1px solid #6C57EC",
-                                borderRadius: "8px",
-                                padding : "16px",
-                                color: "black",
-                                outline: "none",
-                                backgroundColor: "#E9EAEC",
-                            }}
-                            readOnly
-                        />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="package_features"
-                        style={{marginBottom: "24px"}}
-                    >    
-                        <Input
-                            size="large"
-                            placeholder='Add, like, This with comma'
-                            style={{
-                                width: "100%",
-                                height: "52px",
-                                border: "1px solid #6C57EC",
-                                borderRadius: "8px",
-                                padding : "16px",
-                                color: "black",
-                                outline: "none",
-                                backgroundColor: "#E9EAEC",
-                            }}
-                            readOnly
-                        />
-                    </Form.Item>
-
-
-
 
                     <Form.Item>
                         <Button 

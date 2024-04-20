@@ -47,8 +47,6 @@ const AddSlider = () => {
     }
 
     const handleRemove = async(id)=>{
-        console.log(id);
-
         await baseURL.delete(`/banner/delete-banner/${id}`, {
             headers: {
                 "Content-Type": "application/json",
