@@ -48,6 +48,7 @@ const CreateEventModal = ({open, setOpen, setRefresh}) => {
             }
         })
     }
+    
     return (
         <>
             <Modal

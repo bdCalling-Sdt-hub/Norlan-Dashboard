@@ -1,5 +1,5 @@
 import { Button, Modal, Upload, ColorPicker,Table } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiCamera } from "react-icons/ci";
 import { SketchPicker } from 'react-color';
 import cat1 from "../../../Images/cata1.png";
@@ -13,10 +13,12 @@ import { MdArrowBackIos } from "react-icons/md";
 import EditCategoryModal from '../../../Components/Modal/EditCategoryModal';
 import AddCategoryModal from '../../../Components/Modal/AddCategoryModal';
 import EditSubCategory from '../../../Components/Modal/EditSubCategory';
+import baseURL from '../../../../baseURL';
+import ImgBaseURL from '../../../../ImgBaseURL';
 
 const Category = () => {
     const [open, setOpen] = useState(false);
-    const [primary, setPrimary] = useState('');
+    const [data, setData] = useState([]);
     const [secondary, setSecondary] = useState("");
     const [img, setImg] = useState();
     const [categoryOpen, setOpenCategory] = useState();
@@ -30,143 +32,12 @@ const Category = () => {
     const [addCategoryImageUrl, setAddCategoryImageUrl] = useState();
     const [editCategoryImageUrl, setEditCategoryImageUrl] = useState();
     const [editSubCategoryImageUrl, setEditSubCategoryImageUrl] = useState(value?.image);
-    
-    const data = [
-        {
-            name: "Aesthetics",
-            image: cat1,
-            primary_color: "#6C57EC",
-            secondary_color: "#6C57EC",
-            subCategory:[
-                {
-                    name: "Makeup",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Facial hair removal",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "body hair removal",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Manicures",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Pedicures",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Hairdressing",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-            ]
-        },
-
-        {
-            name: "Cuisine and Pastry",
-            image: cat2,
-            primary_color: "#6C57EC",
-            secondary_color: "#6C57EC",
-            subCategory:[
-                {
-                    name: "Cake Design",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Services Category",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Cooking Classes ",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-            ]
-        },
-
-        {
-            name: "Decorations & Themes",
-            image: cat3,
-            primary_color: "#6C57EC",
-            secondary_color: "#6C57EC",
-            subCategory:[
-                {
-                    name: "Event Decorating",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Disguise",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Amateur Painter",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Designer",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-            ]
-        },
-
-        {
-            name: "Fashion",
-            image: cat4,
-            primary_color: "#6C57EC",
-            secondary_color: "#6C57EC",
-            subCategory:[
-                {
-                    name: "Outfits Rental",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Stylist",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-            ]
-        },
-
-        {
-            name: "Entertainment",
-            image: cat5,
-            primary_color: "#6C57EC",
-            secondary_color: "#6C57EC",
-            subCategory:[
-                {
-                    name: "Musicians",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Photographers",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-                {
-                    name: "Entertainment Animation",
-                    image: cat1,
-                    color: "#6C57EC"
-                },
-            ]
-        }
-    ]
+    const [refresh, setRefresh] = useState('')
+    if(refresh){
+        setTimeout(()=>{
+        setRefresh("")
+        },[1500])
+    }
     
     
     const handleValue=()=>{
@@ -280,6 +151,22 @@ const Category = () => {
         setImg(file)
     };
 
+
+    useEffect(()=>{
+        async function getApi(){
+          await baseURL.get("/category/get-category", {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+            }
+          }).then((response)=>{
+            if(response.status === 200){
+              setData(response.data.data)
+            }
+          })
+        }
+        getApi();
+    }, [refresh !== ""]);
     
 
 
@@ -316,143 +203,37 @@ const Category = () => {
                             <div 
                                 onClick={()=>setOpenCategory(category.name)} 
                                 style={{
-                                    border: "1px solid  #6C57EC",
                                     borderRadius: "8px",
                                     padding: "10px",
                                     width: "230px",
-                                    backgroundColor: "white",
+                                    background: `${category?.primary_color}`,
                                     cursor: "pointer"
                                 }}
                             >
-                                <img style={{marginLeft: "auto", marginRight: "auto", display: "block",}} width={100} height={100} src={category?.image} alt="" />
-                                <h3 style={{padding: 0, margin: 0, textAlign: "center"}}>{category?.name}</h3>
+                                <div
+                                    style={{
+                                        borderRadius: "100%",
+                                        margin: "0 auto",
+                                        padding: "10px",
+                                        width: "150px",
+                                        width: "150px",
+                                        background: `${category?.secondary_color}`,
+                                        cursor: "pointer"
+                                    }}
+                                >
+                                    <img style={{marginLeft: "auto", marginRight: "auto", display: "block",}} width={100} height={100} src={`${ImgBaseURL}${category?.image}`} alt="" />
+                                </div>
+                                <h3 style={{padding: 0, color: "white", marginTop: 6, textAlign: "center"}}>{category?.name}</h3>
                             </div>
                         </div>
 
                     )
                 }
             </div>
-            
-
-            <div style={{marginTop: "30px"}}>
-                {
-                    !filterData
-                    ?
-
-                    <Table columns={columns} dataSource={data} pagination={false} />
-                    :
-                    <>
-                        <h3 style={{display: "flex", width: "fit-content", alignItems:"center", gap:"15px", cursor: "pointer", marginBottom: "10px"}} onClick={()=>setOpenCategory("")}><MdArrowBackIos />  Back to Category Details</h3>
-                        <Table columns={filterColumns} dataSource={filterData?.subCategory} pagination={false} />
-                    </>
-                }
-                
-            </div>
 
 
 
-            
-            <Modal
-                centered
-                open={open}
-                onCancel={() => setOpen(false)}
-                width={500}
-                footer={false}
-            >
-                <div>
-                    <h1 style={{marginBottom: "12px"}}>Add Category</h1>
-                    <div >
-                        <div>
-                            <label style={{marginBottom : "12px"}}>Category name</label>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "10px"                            
-                            }}>
-                                <input 
-                                    style={{
-                                        width: "100%",
-                                        height: "52px",
-                                        border: "1px solid #6C57EC",
-                                        borderRadius: "8px",
-                                        padding : "16px",
-                                        color: "black",
-                                        outline: "none",
-                                        backgroundColor: "#E9EAEC",
-
-                                    }}
-                                    type="text" 
-                                    placeholder="Enter Category name"
-                                    name="category_name"
-                                    // onChange={(e)=>setName(e.target.value)}
-                                />
-                            </div>
-
-
-                            <label style={{marginBottom : "12px"}}>Primary Color</label>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "10px"                            
-                            }}>
-                                <ColorPicker defaultValue="#1677ff" size="large" showText />
-                            </div>
-
-                            <label style={{marginBottom : "12px"}}>Seceondary Color</label>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "10px"                            
-                            }}>
-                                <ColorPicker defaultValue="#1677ff" size="large" showText />
-                            </div>
-                        </div>
-
-                        <div>
-                            <div style={{marginBottom : "12px"}}>
-                                <label >Category Picture</label>
-                            </div>
-                            
-                            <div >
-                                <input style={{display: "none"}} onChange={handleAddCategoryChange}  type="file" name="" id="img" />
-                                <label 
-                                    htmlFor="img" 
-                                    style={{
-                                        width: "100%",
-                                        height: "190px",
-                                        borderRadius: "8px",
-                                        border: "1px solid #6C57EC",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        color: "black",
-                                        cursor: "pointer",
-                                        backgroundImage: `url(${addCategoryImageUrl ? addCategoryImageUrl : "https://img.freepik.com/free-photo/paper-textured-background_53876-30486.jpg?size=626&ext=jpg&ga=GA1.1.1395880969.1709596800&semt=ais"})`, // Replace 'your-image-url.jpg' with your actual image URL
-                                        backgroundSize: "cover", // Adjust according to your image size preference
-                                        backgroundPosition: "center"
-                                    }}>
-                                        <CiCamera size={40} /> 
-                                        <h3>Upload Photo</h3>
-                                </label>
-                            </div>
-                        </div>
-                        <Button
-                            onClick={()=> setOpen(false)}
-                            block
-                            style={{
-                                width : "100%",
-                                height: "45px",
-                                fontWeight: "400px",
-                                fontSize: "18px",
-                                background: "#6C57EC",
-                                color: "white",
-                                marginTop : "44px",
-                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
-                            }}
-                        >
-                            Save
-                        </Button>
-                    </div>
-                </div>
-            </Modal>
+            <AddCategoryModal open={open} setOpen={setOpen} setRefresh={setRefresh} />
             
              {/* edit category modal */}
             <Modal
