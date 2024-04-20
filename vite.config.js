@@ -8,7 +8,7 @@ export default defineConfig({
     commonJsOptions: { transformMixedEsModules: true }
   },
   server: {
-    host: "192.168.10.102",
+    host: "192.168.10.13",
     port: "3001",
   },
 });
