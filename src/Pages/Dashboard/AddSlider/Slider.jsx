@@ -1,127 +1,163 @@
-import React, { useState } from 'react'
-import { Modal, Upload } from 'antd';
-import Slider from "react-slick";
-import Slider1 from "../../../Images/SLIDER 1.JPG"
-import Slider2 from "../../../Images/SLIDER 2.JPG"
-import Slider3 from "../../../Images/SLIDER 3.JPG"
+import React, { useEffect, useState } from 'react'
+import { Spin } from 'antd';
 import { FaPlus } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa6";
+import baseURL from '../../../../baseURL';
+import ImgBaseURL from '../../../../ImgBaseURL';
+import Swal from 'sweetalert2';
 
 const AddSlider = () => {
-    const [image, setImage] = useState([]);
-    const [dummay, setDummy] = useState([Slider1, Slider2, Slider3]);
-    const [imgURL, setImgURL] = useState([...dummay]);
+    const [data, setData] = useState([]);
+    const [refresh, setRefresh] = useState('');
+    const [loader, setLoader] = useState(false)
+
+    if(refresh){
+        setTimeout(()=>{
+            setRefresh("")
+        },[1500])
+    }
 
 
-    const handleChange = (e) => {
+    const handleChange = async(e) => {
+        setLoader(true);
         const file = e.target.files[0];
-        const imgUrl = URL?.createObjectURL(file);
-        setImgURL((prev) => [...prev, imgUrl]);
-        setImage((prev) => [...prev, file]);
+
+        setTimeout(async()=>{
+            setLoader(false)
+            await baseURL.post(`/banner/create-banner`, { image : file },  {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+                }
+            }).then((response)=>{
+                if(response.status === 200){
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        width: 550,
+                        title: response.data.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        setRefresh("Done")
+                    });
+                }
+            })
+        }, 1000);
     }
-    const handleRemove=(id)=>{
+
+    const handleRemove = async(id)=>{
         console.log(id);
-        const data = imgURL?.filter((item, index)=> index !== id);
-        setImgURL(data);
+
+        await baseURL.delete(`/banner/delete-banner/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+            }
+        }).then((response)=>{
+            if(response.status === 200){
+                setRefresh("Done")
+            }
+        })
     }
 
-    const uploadButton = (
-        <button
-        style={{
-            border: 0,
-            background: 'none',
-        }}
-        type="button"
-        >
-        {/* <PlusOutlined /> */} +
-        <div
-            style={{
-            marginTop: 8,
-            }}
-        >
-            Upload
-        </div>
-        </button>
-    );
-
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        
-    };
+    useEffect(()=>{
+        async function getApi(){
+            await baseURL.get("/banner/get-banner", {
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+                }
+            }).then((response)=>{
+                if(response.status === 200){
+                setData(response.data.data)
+                }
+            })
+        }
+        getApi();
+    }, [refresh !== ""]);
 
     return (
-        <div>
-            <div  style={{ marginBottom: "50px", display: "flex", alignItems: "center", gap: "50px"}}>
-                {
-                    (imgURL)?.map((url, index)=>
-                    <div style={{width: "100%", height:"300px", position: "relative"}}>
-                        <img style={{width: "100%", height:"300px", borderRadius: "12px"}} src={ url } alt="" />
-                        <div onClick={()=>handleRemove(index)} style={{
-                            width: "35px",
-                            height: "35px",
-                            backgroundColor: "#6C57EC",
-                            borderRadius: "100%",
-                            padding: "5px",
-                            position: "absolute",
-                            top: "10px",
-                            right: "10px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            cursor: "pointer"
-                        }}>
-                            <FaTrash color='white' />
-                        </div>
-                    </div>
-                    
-                    )
-                }
-                
-                
-                {/* <div style={{width: "100%", height:"300px"}}>
-                    <img style={{width: "100%", height:"300px", borderRadius: "12px"}} src={imgURL[1] ? imgURL[1] : Slider2} alt="" />
-                </div>
-                <div style={{width: "100%", height:"300px"}}>
-                    <img style={{width: "100%", height:"300px", borderRadius: "12px"}} src={imgURL[2] ? imgURL[2] : Slider3} alt="" />
-                </div> */}
-            </div>
 
+        <>
             {
-                imgURL?.length > 2
+                loader
                 ?
-                null
+                <div style={{width: "100%", height: "60vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    <Spin
+                        size='large' 
+                    />
+                </div>
                 :
                 <div>
-                    <label 
-                        style={{
-                            width: "120px", 
-                            height: "80px", 
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: "10px", 
-                            cursor: "pointer", 
-                            color : "#6C57EC", 
-                            fontSize: "20px", 
-                            fontWeight: 600,
-                            border: "1px solid #6C57EC", 
-                            borderRadius: "8px", 
-                            padding: "10px"
-                        }} 
-                        htmlFor="input"
-                    >
-                        <FaPlus size={35}/>
-                        Upload
-                    </label>
-                    <input type="file" name="input" id="input" onChange={handleChange} style={{display: "none"}} />
+                    <div  style={{ marginBottom: "50px", display: "flex", alignItems: "center", gap: "50px"}}>
+                        {
+                            data?.map((url, index)=>
+                            <div key={index} style={{width: "100%", height:"300px", position: "relative"}}>
+                                <img style={{width: "100%", height:"300px", borderRadius: "12px"}} src={ `${ImgBaseURL}${url?.banner}` } alt="" />
+                                <div onClick={()=>handleRemove(url._id)} style={{
+                                    width: "35px",
+                                    height: "35px",
+                                    backgroundColor: "#6C57EC",
+                                    borderRadius: "100%",
+                                    padding: "5px",
+                                    position: "absolute",
+                                    top: "10px",
+                                    right: "10px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    cursor: "pointer"
+                                }}>
+                                    <FaTrash color='white' />
+                                </div>
+                            </div>
+                            
+                            )
+                        }
+                        
+                        
+                        {/* <div style={{width: "100%", height:"300px"}}>
+                            <img style={{width: "100%", height:"300px", borderRadius: "12px"}} src={imgURL[1] ? imgURL[1] : Slider2} alt="" />
+                        </div>
+                        <div style={{width: "100%", height:"300px"}}>
+                            <img style={{width: "100%", height:"300px", borderRadius: "12px"}} src={imgURL[2] ? imgURL[2] : Slider3} alt="" />
+                        </div> */}
+                    </div>
+
+                    {
+                        data?.length > 2
+                        ?
+                        null
+                        :
+                        <div>
+                            <label 
+                                style={{
+                                    width: "150px", 
+                                    height: "50px", 
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    gap: "10px", 
+                                    cursor: "pointer", 
+                                    color : "#6C57EC", 
+                                    fontSize: "20px", 
+                                    fontWeight: 600,
+                                    border: "1px solid #6C57EC", 
+                                    borderRadius: "8px", 
+                                    padding: "10px"
+                                }} 
+                                htmlFor="input"
+                            >
+                                <FaPlus size={24}/>
+                                Upload
+                            </label>
+                            <input type="file" name="input" id="input" onChange={handleChange} style={{display: "none"}} />
+                        </div>
+                    }
                 </div>
             }
-
-        </div>
+        </>
     )
 }
 

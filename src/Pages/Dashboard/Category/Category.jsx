@@ -11,7 +11,6 @@ const Category = () => {
     const [open, setOpen] = useState(false);
     const [data, setData] = useState([]);
     const [editModal, setEditModal] = useState(false);
-    
     const [refresh, setRefresh] = useState('');
     const [name, setName] = useState();
     const [image, setImage] = useState();
@@ -19,7 +18,6 @@ const Category = () => {
     const [primaryColor, setPrimaryColor] = useState("");
     const [secondaryColor, setSecondaryColor] = useState("");
     const [value, setValue] = useState({});
-    console.log(primaryColor, secondaryColor)
 
 
     if(refresh){
