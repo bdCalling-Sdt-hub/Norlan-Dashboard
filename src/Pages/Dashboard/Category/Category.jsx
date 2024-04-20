@@ -1,155 +1,79 @@
-import { Button, Modal, Upload, ColorPicker,Table } from 'antd'
+import { Button, Modal, ColorPicker } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CiCamera } from "react-icons/ci";
-import { SketchPicker } from 'react-color';
-import cat1 from "../../../Images/cata1.png";
-import cat2 from "../../../Images/cata2.png";
-import cat3 from "../../../Images/cata3.png";
-import cat4 from "../../../Images/cata4.png";
-import cat5 from "../../../Images/cata5.png";
-import { FaRegEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { MdArrowBackIos } from "react-icons/md";
-import EditCategoryModal from '../../../Components/Modal/EditCategoryModal';
 import AddCategoryModal from '../../../Components/Modal/AddCategoryModal';
-import EditSubCategory from '../../../Components/Modal/EditSubCategory';
 import baseURL from '../../../../baseURL';
 import ImgBaseURL from '../../../../ImgBaseURL';
+import Swal from 'sweetalert2';
+import { AiOutlineEdit } from "react-icons/ai";
 
 const Category = () => {
     const [open, setOpen] = useState(false);
     const [data, setData] = useState([]);
-    const [secondary, setSecondary] = useState("");
-    const [img, setImg] = useState();
-    const [categoryOpen, setOpenCategory] = useState();
-    const [editCategory, setEditCategory] = useState();
-    const [deleteCategory, setDeleteCategory] = useState(false);
-    const [value, setValue] = useState();
-    const [deleteValue, setDeleteValue] = useState("");
-    const [imageUrl, setImageUrl] = useState();
+    const [editModal, setEditModal] = useState(false);
     
-    const category = JSON?.parse(localStorage.getItem('category'));
-    const [addCategoryImageUrl, setAddCategoryImageUrl] = useState();
-    const [editCategoryImageUrl, setEditCategoryImageUrl] = useState();
-    const [editSubCategoryImageUrl, setEditSubCategoryImageUrl] = useState(value?.image);
-    const [refresh, setRefresh] = useState('')
+    const [refresh, setRefresh] = useState('');
+    const [name, setName] = useState();
+    const [image, setImage] = useState();
+    const [imgURL, setImgURL] = useState();
+    const [primaryColor, setPrimaryColor] = useState("");
+    const [secondaryColor, setSecondaryColor] = useState("");
+    const [value, setValue] = useState({});
+    console.log(primaryColor, secondaryColor)
+
+
     if(refresh){
         setTimeout(()=>{
         setRefresh("")
         },[1500])
     }
     
-    
-    const handleValue=()=>{
-        localStorage.removeItem('category')
-        setEditCategory('')
-        setEditCategoryImageUrl('')
+    useEffect(()=>{
+        setName(value?.name)
+        setImgURL(`${ImgBaseURL}${value?.image}`)
+        setPrimaryColor(value?.primary_color)
+        setSecondaryColor(value?.secondary_color)
+    }, [value]);
+
+    const handleChange = (e) => {
+        const file= e.target.files[0];
+        const imgUrl = URL.createObjectURL(file);
+        setImgURL(imgUrl);
+        setImage(file)
+    };
+
+    const handleSubmit=async()=>{
+        const formData = new FormData();
+        formData.append("name", name ? name : value.name);
+        formData.append("image", image !== undefined  ? image : value.image );
+        formData.append("primary_color", primaryColor?.startsWith("#") ? value?.primary_color : primaryColor?.toHexString())
+        formData.append("secondary_color", secondaryColor?.startsWith("#") ? value?.secondary_color : secondaryColor?.toHexString() );
+
+        await baseURL.patch(`/category/update-category/${value?._id}`, formData, {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+            }
+        }).then((response)=>{
+            if(response.status === 200){
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  width: 550,
+                  title: response.data.message,
+                  showConfirmButton: false,
+                  timer: 1500
+                }).then(() => {
+                    setEditModal(false)
+                    setRefresh("done")
+                    setName("")
+                    setValue({})
+                });
+            }
+        })
     }
 
-
-    const columns = [
-        {
-            title: 'Category',
-            dataIndex: 'name',
-            key: "name"
-          
-        },
-        {
-            title: 'Sub Category',
-            dataIndex: 'name',
-            key: "name",
-            render: ( _, record ) => (
-                <p>{record?.subCategory[0].name}</p>
-            )
-        },
-        {
-            title: 'Primary Color',
-            dataIndex: 'primary_color',
-            key: "primary"
-        },
-        {
-            title: 'Secondary Color',
-            dataIndex: 'secondary_color',
-            key: "secondary"
-        },
-        {
-            title: 'ACTIONS',
-            dataIndex: 'actions',
-            key:"actions",
-            render: ( _, record ) => (
-                <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "20px"                    
-                }}>
-                    <FaRegEdit style={{cursor: "pointer"}} onClick={()=>(localStorage.setItem('category', JSON.stringify(record)), setEditCategory(record))} size={22} />
-                    <MdDelete style={{cursor: "pointer"}} onClick={()=>setDeleteCategory(record)} size={22} />
-                </div>
-            )
-        }
-    ];
-
     
-
-    const filterData = data.find((item)=> item.name === categoryOpen);
-    
-    const filterColumns = [
-        {
-            title: 'Sub Category',
-            dataIndex: 'name',
-            key: "name"
-          
-        },
-        {
-            title: 'Image',
-            dataIndex: 'image',
-            key: "image",
-            render: ( _, record ) => (
-                <img width={50} height={50} src={record?.image} alt="" />
-            )
-        },
-        {
-            title: 'Color',
-            dataIndex: 'color',
-            key: "color"
-        },
-        {
-            title: 'ACTIONS',
-            dataIndex: 'actions',
-            key:"actions",
-            render: ( _, record ) => (
-                <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "20px"                    
-                }}>
-                    <FaRegEdit style={{cursor: "pointer"}} onClick={(e)=>setValue(record)} size={22} />
-                    <MdDelete style={{cursor: "pointer"}} onClick={(e)=>setDeleteValue(record)} size={22} />
-                </div>
-            )
-        }
-    ];
-
-    const handleAddCategoryChange = (e) => {
-        const file= e.target.files[0];
-        const imgUrl = URL.createObjectURL(file);
-        setAddCategoryImageUrl(imgUrl);
-        setImg(file)
-    };
-    const handleEditCategoryChange = (e) => {
-        const file= e.target.files[0];
-        const imgUrl = URL.createObjectURL(file);
-        setEditCategoryImageUrl(imgUrl);
-        setImg(file)
-    };
-
-    const handleEditSubCategoryChange = (e) => {
-        console.log(e)
-        const file= e.target.files[0];
-        const imgUrl = URL.createObjectURL(file);
-        setEditSubCategoryImageUrl(imgUrl);
-        setImg(file)
-    };
 
 
     useEffect(()=>{
@@ -199,9 +123,8 @@ const Category = () => {
             }}>
                 {
                     data?.map((category, index)=>
-                        <div key={index} >
+                        <div key={index} style={{position: "relative"}}>
                             <div 
-                                onClick={()=>setOpenCategory(category.name)} 
                                 style={{
                                     borderRadius: "8px",
                                     padding: "10px",
@@ -210,6 +133,17 @@ const Category = () => {
                                     cursor: "pointer"
                                 }}
                             >
+                                <AiOutlineEdit
+                                    onClick={()=>(setValue(category), setEditModal(true))} 
+                                    style={{
+                                        position: "absolute",
+                                        top: 10,
+                                        right: 10,
+                                        color: "black",
+                                        cursor: "pointer"
+                                    }}
+                                    size={24}
+                                />
                                 <div
                                     style={{
                                         borderRadius: "100%",
@@ -238,204 +172,110 @@ const Category = () => {
              {/* edit category modal */}
             <Modal
                 centered
-                open={editCategory}
-                onCancel={handleValue}
+                title="Edit Category"
+                open={editModal}
+                onCancel={()=>setEditModal(false)}
                 width={500}
                 footer={false}
             >
                 <div>
-                    <h1 style={{marginBottom: "12px"}}>Edit Category</h1>
-                    <form >
-                        <div>
-                            <label style={{marginBottom : "12px"}}>Category name</label>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "10px"                            
-                            }}>
-                                <input 
-                                    style={{
-                                        width: "100%",
-                                        height: "52px",
-                                        border: "1px solid #6C57EC",
-                                        borderRadius: "8px",
-                                        padding : "16px",
-                                        color: "black",
-                                        outline: "none",
-                                        backgroundColor: "#E9EAEC",
 
-                                    }}
-                                    value={editCategory?.name}
-                                    type="text" 
-                                    placeholder="Enter Category name"
-                                    name="category_name"
-                                    // onChange={(e)=>setName(e.target.value)}
-                                />
-                            </div>
-
-
-                            <label style={{marginBottom : "12px"}}>Primary Color</label>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "10px"                            
-                            }}>
-                                <ColorPicker defaultValue="#1677ff" size="large" showText />
-                            </div>
-
-                            <label style={{marginBottom : "12px"}}>Seceondary Color</label>
-                            <div style={{
-                                marginTop: "10px",
-                                marginBottom: "10px"                            
-                            }}>
-                                <ColorPicker defaultValue="#1677ff" size="large" showText />
-                            </div>
-                        </div>
-
-                        <div>
-                            <div style={{marginBottom : "12px"}}>
-                                <label >Category Picture</label>
-                            </div>
-                            <div>
-                                <input style={{display: "none"}} onChange={handleEditCategoryChange}  type="file" name="" id="img" />
-                                <label 
-                                    htmlFor="img" 
-                                    style={{
-                                        width: "100%",
-                                        height: "190px",
-                                        borderRadius: "8px",
-                                        border: "1px solid #6C57EC",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        color: "#6C57EC",
-                                        cursor: "pointer",
-                                        backgroundImage: `url(${editCategoryImageUrl ? editCategoryImageUrl : category?.image})`, // Replace 'your-image-url.jpg' with your actual image URL
-                                        backgroundSize: "cover", // Adjust according to your image size preference
-                                        backgroundPosition: "center"
-                                    }}>
-                                        <CiCamera size={40} /> 
-                                        <h3>Upload Photo</h3>
-                                </label>
-                            </div>
-                        </div>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            block
+                    <label style={{marginBottom : "12px"}}>Category name</label>
+                    <div style={{
+                        marginTop: "10px",
+                        marginBottom: "10px"                            
+                    }}>
+                        <input 
                             style={{
-                                width : "100%",
-                                height: "45px",
-                                fontWeight: "400px",
-                                fontSize: "18px",
-                                background: "#6C57EC",
-                                color: "white",
-                                marginTop : "44px",
-                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
+                                width: "100%",
+                                height: "52px",
+                                border: "1px solid #6C57EC",
+                                borderRadius: "8px",
+                                padding : "16px",
+                                color: "black",
+                                outline: "none",
+                                backgroundColor: "#E9EAEC"
                             }}
-                        >
-                            UPDATE
-                        </Button>
-                    </form>
-                </div>
-            </Modal>
+                            value={name}
+                            type="text" 
+                            placeholder="Enter Category name"
+                            name="category_name"
+                            onChange={(e)=>setName(e.target.value)}
+                        />
+                    </div>
 
-            {/* edit sub category  */}
-            <Modal
-                centered
-                open={value}
-                onCancel={() => setValue('')}
-                width={500}
-                footer={false}
-            >
-            <div>
-                <h1 style={{marginBottom: "12px"}}>Edit Sub Category</h1>
-                <div>
+
+                    <label style={{marginBottom : "12px"}}>Primary Color</label>
+                    <div style={{
+                        marginTop: "10px",
+                        marginBottom: "10px"                            
+                    }}>
+                        <ColorPicker onChange={setPrimaryColor} value={primaryColor} size="large" showText />
+                    </div>
+
+                    <label style={{marginBottom : "12px"}}>Seceondary Color</label>
+                    <div style={{
+                        marginTop: "10px",
+                        marginBottom: "10px"                            
+                    }}>
+                        <ColorPicker onChange={setSecondaryColor} value={secondaryColor} size="large" showText />
+                    </div>
+
                     <div>
-                        <label style={{marginBottom : "12px"}}>Sub Category name</label>
-                        <div style={{
-                            marginTop: "10px",
-                            marginBottom: "10px"                            
-                        }}>
-                            <input 
+                        <div style={{marginBottom : "12px"}}>
+                            <label >Category Picture</label>
+                        </div>
+                        <div>
+                            <input style={{display: "none"}} onChange={handleChange}  type="file" name="" id="img" />
+                            <label 
+                                htmlFor="img" 
                                 style={{
                                     width: "100%",
-                                    height: "52px",
-                                    border: "1px solid #6C57EC",
+                                    height: "190px",
                                     borderRadius: "8px",
-                                    padding : "16px",
+                                    border: "1px solid #6C57EC",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    justifyContent: "center",
                                     color: "black",
-                                    outline: "none",
-                                    backgroundColor: "#E9EAEC",
-                                }}
-                                value={value?.name}
-                                type="text" 
-                                placeholder="Enter Category name"
-                                name="category_name"
-                            />
-                        </div>
-
-                        <label style={{marginBottom : "12px"}}>Color</label>
-                        <div style={{
-                            marginTop: "10px",
-                            marginBottom: "10px"                            
-                        }}>
-                            <ColorPicker defaultValue="#1677ff" size="large" showText />
+                                    cursor: "pointer",
+                                    backgroundImage: `url(${imgURL})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center"
+                                }}>
+                                    <CiCamera size={40} /> 
+                                    <h3>Upload Photo</h3>
+                            </label>
                         </div>
                     </div>
 
-                        <div>
-                            <div style={{marginBottom : "12px"}}>
-                                <label >Category Picture</label>
-                            </div>
-                            <div>
-                                <input style={{display: "none"}} onChange={handleEditSubCategoryChange}  type="file" name="" id="img" />
-                                <label 
-                                    htmlFor="img" 
-                                    style={{
-                                        width: "100%",
-                                        height: "190px",
-                                        borderRadius: "8px",
-                                        border: "1px solid #6C57EC",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        color: "#6C57EC",
-                                        cursor: "pointer",
-                                        backgroundImage: `url(${editSubCategoryImageUrl})`, // Replace 'your-image-url.jpg' with your actual image URL
-                                        backgroundSize: "cover", // Adjust according to your image size preference
-                                        backgroundPosition: "center"
-                                    }}>
-                                        <CiCamera size={40} /> 
-                                        <h3>Upload Photo</h3>
-                                </label>
-                            </div>
-                        </div>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            block
-                            style={{
-                                width : "100%",
-                                height: "45px",
-                                fontWeight: "400px",
-                                fontSize: "18px",
-                                background: "#6C57EC",
-                                color: "white",
-                                marginTop : "44px",
-                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
-                            }}
-                        >
-                            UPDATE
-                        </Button>
-                </div>
+                    <Button
+                        onClick={handleSubmit}
+                        type="primary"
+                        htmlType="submit"
+                        block
+                        style={{
+                            width : "100%",
+                            height: "45px",
+                            fontWeight: "400px",
+                            fontSize: "18px",
+                            background: "#6C57EC",
+                            color: "white",
+                            marginTop : "44px",
+                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
+                        }}
+                    >
+                        UPDATE
+                    </Button>
+
                 </div>
             </Modal>
                             
 
 
             {/* category  delete */}
-            <Modal
+            {/* <Modal
                 centered
                 open={deleteCategory}
                 onCancel={() => setDeleteCategory('')}
@@ -495,69 +335,7 @@ const Category = () => {
                         </Button>
                     </div>
                 </div>
-            </Modal>
-
-
-            {/* subcategory  delete */}
-            <Modal
-                centered
-                open={deleteValue}
-                onCancel={() => setDeleteValue('')}
-                width={500}
-                footer={false}
-            >
-                <div>
-                    <div
-                        style={{
-                            backgroundColor: "red",
-                            width: "100px",
-                            height: "100px",
-                            borderRadius: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent:"center",
-                            margin: "auto",
-                            marginBottom: "30px"
-                        }}
-                    >
-                        <MdDelete size={70} color='white'/>
-                    </div>
-                    <h1 style={{marginBottom: "12px", fontSize: "18px", textAlign: "center"}}>Are You Sure to Delete this Sub Category ?</h1>
-                    <div style={{display: "flex", alignItems: "center", gap: "30px"}}>
-                        <Button
-                            onClick={() => setDeleteValue('')}
-                            style={{
-                                width : "100%",
-                                height: "45px",
-                                fontWeight: "400px",
-                                fontSize: "18px",
-                                background: "green",
-                                color: "white",
-                                marginTop : "44px",
-                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
-                            }}
-                        >
-                            YES
-                        </Button>
-                        <Button
-                            onClick={() => setDeleteValue('')}
-                            style={{
-                                width : "100%",
-                                height: "45px",
-                                fontWeight: "400px",
-                                fontSize: "18px",
-                                background: "red",
-                                color: "white",
-                                marginTop : "44px",
-                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
-                            }}
-                        >
-                            NO
-                        </Button>
-                    </div>
-                </div>
-            </Modal>
-
+            </Modal> */}
         </div>
     )
 }
