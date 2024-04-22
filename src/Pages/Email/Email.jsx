@@ -1,19 +1,44 @@
 import { Button, Form, Input, Typography } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../Images/Logo.png";
 import style from "./Email.module.css";
+import baseURL from "../../../baseURL";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
 const Email = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const onFinish = async() => {
+    await baseURL.post(`/auth/forgot-password`, {email: email})
+    .then((response) => {
+      if (response.status === 200) {
+        localStorage.setItem("email", JSON.stringify(email))
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          navigate("/otp");
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   };
   return (
-    <div className={style.emailContainer}>
-      <div>
-        <img src={logo} alt="" />
-      </div>
+    <div style={{width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <div className={style.formContainer}>
         <Title
           level={2}
@@ -37,6 +62,7 @@ const Email = () => {
               Email
             </label>
             <Form.Item
+              style={{marginBottom: 0}}
               name="email"
               id="email"
               rules={[
@@ -49,12 +75,14 @@ const Email = () => {
               <Input
                 placeholder="Enter your email address"
                 className={style.input}
+                onChange={(e)=>setEmail(e.target.value)}
               />
             </Form.Item>
           </div>
 
           <Form.Item>
             <Button
+              onClick={onFinish}
               type="primary"
               htmlType="submit"
               className="login-form-button"
@@ -65,7 +93,7 @@ const Email = () => {
                 fontSize: "18px",
                 background: "#000B90",
                 alignSelf: "bottom",
-                marginTop: "130px",
+                marginTop: "30px",
               }}
             >
               Verify

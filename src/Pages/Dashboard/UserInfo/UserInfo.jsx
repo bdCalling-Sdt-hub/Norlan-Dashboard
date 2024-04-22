@@ -1,11 +1,13 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import UserInfoTable from "./UserInfoTable";
 
 function UserInfo() {
+  const [search, setSearch] = useState("")
+  const [keyword, setKeyword] = useState("")
   return (
-    <div style={{ padding: "0 60px" }}>
+    <div style={{ padding: "0 24px" }}>
       <Row>
         <h2
           style={{
@@ -21,9 +23,11 @@ function UserInfo() {
             <Input
               size="large"
               placeholder="Search by name/email/phone"
+              onChange={(e)=>setKeyword(e.target.value)}
               prefix={<SearchOutlined style={{ color: "#cccccc" }} />}
             />
             <Button
+              onClick={()=>setSearch(keyword)}
               style={{
                 height: "50px",
                 width: "300px",
@@ -41,7 +45,7 @@ function UserInfo() {
 
       <Row>
         <h2
-          style={{ fontSize: "25px", margin: "30px 0px", fontWeight: "normal" }}
+          style={{ fontSize: "25px", margin: "20px 0 10px 0", fontWeight: "normal" }}
         >
           Artist's information
         </h2>
@@ -49,7 +53,7 @@ function UserInfo() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <UserInfoTable />
+          <UserInfoTable search={search} />
         </Col>
       </Row>
     </div>

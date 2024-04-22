@@ -115,7 +115,7 @@ const Login = () => {
             <a
               className="login-form-forgot"
               style={{ color: "#000B90" }}
-              href=""
+              href="/email"
               onClick={handleForget}
             >
               Forgot password
