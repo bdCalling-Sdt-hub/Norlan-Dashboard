@@ -1,49 +1,49 @@
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
-import logo from "../../Images/Logo.png";
 import style from "./UpdatePass.module.css";
 import baseURL from "../../../baseURL";
+import Swal from "sweetalert2";
 
 const UpdatePass = () => {
   const [err, setErr] = useState("");
-  const onFinish = (values) => {
+  const onFinish = async(values) => {
     const { password, confirmPassword } = values;
+    const email = JSON.parse(localStorage.getItem("email"));
 
-    if (password.length < 8) {
-      setErr("Password must be 8 character");
-      return;
-    }
     if (password !== confirmPassword) {
       setErr("Please enter the same password!");
       return;
     }
-    if (!password || !confirmPassword) {
-      setErr("Please give your changes password");
-      return;
-    }
-    if (!/(?=.*[!@#$&*])/.test(password)) {
-      setErr("Ensure string has one special case letter.");
-      return;
-    }
-    if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
-      setErr("Ensure string has two uppercase letters.");
-      return;
-    }
-    if (!/(?=.*[a-z].*[a-z].*[a-z])/.test(password)) {
-      setErr("Ensure string has three lowercase letters.");
-      return;
-    }
-    if (!/(?=.*[0-9].*[0-9])/.test(password)) {
-      setErr("Ensure string has two digits");
-      return;
-    }
+
+    await baseURL.post(`/auth/reset-password`, {email: email, ...values})
+    .then((response) => {
+      if (response.status === 200) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          navigate("/");
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+
+
   };
 
   return (
-    <div className={style.updateContainer}>
-      <div>
-        <img src={logo} alt="" />
-      </div>
+    <div style={{width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <div className={style.formContainer}>
         <h1
           style={{
@@ -89,6 +89,7 @@ const UpdatePass = () => {
               Re-type Password
             </label>
             <Form.Item
+              style={{marginBottom: 0}}
               name="confirmPassword"
               rules={[
                 {

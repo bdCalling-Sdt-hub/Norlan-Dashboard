@@ -4,6 +4,7 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
 import baseURL from "../../../../baseURL";
 import Swal from "sweetalert2";
+import OTPInput from "react-otp-input";
 const { Paragraph, Title, Text } = Typography;
 
 const Setting = () => {
@@ -16,6 +17,8 @@ const Setting = () => {
   const [newPassError, setNewPassError] = useState("");
   const [conPassError, setConPassError] = useState("");
   const [curPassError, setCurPassError] = useState("");
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState(); 
 
   const style = {
     formContainer: {
@@ -50,6 +53,7 @@ const Setting = () => {
       height: "70px",
     },
   };
+
   const menuItems = [
     {
       key: "1",
@@ -81,38 +85,6 @@ const Setting = () => {
   ];
 
   const [err, setErr] = useState("");
-  const handleUpdated = (values) => {
-    const { password, confirmPassword } = values;
-
-    if (password.length < 8) {
-      setErr("Password must be 8 character");
-      return;
-    }
-    if (password !== confirmPassword) {
-      setErr("Please enter the same password!");
-      return;
-    }
-    if (!password || !confirmPassword) {
-      setErr("Please give your changes password");
-      return;
-    }
-    if (!/(?=.*[!@#$&*])/.test(password)) {
-      setErr("Ensure string has one special case letter.");
-      return;
-    }
-    if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
-      setErr("Ensure string has two uppercase letters.");
-      return;
-    }
-    if (!/(?=.*[a-z].*[a-z].*[a-z])/.test(password)) {
-      setErr("Ensure string has three lowercase letters.");
-      return;
-    }
-    if (!/(?=.*[0-9].*[0-9])/.test(password)) {
-      setErr("Ensure string has two digits");
-      return;
-    }
-  };
 
   const handleNavigate = (value) => {
     if (value == "renti-percentage") {
@@ -124,14 +96,7 @@ const Setting = () => {
     }
   };
 
-
-  const setPercentage = () => {
-    alert("tushar");
-    setOpenModal(false);
-  };
-
   const handleChangePassword = async(values) => {
-    console.log(values)
     if(values?.currentPass === values.newPass){ return setNewPassError("New password cannot be the same as old password")}else{  setNewPassError("")}
     if(values?.confirmPass !== values.newPass){ return setConPassError("New Password and Confirm Password Doesn't Matched")}else{ setConPassError("")}
     
@@ -161,6 +126,123 @@ const Setting = () => {
     })
 
   };
+
+  const handleForgotPassword=async()=>{
+    await baseURL.post(`/auth/forgot-password`, {email: email})
+    .then((response) => {
+      if (response.status === 200) {
+        localStorage.setItem("email", JSON.stringify(email))
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          setVerify(true), 
+          setForgotPassword(false)
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+    
+  }
+
+  const handleOtpVerify =async()=>{
+    await baseURL.post(`/auth/verify-email`, {email: JSON.parse(localStorage.getItem("email")), emailVerifyCode : otp})
+    .then((response) => {
+      if (response.status === 200) {
+        
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          setUpdatePassword(true)
+          setVerify(false)
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
+  const handleRendEmail=async()=>{
+    await baseURL.post(`/auth/forgot-password`, {email: JSON.parse(localStorage.getItem("email"))})
+    .then((response) => {
+      if (response.status === 200) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          navigate("/otp");
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
+  const handleResetPassword=async(values)=>{
+    const email = JSON.parse(localStorage.getItem("email"));
+
+    if (password !== confirmPassword) {
+      setErr("Please enter the same password!");
+      return;
+    }
+
+    await baseURL.post(`/auth/reset-password`, {email: email, ...values})
+    .then((response) => {
+      if (response.status === 200) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          setUpdatePassword(false);
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -326,11 +408,12 @@ const Setting = () => {
                   placeholder="Enter Your Email"
                   type="text"
                   style={style.input}
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
 
             <Button
               block
-              onClick={() => (setVerify(true), setForgotPassword(false))}
+              onClick={handleForgotPassword}
               style={{
                 height: "45px",
                 fontWeight: "400px",
@@ -376,36 +459,40 @@ const Setting = () => {
               enter the code here.
             </Paragraph>
 
-            <Input.Group
-              style={{
-                display: "flex",
-                gap: "10px",
-                marginBottom: "10px",
+            <OTPInput
+              value={otp}
+              onChange={setOtp}
+              numInputs={4}
+              inputStyle={{
+                height: "64px",
+                width: "7px",
+                borderRadius: "8px",
+                marginRight: "16px",
+                fontSize: "20px",
+                border: "1px solid #000B90",
+                color: "#2B2A2A",
+                outline: "none",
+                margin: "0 auto 10px auto",
+                marginBottom: 10
               }}
-            >
-              <Input style={{ width: "50px", height: "70px" }} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-            </Input.Group>
+              renderInput={(props) => <input {...props} />}
+            />
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Text>Don't received code?</Text>
 
-              <a
+              <p
+                onClick={handleRendEmail}
                 className="login-form-forgot"
-                style={{ color: "#6C57EC" }}
-                href=""
+                style={{ color: "#6C57EC", cursor: "pointer" }}
               >
                 Resend
-              </a>
+              </p>
             </div>
 
             <Button
               block
-              onClick={() => (setUpdatePassword(true), setVerify(false))}
+              onClick={ handleOtpVerify}
               style={{
                 height: "45px",
                 fontWeight: "400px",
@@ -452,7 +539,7 @@ const Setting = () => {
             initialValues={{
               remember: true,
             }}
-            onFinish={handleUpdated}
+            onFinish={handleResetPassword}
           >
             <div>
               <label style={{display: "block", marginBottom: "10px"}} htmlFor="">New Password</label>
@@ -472,6 +559,7 @@ const Setting = () => {
             <div>
               <label style={{display: "block", marginBottom: "10px"}} htmlFor="">Re-type Password</label>
               <Form.Item
+                style={{marginBottom: 0}}
                 name="confirmPassword"
                 rules={[
                   {
@@ -489,7 +577,7 @@ const Setting = () => {
             </div>
 
             {/* showing error */}
-            <label  style={{ color: "red", display: "block", marginTop: "10px" }}>{err}</label>
+            <label  style={{ color: "red", display: "block" }}>{err}</label>
 
             <Form.Item>
               <Button
@@ -510,31 +598,6 @@ const Setting = () => {
               </Button>
             </Form.Item>
           </Form>
-        </Modal>
-
-        {/*Set Percentage*/}
-        <Modal
-          title="Set Ranti's Percentage"
-          centered
-          open={openModal}
-          onOk={() => setPercentage()}
-          okText="Confirm"
-          onCancel={() => setOpenModal(false)}
-          okButtonProps={{
-            style: {
-              width: "100%",
-              backgroundColor: "#000b90",
-              height: "40px",
-              marginLeft: "-20px",
-            },
-          }} // Adjust the width here
-          cancelButtonProps={{ style: { display: "none" } }}
-          width={500}
-        >
-          <Input
-            placeholder="set your percentage"
-            style={{ height: "50px", margin: "20px 0px" }}
-          />
         </Modal>
       </div>
     </div>
