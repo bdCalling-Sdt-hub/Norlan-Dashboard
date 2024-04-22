@@ -7,117 +7,15 @@ const { Title, Text } = Typography;
 import { CloseOutlined } from '@ant-design/icons';
 import { FiEye } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
+import baseURL from "../../../../baseURL";
+import moment from "moment";
+import ImgBaseURL from "../../../../ImgBaseURL"
 
-
-const data = [
-  {
-    key: "1",
-    name: "tushar",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "2",
-    name: "Faim",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "3",
-    name: "Shanto",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "4",
-    name: "Rafsan",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "5",
-    name: "Nadim",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "6",
-    name: "Jusef",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "7",
-    name: "Rahman",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "8",
-    name: "Asad",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "9",
-    name: "Khusi",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  },
-  {
-    key: "10",
-    name: "Nadir",
-    email: "tushar@gmail.com",
-    contact: "017549624463",
-    joiningdate: "18 Jul, 2023  4:30pm",
-    trips: "$850.00",
-    
-    printView: "Button",
-  }
- 
-];
-
-const UserInfoTable = () =>{
-    const [rentData, setRentData] = useState([]); // Data fetched from the server
-    const [totalItems, setTotalItems] = useState(0); // Total number of items
-    const [currentPage, setCurrentPage] = useState(1); // Current page number
-    const pageSize = 5;
+const UserInfoTable = ({search}) =>{
+    const [page, setPage] = useState(1);
+    const [data, setData] = useState([]);
+    const [pagination, setPagination] = useState([])
+    console.log(data);
 
 
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -140,6 +38,7 @@ const UserInfoTable = () =>{
         title: "ARTIST NAME",
         dataIndex: "name",
         key: "name",
+        render: (_,record) => (<p>{record?.fullName}</p>)
       },
       {
         title: "EMAIL",
@@ -152,17 +51,20 @@ const UserInfoTable = () =>{
         dataIndex: "contact",
         key: "contact",
         responsive: ["lg"],
+        render: (_,record) => (<p>{record?.mobileNumber}</p>)
       },
       {
         title: "DATE",
         dataIndex: "joiningdate",
         key: "joiningdate",
+        render: (_,record) => (<p>{moment(record?.createdAt).format('L')}</p>)
       },
       {
         title: "GIGS PRICE",
         dataIndex: "trips",
         key: "trips",
         responsive: ["md"],
+        render: (_,record) => (<p>{moment}</p>)
       },
       
       {
@@ -178,42 +80,39 @@ const UserInfoTable = () =>{
       },
     ];
 
+    useEffect(()=>{
+      async function getAPI(){
+        await baseURL.get(`/auth/get-all-artist?page=${page}&limit=10&keyword=${search}`,{
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+          }
+        }).then((response)=>{
+          if(response.data.statusCode === 200){
+            setPagination(response.data.pagination)
+            setData(response.data.data)
+          }
+        })
+      }
+      getAPI();
+    }, [search]);
 
-
-    useEffect(() => {
-        // Fetch data from the server when the current page changes
-        fetchData();
-      }, [currentPage]);
-    
-      const fetchData = async () => {
-        // Replace this with your actual API request to fetch data based on pagination
-        try {
-          const response = await fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`);
-          const result = await response.json();
-    
-          setData(result.data);
-          setTotalItems(result.totalItems);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-
-    const handlePageChange=(page)=>{
-        setCurrentPage(page);
-        console.log(currentPage)
+    const handlePage=(page)=>{
+      setPage(page);
     }
 
     return(
       <>
         <Table columns={columns} dataSource={data} pagination={{
-            pageSize,
+            pageSize: pagination?.limit,
             showSizeChanger:false,
-            total: 10,
-            current: currentPage,
-            onChange: handlePageChange,
+            total: pagination?.total,
+            current: page,
+            onChange: handlePage,
           }}/>
+
+
           <Drawer
-          
           title={
             <div>
               <Typography>
@@ -239,7 +138,7 @@ const UserInfoTable = () =>{
         >
             <div style={{ display: "flex", gap: "15px" }}>
               <div style={{display: "block", margin: "auto"}}>
-                <img width={120} style={{borderRadius: "12px"}} src="https://i.imgur.com/JFHjdNr.jpg" alt="" />
+                <img width={120} style={{borderRadius: "12px"}} src={`${ImgBaseURL}${userInfoData?.image}`} alt="" />
               </div>
             </div>
 
@@ -252,10 +151,10 @@ const UserInfoTable = () =>{
                 <p style={{paddingBottom: "5px"}}>GIGS Price</p>
             </div>
             <div>
-              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.name}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.fullName}</p>
               <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.email}</p>
-              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.contact}</p>
-              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.joiningdate}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.mobileNumber}</p>
+              <p style={{paddingBottom: "5px", textAlign: "right"}}>{moment(userInfoData?.createdAt).format('L')}</p>
               <p style={{paddingBottom: "5px", textAlign: "right"}}>{userInfoData?.trips}</p>
             </div>
 
