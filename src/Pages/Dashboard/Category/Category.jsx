@@ -127,7 +127,7 @@ const Category = () => {
                                     borderRadius: "8px",
                                     padding: "10px",
                                     width: "230px",
-                                    background: `${category?.primary_color}`,
+                                    background: `${category?.colors}`,
                                     cursor: "pointer"
                                 }}
                             >

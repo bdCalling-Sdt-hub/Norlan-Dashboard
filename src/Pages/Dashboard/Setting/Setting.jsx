@@ -374,7 +374,6 @@ const Setting = () => {
             </Form.Item>
           </Form>
         </Modal>
-        
 
         {/* forgot Password */}
         <Modal
@@ -508,7 +507,6 @@ const Setting = () => {
             </Button>
           </div>
         </Modal>
-
 
         {/* Update Password */}
         <Modal
