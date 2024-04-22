@@ -1,19 +1,74 @@
 import { Button, Form, Input, Typography } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../Images/Logo.png";
 import style from "./Otp.module.css";
+import baseURL from "../../../baseURL";
+import Swal from "sweetalert2";
+import OTPInput from "react-otp-input";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
 const Otp = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const navigate = useNavigate();
+  const [otp, setOtp] = useState();
+
+
+  const onFinish = async() => {
+    await baseURL.post(`/auth/verify-email`, {email: JSON.parse(localStorage.getItem("email")), emailVerifyCode : otp})
+    .then((response) => {
+      if (response.status === 200) {
+        
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          navigate("/reset-password");
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  };
+
+
+  const handleResendEmail = async() => {
+    await baseURL.post(`/auth/forgot-password`, {email: JSON.parse(localStorage.getItem("email"))})
+    .then((response) => {
+      if (response.status === 200) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          width: 550,
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          navigate("/otp");
+        });
+      }
+    }).catch((error) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   };
   return (
-    <div className={style.otpContainer}>
-      <div>
-        <img src={logo} alt="" />
-      </div>
+    <div style={{width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <div className={style.formContainer}>
         <Title
           level={2}
@@ -32,31 +87,39 @@ const Otp = () => {
         </Paragraph>
 
         <Form>
-          <Input.Group
-            style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
-          >
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-          </Input.Group>
+          <OTPInput
+              value={otp}
+              onChange={setOtp}
+              numInputs={4}
+              inputStyle={{
+                height: "64px",
+                width: "60px",
+                borderRadius: "8px",
+                marginRight: "16px",
+                fontSize: "20px",
+                border: "1px solid #000B90",
+                color: "#2B2A2A",
+                outline: "none",
+                marginBottom: 10
+              }}
+              renderInput={(props) => <input {...props} />}
+            />
 
           <div className={style.rememberAndPass}>
             <Text>Don't received code?</Text>
 
-            <a
+            <p
+              onClick={handleResendEmail}
               className="login-form-forgot"
-              style={{ color: "#000B90" }}
-              href=""
+              style={{ color: "#000B90", cursor: "pointer" }}
             >
               Resend
-            </a>
+            </p>
           </div>
 
           <Form.Item>
             <Button
+              onClick={onFinish}
               type="primary"
               htmlType="submit"
               className="login-form-button"

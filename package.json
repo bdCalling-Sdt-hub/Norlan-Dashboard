@@ -25,6 +25,7 @@
     "react-google-translate": "^1.0.12",
     "react-i18next": "^13.2.0",
     "react-icons": "^4.10.1",
+    "react-otp-input": "^3.1.1",
     "react-router-dom": "^6.15.0",
     "react-slick": "^0.30.2",
     "recharts": "^2.7.3",
