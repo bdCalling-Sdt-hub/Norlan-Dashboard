@@ -12,6 +12,7 @@ const About = () => {
   const [data, setData] = useState()
   const editor = useRef(null)
   const [content, setContent] = useState('');
+  console.log(content)
   const [refreash, setRefreash] = useState('')
 
   if(refreash){
