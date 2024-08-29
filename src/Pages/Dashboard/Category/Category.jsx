@@ -93,8 +93,9 @@ const Category = () => {
 
 
     return (
-        <div>
-            <div style={{display: "flex", alignItems: "flex-end", justifyContent : "flex-end"}}>
+        <div style={{background: "white", height: "100%"}}>
+            <div style={{display: "flex", alignItems: "center", justifyContent : "space-between"}}>
+                <h1>Category</h1>
                 <Button
                     onClick={()=>setOpen(true)}
                     style={{
@@ -108,7 +109,6 @@ const Category = () => {
                     Add Category
                 </Button>
             </div>
-            <h1>Category</h1>
             
 
             <div style={{
@@ -147,7 +147,6 @@ const Category = () => {
                                         borderRadius: "100%",
                                         margin: "0 auto",
                                         padding: "10px",
-                                        width: "150px",
                                         width: "150px",
                                         background: `${category?.secondary_color}`,
                                         cursor: "pointer"

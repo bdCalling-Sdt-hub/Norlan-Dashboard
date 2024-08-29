@@ -5,7 +5,7 @@ import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/Earning/Earning";
 import Notification from "./Pages/Dashboard/Notification/Notification";
 import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
-import Email from "./Pages/Email/Email";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import Otp from "./Pages/Otp/Otp";
 import Login from "./Pages/Login/Login";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
@@ -21,17 +21,19 @@ import EditSubscription from "./Pages/Dashboard/EditSubscription/EditSubscriptio
 import Category from "./Pages/Dashboard/Category/Category";
 import SubCategory from "./Pages/Dashboard/SubCategory/SubCategory";
 import Events from "./Pages/Dashboard/Events";
+import PersonalInfo from "./Components/Setting/PersonalInfo/PersonalInfo";
+import Auth from "./Layout/Auth/Auth";
 
 function App() {
   return (
     <>
-      <div className="maincontainer">
+      <div>
         <Router>
           <Routes>
-            <Route exact path="/" element={ <PrivateRoute> <Dashboard /> </PrivateRoute> }>
+            <Route exact path="/" element={ <Dashboard />}>
               <Route path="/" element={<DashboardHome />} />
               <Route path="/notification" element={<Notification />} />
-              <Route path="/earning/:income" element={<Earning />} />
+              <Route path="/earnings" element={<Earning />} />
               <Route path="/add-slider" element={<AddSlider />} />
               <Route path="/user-info" element={<UserInfo />} />
               <Route path="/subscription" element={<Subscription />} />
@@ -41,12 +43,16 @@ function App() {
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/setting/:dynamic" element={<SettingPage />} />
               <Route path="/events" element={<Events />} />
+              <Route path="/profile" element={<PersonalInfo />} />
             </Route>
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/email" element={<Email />} />
-            <Route path="/otp" element={<Otp />} />
-            <Route path="/reset-password" element={<UpdatePass />} />
+            {/* <Route exact path="/auth" element={ <Auth/> }> */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/otp-verify" element={<Otp />} />
+              <Route path="/reset-password" element={<UpdatePass />} />
+            {/* </Route> */}
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

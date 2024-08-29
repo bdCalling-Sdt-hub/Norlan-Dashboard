@@ -18,6 +18,7 @@ const SettingPage = () => {
       background: "white",
       padding: "30px",
       borderRadius: "10px",
+      height: "100%"
     },
     btn: {
       display: "flex",
@@ -37,12 +38,11 @@ const SettingPage = () => {
   console.log(text);
   return (
     <>
-      <Link to="/setting" style={style.btn}>
-        <LiaAngleLeftSolid fontSize={20} />
-        <span>{text}</span>
-      </Link>
       <div style={style.settingContainer}>
-        {text === "personal information" && <PersonalInfo />}
+        <Link to="/setting" style={style.btn}>
+          <LiaAngleLeftSolid fontSize={20} />
+          <span>{text}</span>
+        </Link>
         {text === "login activity" && <LoginActivity />}
         {text === "block list" && <BlockList />}
         {text === "renti percentage" && <RentiPercentage />}

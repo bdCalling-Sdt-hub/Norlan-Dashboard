@@ -1,21 +1,24 @@
-import { Button, Col, DatePicker, Form, Input, Row,  } from "antd";
-import dayjs from "dayjs";
+import { Button, Col, Form, Input, Row,  } from "antd";
 import React, { useEffect, useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
-import baseURL from "../../../../baseURL";
-import ImgBaseURL from "../../../../ImgBaseURL";
-import Swal from "sweetalert2";
-const dateFormat = "YYYY-MM-DD";
+import { useProfileQuery, useUpdateProfileMutation } from "../../../redux/apiSlices/authSlice";
+import toast from "react-hot-toast";
+import { imageUrl } from "../../../redux/api/baseApi";
 
 const PersonalInfo = () => {
-  const userInfo = JSON.parse(localStorage.getItem("user-info"));
   const [profileEdit, setProfileEdit] = useState(false);
-  const [image, setImage] = useState(userInfo?.image?.startsWith("https") ? userInfo?.image : `${ImgBaseURL}${userInfo?.image}`);
-  const [imgURL, setImgURL] = useState(image);
+  const [image, setImage] = useState();
+  const [imgURL, setImgURL] = useState();
+  const [form] = Form.useForm();
+  const {data: profile, refetch} = useProfileQuery();
+  const [updateProfile, {isLoading}] = useUpdateProfileMutation();
 
-  const handleChange = () => {
-    setProfileEdit(true);
-  };
+  useEffect(()=>{
+    if(profile){
+      form.setFieldsValue(profile)
+    }
+  }, [profile, form]);
+
 
   const onChange = (e) => {
     const file= e.target.files[0];
@@ -24,46 +27,34 @@ const PersonalInfo = () => {
     setImage(file)
   };
   
-  const src = userInfo?.image?.startsWith("https") ? userInfo?.image : `${ImgBaseURL}${userInfo?.image}`
+  const src = profile?.image?.startsWith("https") ? profile?.image : `${imageUrl}${profile?.image}`
 
-  const initialFromValues= {
-    fullName : userInfo.fullName,
-    email: userInfo?.email,
-    location: userInfo.location ? userInfo.location:  "No Location Found",
-    mobileNumber: userInfo.mobileNumber ? userInfo.mobileNumber: "No Mobile Found"
-  }
 
   const handleSubmit=async(values)=>{
-    console.log(values)
     const formData = new FormData();
-    formData.append("fullName",  values.fullName)
-    formData.append("email",  values.email)
-    formData.append("mobileNumber",   values.mobileNumber)
-    formData.append("location",   values.location)
-    formData.append("image",   image)
 
-    await baseURL.post("/auth/update-profile", formData, {
-      headers: {
-        "Content-Type" : "multipart/form-data",
-        authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      }
-    }).then((response)=>{
-      if(response.status === 200){
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            width: 550,
-            title: response.data.message,
-            showConfirmButton: false,
-            timer: 1500
-          }).then(() => {
-            window.location.reload();
-          });
-      }
-    }).then((error)=>{
-      console.log(error)
+    if(image){
+      formData.append("image", image);
+    }
+
+    Object.keys(values).forEach((key)=>{
+      formData.append(key, values[key]);
     })
+
+    try {
+      await updateProfile(formData).unwrap().then(({statusCode, status, message})=>{
+        if (status) {
+          toast.success(message);
+          refetch()
+        }
+
+      })
+    } catch ({message}) {
+      toast.error(message);
+    }
   }
+
+
   return (
     <>
       {!profileEdit ? (
@@ -86,13 +77,13 @@ const PersonalInfo = () => {
                 src={src}
               />
               <div>
-                <h2>{userInfo?.fullName}</h2>
-                <p>{userInfo?.email}</p>
+                <h2>{profile?.firstName + " " +  profile?.lastName}</h2>
+                <p>{profile?.email}</p>
               </div>
             </div>
             <div>
               <Button
-                onClick={handleChange}
+                onClick={()=>setProfileEdit(true)}
                 style={{
                   background: "#6C57EC",
                   color: "#fff",
@@ -107,44 +98,56 @@ const PersonalInfo = () => {
             </div>
           </div>
 
-          <Row style={{ marginBottom: "15px" }}>
-            <Col span={24}>
-              <label htmlFor="">Name</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={userInfo?.fullName}
-                readOnly
-              />
-            </Col>
-          </Row>
-          <Row gutter={15} style={{ marginBottom: "15px" }}>
+
+          <Form form={form} layout="vertical">
+
+          <Row gutter={15}>
             <Col span={12}>
-              <label htmlFor="">Email</label>
+              <Form.Item name={"firstName"} label={<p>First Name</p>}>
               <Input
                 style={{ height: "45px" }}
-                defaultValue={userInfo?.email}
                 readOnly
-              />
+                />
+                </Form.Item>
             </Col>
             <Col span={12}>
-              <label htmlFor="">Phone Number</label>
+              <Form.Item name={"lastName"} label={<p>Last Name</p>}>
               <Input
                 style={{ height: "45px" }}
-                defaultValue={userInfo?.mobileNumber ? userInfo?.mobileNumber : "No Phone Number Found"}
                 readOnly
-              />
+                />
+                </Form.Item>
             </Col>
           </Row>
-          <Row style={{ marginBottom: "15px" }}>
+          <Row gutter={15}>
+            <Col span={12}>
+            <Form.Item name={"email"} label={<p>Email</p>}>
+              <Input
+                style={{ height: "45px" }}
+                readOnly
+              />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+            <Form.Item name={"mobileNumber"} label={<p>Name</p>}>
+              <Input
+                style={{ height: "45px" }}
+                readOnly
+              />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
             <Col span={24}>
-              <label htmlFor="">Location</label>
-              <Input
-                style={{ height: "45px" }}
-                defaultValue={userInfo?.location ? userInfo?.location : "No Location Found" }
-                readOnly
-              />
+              <Form.Item name={"location"} label={<p>Location</p>}>
+                <Input
+                  style={{ height: "45px" }}
+                  readOnly
+                />
+              </Form.Item>
             </Col>
           </Row>
+          </Form>
         </>
       ) : (
         <>
@@ -162,14 +165,14 @@ const PersonalInfo = () => {
               <div style={{ display: "flex", gap: "20px" }}>
                 <img 
                   className="mx-auto rounded-full" 
-                  src={imgURL}
+                  src={imgURL || src}
                   width={142} 
                   height={142} 
                   alt="" 
                   style={{borderRadius: "8px"}}
                 />
                 <div style={{ marginTop: "50px" }}>
-                  <h2>{userInfo?.fullName}</h2>
+                  <h2>{profile?.firstName} {" "} {profile?.lastName}</h2>
                   <label htmlFor="img" style={{marginTop : 0, cursor: "pointer", display: "block", color : "#6C57EC", fontSize: "18px", fontWeight: "600"}}>Change Photo</label>
                   <input style={{display: "none"}} onChange={onChange}  type="file" name="" id="img" />
                 </div>
@@ -179,13 +182,26 @@ const PersonalInfo = () => {
 
           <Form
             onFinish={handleSubmit}
-            initialValues={initialFromValues}
+            form={form}
+            layout="vertical"
           >
               <div>
-                <label htmlFor="">Name</label>
-                <Form.Item name="fullName">
-                  <Input style={{ height: "45px" }}/>
-                </Form.Item>
+                <Row gutter={15}>
+                  <Col span={12}>
+                    <Form.Item name={"firstName"} label={<p>First Name</p>}>
+                    <Input
+                      style={{ height: "45px" }}
+                      />
+                      </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item name={"lastName"} label={<p>Last Name</p>}>
+                    <Input
+                      style={{ height: "45px" }}
+                      />
+                      </Form.Item>
+                  </Col>
+                </Row>
               </div>
               
               <div>
@@ -223,7 +239,7 @@ const PersonalInfo = () => {
                   }}
                   block
                   >
-                  Save
+                  {isLoading ? "Loading..." : "Update"}
                 </Button>
               </Form.Item>
 

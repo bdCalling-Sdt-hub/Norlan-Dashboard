@@ -5,68 +5,53 @@ import style from "./Otp.module.css";
 import baseURL from "../../../baseURL";
 import Swal from "sweetalert2";
 import OTPInput from "react-otp-input";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useForgotPasswordMutation, useOtpVerifyMutation } from "../../redux/apiSlices/authSlice";
+import toast from "react-hot-toast";
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const Otp = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState();
+  const {email} = useParams()
+  const [otpVerify, {isLoading}] = useOtpVerifyMutation();
+  const [forgotPassword] = useForgotPasswordMutation();
 
 
-  const onFinish = async() => {
-    await baseURL.post(`/auth/verify-email`, {email: JSON.parse(localStorage.getItem("email")), emailVerifyCode : otp})
-    .then((response) => {
-      if (response.status === 200) {
-        
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          width: 550,
-          title: response.data.message,
-          showConfirmButton: false,
-          timer: 1500
-        }).then(() => {
-          navigate("/reset-password");
-        });
+  const onFinish = async(values) => {
+    try {
+      const response = await otpVerify({email: email, otp: values.otp }).unwrap();
+      const { status, message } = response;
+      
+      if (status) {
+        toast.success(message);
+        navigate(`/reset-password?email=${email}`);
       }
-    }).catch((error) => {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: error.response.data.message,
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
+
+    } catch (error) {
+      toast.error(error?.data?.message);
+    }
   };
 
 
   const handleResendEmail = async() => {
-    await baseURL.post(`/auth/forgot-password`, {email: JSON.parse(localStorage.getItem("email"))})
-    .then((response) => {
-      if (response.status === 200) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          width: 550,
-          title: response.data.message,
-          showConfirmButton: false,
-          timer: 1500
-        }).then(() => {
-          navigate("/otp");
-        });
+    try {
+      const response = await forgotPassword({...values}).unwrap();
+      const { status, message } = response;
+      
+      if (status) {
+        toast.success(message);
+        navigate(`/otp-verify?email=${values?.email}`);
       }
-    }).catch((error) => {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: error.response.data.message,
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
+
+    } catch (error) {
+      toast.error(error?.data?.message);
+    }
   };
+
+
+
   return (
     <div style={{width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <div className={style.formContainer}>

@@ -87,8 +87,34 @@ const AddSlider = () => {
                     />
                 </div>
                 :
-                <div>
-                    <div  style={{ marginBottom: "50px", display: "flex", alignItems: "center", gap: "50px"}}>
+                <div style={{background: "white", height: "100%"}}>
+                    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                            <h1>Sliders</h1>
+                            <label 
+                                style={{
+                                    width: "150px", 
+                                    height: "50px", 
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    gap: "10px", 
+                                    cursor: "pointer", 
+                                    color : "#6C57EC", 
+                                    fontSize: "20px", 
+                                    fontWeight: 600,
+                                    border: "1px solid #6C57EC", 
+                                    borderRadius: "8px", 
+                                    padding: "10px"
+                                }} 
+                                htmlFor="input"
+                            >
+                                <FaPlus size={24}/>
+                                Upload
+                            </label>
+                            <input type="file" name="input" id="input" onChange={handleChange} style={{display: "none"}} />
+                    </div>
+
+                    <div  style={{ display: "flex", alignItems: "center", gap: "50px"}}>
                         {
                             data?.map((url, index)=>
                             <div key={index} style={{width: "100%", height:"300px", position: "relative"}}>
@@ -122,37 +148,6 @@ const AddSlider = () => {
                             <img style={{width: "100%", height:"300px", borderRadius: "12px"}} src={imgURL[2] ? imgURL[2] : Slider3} alt="" />
                         </div> */}
                     </div>
-
-                    {
-                        data?.length > 2
-                        ?
-                        null
-                        :
-                        <div>
-                            <label 
-                                style={{
-                                    width: "150px", 
-                                    height: "50px", 
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    gap: "10px", 
-                                    cursor: "pointer", 
-                                    color : "#6C57EC", 
-                                    fontSize: "20px", 
-                                    fontWeight: 600,
-                                    border: "1px solid #6C57EC", 
-                                    borderRadius: "8px", 
-                                    padding: "10px"
-                                }} 
-                                htmlFor="input"
-                            >
-                                <FaPlus size={24}/>
-                                Upload
-                            </label>
-                            <input type="file" name="input" id="input" onChange={handleChange} style={{display: "none"}} />
-                        </div>
-                    }
                 </div>
             }
         </>

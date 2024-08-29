@@ -1,14 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import baseURL from '../../baseURL';
 
-const ProtectedRoute = ({children}) => {
+const PrivateRoute = ({ children }) => {
     const location = useLocation();
-    const user =  JSON.parse(localStorage.getItem('user'));
+    const [isLoading, setIsLoading] = useState(true);
+    const [profile, setProfile] = useState({});
 
-    if (user?.id && user?.role === "ADMIN") {
-        return children;
+    useEffect(() => {
+        const checkAuth = async () => {
+        try {
+            const response = await baseURL.get('/auth/get-profile', {
+                headers: {
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                },
+            });
+            setProfile(response.data.user);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+        }
+        };
+
+        checkAuth();
+
+    }, []);
+
+    /* if (isLoading) {
+        return <div>Loading...</div>;
     }
-    return <Navigate to="/login" state={{ from: location }} />;
-}
 
-export default ProtectedRoute;
+    if (profile?.role !== "ADMIN") {
+        return <Navigate to="/login" state={{ from: location }} />;
+    }
+
+    return children; */
+};
+
+export default PrivateRoute;

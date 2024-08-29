@@ -3,79 +3,48 @@ import React from "react";
 import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import "./DashboardHome.css";
 import InvoiceTable from "./InvoiceTable";
-import MostRentCarChart from "./MostRentCarChart";
-import DailyRentChart from "./dailyRentChart";
+import { Link } from "react-router-dom";
 
 
 function DashboardHome() {
+
+  
   const onChange = (pageNumber) => {
     console.log("Page: ", pageNumber);
   };
 
   return (
-    <div>
+    <div style={{background: "white"}}>
     <h1 style={{fontSize:"30px",marginBottom:"20px"}}>Dashboard overview</h1>
 
-    
-    <Row gutter={16} style={{marginBottom:"20px"}}>
-      <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
-         <div  className='income-card'>
-            <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
-            <h1 style={{fontSize:"1.5rem",fontWeight:"300",marginTop:"15px",marginBottom:"15px"}}>Today's income</h1>
-            <h3 style={{fontSize:"1.5rem",letterSpacing:".2rem",marginBottom:"15px"}}>$ 250.00</h3>
-         </div>
-      </Col>
-      <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
-         <div className='income-card'>
-            <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
-            <h1 style={{fontSize:"1.5rem",fontWeight:"300",marginTop:"15px",marginBottom:"15px"}}>Weekly income</h1>
-            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ 250.00</h3>
-        </div>
-      </Col>
-      <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
-         <div  className='income-card'>
-            <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
-            <h1 style={{fontSize:"1.5rem",fontWeight:"300",marginTop:"15px",marginBottom:"15px"}}>Monthly income</h1>
-            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ 250.00</h3>
-         </div>
-      </Col>
-      <Col className="gutter-row" style={{marginBottom:"10px"}} xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
-         <div  className='income-card'>
-            <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
-            <h1 style={{fontSize:"1.5rem",fontWeight:"300",marginTop:"15px",marginBottom:"15px"}}>All time income</h1>
-            <h3 style={{fontSize:"1.5rem",letterSpacing:"1px",marginBottom:"15px"}}>$ 250.00</h3>
-        </div>
-      </Col>
-    </Row>
-    
+    <div style={{display: "flex", width: "100%", alignItems: "center", justifyContent: "space-between", gap: 15}}>
 
-      <Row style={{ marginTop: "20px" }} gutter={24}>
-        <Col lg={{ span: 12 }}>
-          <DailyRentChart />
-        </Col>
-        <Col lg={{ span: 12 }}>
-          <div
-            className=""
-            style={{
-              border: "3px solid #ffe9f2",
-              padding: "30px",
-              borderRadius: "15px",
-              backgroundColor: "#fff",
-            }}
-          >
-            <h1 style={{ color: "black", textShadow: "#bfbfbf 2px 2px 4px" }}>Artist Percentage by Categories</h1>
-            <MostRentCarChart />
-          </div>
-        </Col>
-      </Row>
+      <div className='income-card'>
+            <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
+            <h2>Total User</h2>
+            <h3>$ 250.00</h3>
+        </div>
 
-      <Row>
+        <div  className='income-card'>
+            <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
+            <h2>Total Artist</h2>
+            <h3>$ 250.00</h3>
+         </div>
+
+         <div  className='income-card'>
+            <LiaHandHoldingUsdSolid style={{fontSize:"50px"}}/>
+            <h2 >Total Income</h2>
+            <h3 >$ 250.00</h3>
+        </div>
+
+    </div>
+
+      
         <h2
-          style={{ fontSize: "25px", margin: "30px 0px", fontWeight: "normal" }}
+          style={{ fontSize: "20px", display: "flex", alignItems: "center", justifyContent: "space-between", margin: "20px 0px", fontWeight: "normal" }}
         >
-          Recent Earnings
+          Recent Earnings <Link to={"/earnings"} style={{fontSize: 15}}>View all</Link>
         </h2>
-      </Row>
       <InvoiceTable />
     </div>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
+import {  MenuOutlined, SettingOutlined } from "@ant-design/icons";
+import { Button,  Layout, Menu, Select, theme } from "antd";
 import { TfiLayoutSliderAlt } from "react-icons/tfi";
 import { Badge } from "antd";
 import { GiReceiveMoney } from "react-icons/gi";
@@ -12,16 +12,13 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import Styles from "./Dashboard.module.css";
 import { FaRegBell } from "react-icons/fa6";
-import { AiOutlineUser } from "react-icons/ai";
-import { HiLogout } from "react-icons/hi";
-import { useLocation} from 'react-router-dom';
 import { BiCrown } from "react-icons/bi";
 import { MdOutlineCategory } from "react-icons/md";
 import { MdOutlineEvent } from "react-icons/md";
-import baseURL from "../../../baseURL"
 import ImgBaseURL from "../../../ImgBaseURL";
+import { useProfileQuery } from "../../redux/apiSlices/authSlice";
 const { Header, Sider, Content } = Layout;
-const { SubMenu } = Menu;
+import { IoIosLogOut } from "react-icons/io";
 const { Option } = Select;
 
 
@@ -59,11 +56,16 @@ const items = [...Array(5).keys()].map((item, index) => {
   };
 });
 
+
+
+
 const Dashboard = () => {
   const [image, setImage] = useState();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
+  const {data: profile} = useProfileQuery();
+  console.log(profile)
   
   const {
     token: { colorBgContainer },
@@ -82,128 +84,13 @@ const Dashboard = () => {
     i18n.changeLanguage(selectedLanguage);
   }, [selectedLanguage, i18n]);
 
-  const menu = (
-    <Menu>
-      <Menu.Item disabled>
-        <h2
-          style={{
-            color: "black",
-            fontWeight: "500",
-            borderBottom: "1px solid #e6e7f4",
-            paddingBottom: "20px",
-          }}
-        >
-          Notifications
-        </h2>
-        {/* <span style={{ fontWeight: 'bold', color: '#000' }}>Notifications</span> */}
-      </Menu.Item>
-      {items.map((item) => (
-        <Menu.Item key={item.key}>{item.label}</Menu.Item>
-      ))}
-      <div
-        className=""
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "15px",
-        }}
-      >
-        <Button
-          type="primary"
-          block
-          style={{
-            height: "50px",
-            backgroundColor: "#6C57EC ",
-            color: "white",
-            fontSize: "18px",
-            fontWeight: "bold",
-          }}
-        >
-          <Link to="/notification">See All</Link>
-        </Button>
-      </div>
-    </Menu>
-  );
+
   const handleLogOut=()=>{
     navigate('/login');
-    localStorage.removeItem('user');
     localStorage.removeItem('token');
   }
 
-  const profileItems = [
-    {
-      key: 1,
-      label: (
-        <Link to="/setting/personal-information" rel="noreferrer" >
-          <div
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center", gap: "15px"}}
-          >
-            <AiOutlineUser size={25} color="black" />
-            <div className="" style={{ marginTop: "0" }}>
-              <p>Profile</p>
-            </div>
-          </div>
-        </Link>
-      ),
-    },
-    {
-      key: 2,
-      label: (
-        <Link to="/notification" style={{}} rel="noreferrer">
-          <div
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center" ,gap: "15px" }}
-          >
-            <FaRegBell size={25} color="black" />
-            <div className="" style={{ marginTop: "" }}>
-              <p>Notification</p>
-            </div>
-          </div>
-        </Link>
-      ),
-    },
-    {
-      key: 3,
-      label: (
-        <div
-          style={{ border: "none", backgroundColor: "transparent" }}
-          rel="noreferrer"
-        >
-          <div
-            onClick={handleLogOut}
-            className={Styles.everyNotify}
-            style={{ display: "flex", alignItems: "center", gap: "15px", color: "black" }}
-          >
-            <HiLogout size={25} style={{color:"black"}}  />
-            <div  className="" style={{ marginTop: "" }}>
-              <p>Logout</p>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-  ];
-
-  useEffect(()=>{
-    async function getAPI(){
-      await baseURL.get("/auth/get-profile",{
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        }
-      }).then((response)=>{
-        if(response.data.statusCode === 200){
-          setImage(response.data.user.image)
-          localStorage.setItem("user-info", JSON.stringify(response.data.user));
-        }
-      })
-    }
-    getAPI();
-  }, []);
-
-  const src = image?.startsWith("https") ? image : `${ImgBaseURL}/${image}`
+  const src = profile?.image?.startsWith("https") ? profile?.image : `${ImgBaseURL}/${profile?.image}`
 
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
@@ -229,14 +116,13 @@ const Dashboard = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginTop: "50px",
+            marginTop: "10px",
             marginBottom: "20px",
           }}
         >
           <Link to="/">
             <img
               src={Logo}
-              // height={collapsed ? "40px" : "150px"}
               width={collapsed ? "50px" : "220px "}
             />
           </Link>
@@ -256,22 +142,14 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          <SubMenu
-            style={{ fontSize: "16px" }}
+          <Menu.Item
             key="2"
-            icon={<GiReceiveMoney style={{ fontSize: "22px" }} />}
-            title={t("earning.title")}
+            icon={<GiReceiveMoney style={{ fontSize: "20px" }} />}
           >
-            <Menu.Item key="31">
-              <Link to="/earning/today-income">{t("earning.subTitle1")}</Link>
-            </Menu.Item>
-            <Menu.Item key="32">
-              <Link to="/earning/weekly-income">{t("earning.subTitle2")}</Link>
-            </Menu.Item>
-            <Menu.Item key="33">
-              <Link to="/earning/monthly-income">{t("earning.subTitle3")}</Link>
-            </Menu.Item>
-          </SubMenu>
+            <Link to="/earnings" style={{ fontSize: "16px" }}>
+              {t("Earnings")}
+            </Link>
+          </Menu.Item>
 
           <Menu.Item
             key="5"
@@ -327,6 +205,17 @@ const Dashboard = () => {
               {t("setting.title")}
             </Link>
           </Menu.Item>
+
+          <Menu.Item
+            key="12"
+            icon={<IoIosLogOut style={{ fontSize: "22px" }} />}
+            onClick={()=> {
+              navigate('/login');
+              localStorage.removeItem('token');}
+            }
+          >
+            <p>Logout</p>
+          </Menu.Item>
         </Menu>
       </Sider>
 
@@ -362,10 +251,8 @@ const Dashboard = () => {
           </div>
 
           <div
-            className={Styles.notificatonProfileSection}
-            style={{ display: "flex", alignItems: "center", lineHeight: 0 }}
+            style={{ display: "flex", gap: 20, alignItems: "center", lineHeight: 0 }}
           >
-            <div className="" style={{ marginRight: "40px" }}>
               <Select
                 value={selectedLanguage}
                 style={{ width: 150 }}
@@ -391,56 +278,38 @@ const Dashboard = () => {
                   </div>
                 </Option>
               </Select>
-            </div>
-            <div className={Styles.notificaton}>
-              <Dropdown
-                overlay={menu}
-                placement="bottomRight"
-                arrow={{
-                  pointAtCenter: true,
-                }}
-              >
 
-                <Badge count={5} >
-                  <FaRegBell color="#6C57EC" size={30}/>
-                </Badge>
-              </Dropdown>
-            </div>
-            <div className={Styles.profile}>
-              <Dropdown
-                menu={{
-                  items: profileItems,
-                }}
-                placement="bottomRight"
-                arrow={{
-                  pointAtCenter: true,
-                }}
-              >
-                
-                <img
-                  style={{ cursor: "pointer" }}
+            <Link to="/notification" style={{ fontSize: "16px" }}>
+              <Badge count={5} >
+                <FaRegBell color="#6C57EC" size={30}/>
+              </Badge>
+            </Link>
+
+            <Link to="/profile" style={{ fontSize: "16px" }}>
+              <img
+                  style={{ borderRadius: "100%" }}
                   width="40"
                   height="40"
                   src={src}
                   alt="person-male--v2"
                 />
-              </Dropdown>
-            </div>
+            </Link>
+
           </div>
         </Header>
         <Content
           style={{
-            marginTop: "120px",
-            marginBottom: "50px",
-            marginLeft: collapsed ? "130px" : "360px",
-            marginRight: "60px",
-            // background: "#e6e7f4",
-            padding: 30,
+            marginTop: 110,
+            marginBottom: 35,
+            marginLeft: collapsed ? 130 : 345,
+            marginRight: 30,
             minHeight: 280,
-            overflow: "auto",
+            overflow: "auto"
           }}
         >
-          <Outlet />
+          <div style={{background: "white", height: "100%", padding: 16, borderRadius: 8}}>
+            <Outlet />
+          </div>
         </Content>
       </Layout>
     </Layout>

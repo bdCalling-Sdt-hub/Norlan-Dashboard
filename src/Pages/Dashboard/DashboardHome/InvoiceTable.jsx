@@ -61,118 +61,6 @@ const data = [
     amount: "$850.00",
     status: "complete",
     printView: "Button",
-  },
-  {
-    key: "6",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "7",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "8",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "9",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "10",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    printView: "Button",
-  },
-  {
-    key: "11",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    printView: "Button",
-  },
-  {
-    key: "12",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    printView: "Button",
-  },
-  {
-    key: "13",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    printView: "Button",
-  },
-  {
-    key: "14",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    printView: "Button",
-  },
-  {
-    key: "15",
-    invoiceNo: "15",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    printView: "Button",
-  },
-  {
-    key: "16",
-    invoiceNo: "16",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    printView: "Button",
-  },
-  {
-    key: "17",
-    invoiceNo: "17",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    printView: "Button",
   }
 ];
 
@@ -180,7 +68,7 @@ const InvoiceTable = () =>{
     const [rentData, setRentData] = useState([]); // Data fetched from the server
     const [totalItems, setTotalItems] = useState(0); // Total number of items
     const [currentPage, setCurrentPage] = useState(1); // Current page number
-    const pageSize = 12;
+    const pageSize = 10;
 
 
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -268,13 +156,7 @@ const InvoiceTable = () =>{
 
     return(
       <>
-        <Table columns={columns} dataSource={data} pagination={{
-            pageSize,
-            showSizeChanger:false,
-            total: 20,
-            current: currentPage,
-            onChange: handlePageChange,
-          }}/>
+        <Table columns={columns} dataSource={data} pagination={false}/>
           <Drawer
           
           title={

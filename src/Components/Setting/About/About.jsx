@@ -1,23 +1,19 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useRef,  useEffect } from 'react';
 import JoditEditor from 'jodit-react';
-import { Button, Col, Row } from 'antd';
+import { Button} from 'antd';
 import baseURL from '../../../../baseURL';
 import "./About.css"
 import Swal from 'sweetalert2';
-
-
-
 
 const About = () => {
   const [data, setData] = useState()
   const editor = useRef(null)
   const [content, setContent] = useState('');
-  console.log(content)
-  const [refreash, setRefreash] = useState('')
+  const [refresh, setRefresh] = useState('')
 
-  if(refreash){
+  if(refresh){
     setTimeout(()=>{
-      setRefreash("")
+      setRefresh("")
     },[1500])
   }
 
@@ -61,7 +57,7 @@ const About = () => {
       })
     }
     getApi();
-  }, [refreash !== ""]);
+  }, [refresh !== ""]);
 
 
   

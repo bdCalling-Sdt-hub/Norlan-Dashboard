@@ -120,21 +120,14 @@ export default function DailyRentChart() {
 
  
     return (
-      <div style={{ width: '100%', border:"3px solid #ffe9f2",borderRadius:"15px",padding:"20px",backgroundColor:"#fff"}}>
-        <h1 style={{marginTop:"10px",marginBottom:"10px",color: "black", textShadow: "#bfbfbf 2px 2px 4px"}}>Daily Earning</h1>
+      <div style={{ width: '100%', borderRadius:"15px",padding:"20px", border:"1px solid  #ffe9f2"}}>
+        <h1 style={{marginBottom:"10px",color: "black", textShadow: "#bfbfbf 2px 2px 4px"}}>Daily Earning</h1>
 
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
             width={600}
             height={200}
             data={data}
-            syncId="anyId"
-            margin={{
-              top: 10,
-              right: 30,
-              left: 0,
-              bottom: 0,
-            }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="time" />

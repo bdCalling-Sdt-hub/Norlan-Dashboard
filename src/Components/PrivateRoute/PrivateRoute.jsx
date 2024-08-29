@@ -8,11 +8,11 @@ const PrivateRoute = ({ children }) => {
     email: "tushar@gmail.com",
   };
 
-  if (user.email) {
+  /* if (user.email) {
     return children;
   }
 
-  return <Navigate to="/Login" state={{ from: location }} />;
+  return <Navigate to="/Login" state={{ from: location }} />; */
 };
 
 export default PrivateRoute;

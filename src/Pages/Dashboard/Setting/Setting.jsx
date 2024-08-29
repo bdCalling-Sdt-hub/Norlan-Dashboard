@@ -25,6 +25,7 @@ const Setting = () => {
       background: "white",
       padding: "30px",
       borderRadius: "10px",
+      height: "100%"
     },
     btn: {
       display: "flex",
@@ -55,11 +56,6 @@ const Setting = () => {
   };
 
   const menuItems = [
-    {
-      key: "1",
-      title: "Personal Information",
-      link: "personal-information",
-    },
     {
       key: "2",
       title: "Change Password",
@@ -245,9 +241,9 @@ const Setting = () => {
 
 
   return (
-    <div style={{ padding: "0 60px" }}>
-      <h2 style={{ marginBottom: "20px", fontWeight: "normal" }}>Settings</h2>
+    <div style={{ height: "100%"}}>
       <div style={style.formContainer}>
+      <h2 style={{ marginBottom: "20px", fontWeight: "normal" }}>Settings</h2>
         {menuItems.map((item) => (
           <Button
             onClick={() => handleNavigate(item.link)}

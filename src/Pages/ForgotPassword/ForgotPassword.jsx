@@ -1,42 +1,34 @@
 import { Button, Form, Input, Typography } from "antd";
 import React, { useState } from "react";
-import logo from "../../Images/Logo.png";
 import style from "./Email.module.css";
-import baseURL from "../../../baseURL";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useForgotPasswordMutation } from "../../redux/apiSlices/authSlice";
+import toast from "react-hot-toast";
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title, Paragraph } = Typography;
 
-const Email = () => {
-  const [email, setEmail] = useState("");
+const ForgotPassword = () => {
   const navigate = useNavigate();
-  const onFinish = async() => {
-    await baseURL.post(`/auth/forgot-password`, {email: email})
-    .then((response) => {
-      if (response.status === 200) {
-        localStorage.setItem("email", JSON.stringify(email))
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          width: 550,
-          title: response.data.message,
-          showConfirmButton: false,
-          timer: 1500
-        }).then(() => {
-          navigate("/otp");
-        });
+  const [forgotPassword, {isLoading}] = useForgotPasswordMutation();
+
+  const onFinish = async(values) => {
+
+    try {
+      const response = await forgotPassword({...values}).unwrap();
+      const { status, message } = response;
+      
+      if (status) {
+        toast.success(message);
+        navigate(`/otp-verify?email=${values?.email}`);
       }
-    }).catch((error) => {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: error.response.data.message,
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
+
+    } catch (error) {
+      toast.error(error?.data?.message);
+    }
   };
+
+
+
   return (
     <div style={{width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <div className={style.formContainer}>
@@ -47,22 +39,20 @@ const Email = () => {
             fontWeight: "normal",
             marginBottom: "10px",
             textShadow: "#bfbfbf 2px 2px 4px",
+            textAlign: "center"
           }}
         >
           Email Verification
         </Title>
-        <Paragraph style={{ marginBottom: "30px" }}>
+        <Paragraph style={{ marginBottom: "30px", textAlign: "center", width: "80%", margin: "0 auto" }}>
           We'll send a verification code to your email. Check your inbox and
           enter the code here.
         </Paragraph>
 
-        <Form>
-          <div>
-            <label htmlFor="email" className={style.label}>
-              Email
-            </label>
+        <Form layout="vertical" onFinish={onFinish}>
+          
             <Form.Item
-              style={{marginBottom: 0}}
+              label={<p className={style.label}>Email</p>}
               name="email"
               id="email"
               rules={[
@@ -75,14 +65,11 @@ const Email = () => {
               <Input
                 placeholder="Enter your email address"
                 className={style.input}
-                onChange={(e)=>setEmail(e.target.value)}
               />
             </Form.Item>
-          </div>
 
           <Form.Item>
             <Button
-              onClick={onFinish}
               type="primary"
               htmlType="submit"
               className="login-form-button"
@@ -93,10 +80,10 @@ const Email = () => {
                 fontSize: "18px",
                 background: "#000B90",
                 alignSelf: "bottom",
-                marginTop: "30px",
+                marginTop: "10px",
               }}
             >
-              Verify
+              {isLoading ? "Sending..." : "Send OTP" }
             </Button>
           </Form.Item>
         </Form>
@@ -105,4 +92,4 @@ const Email = () => {
   );
 };
 
-export default Email;
+export default ForgotPassword;

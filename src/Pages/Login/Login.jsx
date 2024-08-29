@@ -1,45 +1,27 @@
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router";
 import style from "./Login.module.css";
-import baseURL from "../../../baseURL";
-import Swal from "sweetalert2";
+import { useLoginMutation } from "../../redux/apiSlices/authSlice";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const [login, {isLoading}] = useLoginMutation()
+
+
   const onFinish = async(values) => {
-    await baseURL.post(`/auth/login`, values)
-    .then((response) => {
-      if (response.data.statusCode === 200) {
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          width: 550,
-          title: response.data.message,
-          showConfirmButton: false,
-          timer: 1500
-        }).then(() => {
-            navigate("/");
-            window.location.reload();
-        });
-      }
-    }).catch((error) => {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: error.response.data.message,
-        showConfirmButton: false,
-        timer: 1500
+    try {
+      await login({...values}).unwrap().then(({status, message, token})=>{
+        if (status) {
+          toast.success(message);
+          localStorage.setItem("token", JSON.stringify(token))
+        }
+
       })
-    });
-  };
-
-  const navigate = useNavigate();
-
-  const handleForget = () => {
-    navigate("/forget-password");
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -115,8 +97,7 @@ const Login = () => {
             <a
               className="login-form-forgot"
               style={{ color: "#000B90" }}
-              href="/email"
-              onClick={handleForget}
+              href="/forgot-password"
             >
               Forgot password
             </a>
@@ -136,7 +117,7 @@ const Login = () => {
                 marginTop: "40px",
               }}
             >
-              Sign In
+              {isLoading? "loading..." : "Sign in"}
             </Button>
           </Form.Item>
         </Form>

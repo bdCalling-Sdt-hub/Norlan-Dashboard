@@ -33,7 +33,7 @@ const Subscription = () => {
 
 
     return (
-        <>
+        <div style={{height: "100%", background: "white"}}>
             <div style={{display: "flex", justifyContent: "space-between"}}>
                 {
                     data?.map((item, index)=>{
@@ -130,7 +130,7 @@ const Subscription = () => {
                     })
                 }
             </div>
-        </>
+        </div>
     )
 }
 

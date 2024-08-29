@@ -1,7 +1,6 @@
 import { Button, Modal } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { CiCamera } from 'react-icons/ci';
-import event1 from "../../Images/wedding.png";
 import { AiOutlineEdit } from "react-icons/ai";
 import ColorPicker from 'react-best-gradient-color-picker'
 import baseURL from '../../../baseURL';
@@ -86,8 +85,9 @@ const Events = () => {
     }, [refresh !== ""]);
 
     return (
-        <div>
-            <div style={{display: "flex", alignItems: "flex-end", justifyContent : "flex-end"}}>
+        <div style={{background: "white", height: "100%"}}>
+            <div style={{display: "flex", alignItems: "center", justifyContent : "space-between"}}>
+                <h1>Events</h1>
                 <Button
                     onClick={()=>setOpen(true)}
                     style={{

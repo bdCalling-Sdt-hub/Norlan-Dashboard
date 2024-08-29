@@ -80,3 +80,7 @@
   width: 100% !important;
   height: 190px !important;
 }
+
+.ant-menu .ant-menu-item .ant-menu-item-icon +span{
+  transition: none !important;
+}
