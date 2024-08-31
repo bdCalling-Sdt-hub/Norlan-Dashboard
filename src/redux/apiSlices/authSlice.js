@@ -37,14 +37,11 @@ const authSlice = api.injectEndpoints({
             }
         }),
         resetPassword: builder.mutation({
-            query: ({token, value}) => {
+            query: (value) => {
                 return{
                     method: "POST",
                     url: "/auth/reset-password",
-                    body: value,
-                    headers:{
-                        Authorization: `${token}`
-                    }
+                    body: value
                 }
             }
         }),
@@ -63,7 +60,6 @@ const authSlice = api.injectEndpoints({
 
         updateProfile: builder.mutation({
             query: (data) => {
-                console.log("redux ip", data)
                 return{
                     method: "POST",
                     url: "/auth/update-profile",

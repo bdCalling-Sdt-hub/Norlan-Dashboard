@@ -5,7 +5,7 @@ const Auth = () => {
     return (
         <div
             style={{
-                background: "linear-gradient(#000a738c, #000a738c)",
+                background: "#6C57EC",
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
@@ -19,7 +19,7 @@ const Auth = () => {
             <div
                 style={{
                     background: "#ffffff",
-                    padding: 5,
+                    padding: 30,
                     borderRadius: 10,
                     width: 510,
                     boxShadow: "0 0 2px rgb(66, 66, 66)"

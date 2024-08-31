@@ -1,1 +1,0 @@
-export default "http://192.168.10.195:5000";

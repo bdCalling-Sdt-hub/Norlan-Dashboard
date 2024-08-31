@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
-import Styles from "./Dashboard.module.css";
 import { FaRegBell } from "react-icons/fa6";
 import { BiCrown } from "react-icons/bi";
 import { MdOutlineCategory } from "react-icons/md";
@@ -19,42 +18,8 @@ import ImgBaseURL from "../../../ImgBaseURL";
 import { useProfileQuery } from "../../redux/apiSlices/authSlice";
 const { Header, Sider, Content } = Layout;
 import { IoIosLogOut } from "react-icons/io";
+import { imageUrl } from "../../redux/api/baseApi";
 const { Option } = Select;
-
-
-
-const items = [...Array(5).keys()].map((item, index) => {
-  return {
-    key: index,
-    label: (
-      <Link to="/notification" style={{}} rel="noreferrer">
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{
-              backgroundColor: "#d9cffb",
-              borderRadius: "100%",
-              padding: "5px",
-              marginRight: "15px",
-            }}
-            width="30"
-            height="30"
-            src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
-            alt="person-male--v2"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>
-              <span>Sanchej haro manual </span>started a new trip from mexico.
-            </p>
-            <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
-          </div>
-        </div>
-      </Link>
-    ),
-  };
-});
 
 
 
@@ -65,7 +30,6 @@ const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
   const {data: profile} = useProfileQuery();
-  console.log(profile)
   
   const {
     token: { colorBgContainer },
@@ -84,13 +48,7 @@ const Dashboard = () => {
     i18n.changeLanguage(selectedLanguage);
   }, [selectedLanguage, i18n]);
 
-
-  const handleLogOut=()=>{
-    navigate('/login');
-    localStorage.removeItem('token');
-  }
-
-  const src = profile?.image?.startsWith("https") ? profile?.image : `${ImgBaseURL}/${profile?.image}`
+  const src = profile?.image?.startsWith("https") ? profile?.image : `${imageUrl}/${profile?.image}`
 
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>

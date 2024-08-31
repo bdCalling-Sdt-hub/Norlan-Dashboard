@@ -1,70 +1,50 @@
-body{
-  background-color: #f5f5f5;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *{
+  font-family: "Poppins", sans-serif;
   padding: 0;
   margin: 0;
 }
 
-.VIpgJd-ZVi9od-l4eHX-hSRGPd{
-  display: none;
+
+/* ant design modal footer top margin remove */
+.ant-modal-footer{
+  margin-top: 0 !important;
 }
 
-
-.goog-te-gadget .goog-te-combo{
-  padding:10px 15px;
-  width: 200px;
-  border-radius: 5px;
+/* ant design menu option */
+.ant-menu-item:hover {
+  background-color: #6C57EC !important;
+  color: #fff !important;
 }
 
-  
-  .goog-te-banner-frame{
-    display: none;
-    margin-top: -20px;
-    }
-    .goog-logo-link{
-    display: none !important;
-    }
-    .goog-te-gadget{
-    color: transparent !important;
-    }
+.ant-menu-item-selected {
+  background-color: #6C57EC !important;
+  color: #fff !important;
+}
 
-    #google_translate_element {
-      display: inline-block;
-     
-      border-radius: 4px;
-      padding: 10px 20px;
-    } 
+.ant-menu .ant-menu-item .ant-menu-item-icon +span{
+  transition: none !important;
+}
 
-.slick-prev:before, .slick-next:before{
-  color: white !important;
+.ant-menu-light .ant-menu-submenu-selected >.ant-menu-submenu-title{
+  color: #6C57EC !important;
 }
-.slick-next{
-  right: 0 !important;
+
+.ant-menu .ant-menu-title-content{
+  transition: none !important;
 }
-.slick-prev{
-  left: 0 !important;
-  z-index: 1 !important;
-}
+
 .ant-badge .ant-badge-count {
   background: #6C57EC !important;
   color: white !important;
 }
 
-/* siderbar menu itam */
-.ant-layout-sider-children .ant-menu-item-selected{
-  color: white !important;
-  background-color: #6C57EC;
-}
-
-:where(.css-dev-only-do-not-override-17a39f8).ant-menu-light .ant-menu-submenu-selected >.ant-menu-submenu-title{
-  color:  #6C57EC !important;
-}
-
-.ant-select-selector:hover{
-  border-color: #6C57EC !important;
-}
-.ant-select-selector:focus{
-  border-color: #6C57EC !important;
+.jodit-workplace{
+  height: 550px !important;
 }
