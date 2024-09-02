@@ -1,6 +1,5 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,7 +8,7 @@ export default defineConfig({
     commonJsOptions: { transformMixedEsModules: true }
   },
   server: {
-    host: "192.168.10.195",
-    port: "3001",
+    host: "104.248.15.129",
+    port: "3000",
   },
 });

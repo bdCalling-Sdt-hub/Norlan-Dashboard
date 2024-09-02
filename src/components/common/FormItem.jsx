@@ -5,7 +5,7 @@ const FormItem = ({name, label}) => {
     const form = Form.useFormInstance();
 
     useEffect(() => {
-        form.setFieldsValue({ name: 'Initial Value' });
+        form.setFieldsValue({ name: '' });
     }, [form]);
     
     return (
