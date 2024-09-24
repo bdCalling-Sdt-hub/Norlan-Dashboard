@@ -22,6 +22,7 @@ import ResetPassword from "../Pages/Auth/ResetPassword";
 import ProtectedRoute from "../routes/ProtectedRoute"
 import NotFound from "../NotFound";
 import Notifications from "../Pages/Dashboard/Notifications";
+import SubCategory from "../Pages/Dashboard/SubCategory";
 
 const router = createBrowserRouter([
     {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
             {
                 path: "/change-password",
                 element: <ChangePassword />
+            },
+            {
+                path: "/sub-category",
+                element: <SubCategory />
             },
             {
                 path: "/profile",

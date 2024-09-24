@@ -1,24 +1,36 @@
 import { api } from "../api/baseApi";
 
 
-const bannerSlice = api.injectEndpoints({
+const subCategorySlice = api.injectEndpoints({
     endpoints: (builder)=>({
-        createBanner: builder.mutation({
-            query: (bannerData)=> {
+        createSubCategory: builder.mutation({
+            query: (categoryData)=> {
                 return{
-                    url: "/banner/create-banner",
+                    url: "/subCategory/create-sub-category",
                     method: "POST",
-                    body: bannerData,
+                    body: categoryData,
                     headers:{
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`
                     }
                 }
             }
         }),
-        deleteBanner: builder.mutation({
+        updateSubCategory: builder.mutation({
+            query: ({ id, updatedData})=> {
+                return{
+                    url: `/subCategory/${id}`,
+                    method: "PATCH",
+                    body: updatedData,
+                    headers:{
+                        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`
+                    }
+                }
+            }
+        }),
+        deleteSubCategory: builder.mutation({
             query: (id)=> {
                 return{
-                    url: `/banner/delete-banner/${id}`,
+                    url: `/subCategory/${id}`,
                     method: "DELETE",
                     headers:{
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`
@@ -26,25 +38,11 @@ const bannerSlice = api.injectEndpoints({
                 }
             }
         }),
-        banners: builder.query({
+        getSubCategories: builder.query({
             query: ()=> {
                 return{
-                    url: "/banner/get-banner",
+                    url: "/subCategory",
                     method: "GET",
-                    headers:{
-                        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`
-                    }
-                }
-            },
-            transformResponse: ({data})=>{
-                return data
-            }
-        }),
-        updateStatus: builder.mutation({
-            query: (id)=> {
-                return{
-                    url: `/banner/${id}`,
-                    method: "PATCH",
                     headers:{
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`
                     }
@@ -55,8 +53,8 @@ const bannerSlice = api.injectEndpoints({
 })
 
 export const {
-    useCreateBannerMutation,
-    useDeleteBannerMutation,
-    useBannersQuery,
-    useUpdateStatusMutation
-} = bannerSlice;
+    useGetSubCategoriesQuery,
+    useCreateSubCategoryMutation,
+    useUpdateSubCategoryMutation,
+    useDeleteSubCategoryMutation
+} = subCategorySlice;

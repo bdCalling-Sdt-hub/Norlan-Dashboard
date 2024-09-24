@@ -10,6 +10,7 @@ import { HiUsers } from "react-icons/hi2";
 import { TbDatabaseDollar } from "react-icons/tb";
 import { IoIosLogOut } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
+import { BiSolidCategory } from 'react-icons/bi';
 
 
 const Sidebar = () => {
@@ -60,6 +61,11 @@ const Sidebar = () => {
             key: "/category",
             icon: <MdOutlineCategory size={24} />,
             label: <Link to="/category" >Category</Link>
+        },
+        {
+            key: "/sub-category",
+            icon: <BiSolidCategory size={24} />,
+            label: <Link to="/sub-category" >Sub Category</Link>
         },
         {
             key: "/events",

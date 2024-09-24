@@ -1,14 +1,16 @@
 import { MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import React from "react";
-import { useLoginMutation } from "../../redux/apiSlices/authSlice";
+import { useLoginMutation, useProfileQuery } from "../../redux/apiSlices/authSlice";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import FormItem from "../../components/common/FormItem";
 import Cookies from "js-cookie";
+import Spinner from "../../components/common/Spinner";
 
 const Login = () => {
   const [login, {isLoading}] = useLoginMutation();
+  const {refetch} = useProfileQuery()
   const navigate = useNavigate()
 
 
@@ -18,6 +20,7 @@ const Login = () => {
         if (status) {
           toast.success(message);
           navigate("/")
+          refetch();
           Cookies.set('token', token, { expires: 7 })
           localStorage.setItem("token", JSON.stringify(token))
         }
@@ -88,8 +91,9 @@ const Login = () => {
                 background: "#6C57EC",
                 marginTop: 20
               }}
+              className="flex items-center justify-center"
             >
-              {isLoading? "loading..." : "Sign in"}
+              {isLoading? < Spinner/> : "Sign in"}
             </Button>
           </Form.Item>
 
