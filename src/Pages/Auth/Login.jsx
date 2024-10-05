@@ -21,6 +21,7 @@ const Login = () => {
           toast.success(message);
           navigate("/")
           refetch();
+          window.location.reload();
           Cookies.set('token', token, { expires: 7 })
           localStorage.setItem("token", JSON.stringify(token))
         }

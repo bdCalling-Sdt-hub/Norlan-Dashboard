@@ -10,6 +10,7 @@ const Category = () => {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
     const {data: categories, refetch}=useCategoryQuery();
+    console.log(categories)
     const [updateCategory, {isLoading}] = useUpdateCategoryMutation();
     const [createCategory, {isLoading:createLoading}] = useCreateCategoryMutation();
     const [deleteCategory] = useDeleteCategoryMutation();
@@ -118,7 +119,8 @@ const Category = () => {
             title: "Image",
             dataIndex: "image",
             key: "image",
-            render: (_,record, index) =><img style={{width: 40, height: 40}} src={`${imageUrl}${record?.image}`} />
+            render: (_,record, index) =><img style={{width: 40, height: 40}} src={`${imageUrl}${record?.image
+                }`} />
         },
         {
             title: "Name",
