@@ -19,15 +19,16 @@ import Profile from "../Pages/Dashboard/Profile";
 import ForgotPassword from "../Pages/Auth/ForgotPassword";
 import VerifyOtp from "../Pages/Auth/VerifyOtp";
 import ResetPassword from "../Pages/Auth/ResetPassword";
-import ProtectedRoute from "../routes/ProtectedRoute"
 import NotFound from "../NotFound";
 import Notifications from "../Pages/Dashboard/Notifications";
 import SubCategory from "../Pages/Dashboard/SubCategory";
+import AdminProfile from "../Pages/Dashboard/AdminProfile/AdminProfile";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <ProtectedRoute><Main /></ProtectedRoute> ,
+        // element: <ProtectedRoute><Main /></ProtectedRoute> , 
+        element: <Main />,
         children: [
             {
                 path: "/",
@@ -87,7 +88,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/profile",
-                element: <Profile />
+                element: <AdminProfile />
             }
             ,
             {

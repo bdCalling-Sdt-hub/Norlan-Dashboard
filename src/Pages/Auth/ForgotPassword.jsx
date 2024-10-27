@@ -1,27 +1,16 @@
 import { Button, Form, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useForgotPasswordMutation } from "../../redux/apiSlices/authSlice";
-import toast from "react-hot-toast";
+
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
-  const [forgotPassword, {isLoading}] = useForgotPasswordMutation();
+
 
   const onFinish = async(values) => {
 
-    try {
-      const response = await forgotPassword({...values}).unwrap();
-      const { status, message } = response;
-      
-      if (status) {
-        toast.success(message);
         navigate(`/auth/verify-otp?email=${values?.email}`);
-      }
 
-    } catch (error) {
-      toast.error(error?.data?.message);
-    }
   };
 
 
@@ -72,7 +61,7 @@ const ForgotPassword = () => {
                 color: "white"
               }}
             >
-              {isLoading ? "Sending..." : "Send OTP" }
+             Send OTP
             </Button>
           </Form.Item>
         </Form>

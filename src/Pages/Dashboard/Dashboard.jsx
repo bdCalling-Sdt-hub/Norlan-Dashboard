@@ -25,7 +25,6 @@ const { Option } = Select;
 
 
 const Dashboard = () => {
-  const [image, setImage] = useState();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);

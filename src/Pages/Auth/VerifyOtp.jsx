@@ -2,46 +2,22 @@ import { Button, Form, Typography } from "antd";
 import React, { useState } from "react"
 import OTPInput from "react-otp-input";
 import { useNavigate, useParams } from "react-router-dom";
-import { useForgotPasswordMutation, useOtpVerifyMutation } from "../../redux/apiSlices/authSlice";
-import toast from "react-hot-toast";
 const { Text } = Typography;
 
 const VerifyOtp = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState();
   const email = new URLSearchParams(location.search).get("email")
-  const [otpVerify, {isLoading}] = useOtpVerifyMutation();
-  const [forgotPassword] = useForgotPasswordMutation();
+
 
 
   const onFinish = async(values) => {
-    try {
-      const response = await otpVerify({email: email, otp: values.otp }).unwrap();
-      const { status, message } = response;
-      
-      if (status) {
-        toast.success(message);
         navigate(`/auth/reset-password?email=${email}`);
-      }
-
-    } catch (error) {
-      toast.error(error?.data?.message);
-    }
   };
 
 
   const handleResendEmail = async() => {
-    try {
-      const response = await forgotPassword({email}).unwrap();
-      const { status, message } = response;
-      
-      if (status) {
-        toast.success(message);
-      }
 
-    } catch (error) {
-      toast.error(error?.data?.message);
-    }
   };
 
 
@@ -104,7 +80,7 @@ const VerifyOtp = () => {
                 color: "white"
               }}
             >
-              {isLoading ? "Verifying..." : "Verify"}
+            Verify
             </Button>
           </Form.Item>
         </Form>
